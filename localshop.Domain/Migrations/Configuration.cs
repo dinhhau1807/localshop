@@ -29,6 +29,15 @@
             string password = "Admin123@localshop.hau";
             string email = "admin@example.com";
 
+            string[] seedRoles = { "administrator", "modifier", "customer" };
+            foreach (var role in seedRoles)
+            {
+                if (!roleManager.RoleExists(role))
+                {
+                    roleManager.Create(new ApplicationRole(role));
+                }
+            }
+
             if (!roleManager.RoleExists(roleName))
             {
                 roleManager.Create(new ApplicationRole(roleName));
