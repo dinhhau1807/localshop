@@ -1,10 +1,10 @@
-﻿@model string
+﻿@model TopbarViewModel
 
 <div class="navbar-custom">
     <ul class="list-unstyled topnav-menu float-right mb-0">
 
         <!-- SEARCH -->
-        <li class="d-none d-sm-block">
+        @*<li class="d-none d-sm-block">
             <form class="app-search">
                 <div class="app-search-box">
                     <div class="input-group">
@@ -17,10 +17,10 @@
                     </div>
                 </div>
             </form>
-        </li>
+        </li>*@
 
         <!-- NOTIFICATION -->
-        <li class="dropdown notification-list">
+        @*<li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle  waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <i class="fe-bell noti-icon"></i>
                 <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
@@ -115,33 +115,21 @@
                 </a>
 
             </div>
-        </li>
+        </li>*@
 
         <!-- PROFILE -->
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="~/Assets/admin/images/logo-sm.png" alt="user-image" class="rounded-circle">
+                <img src="@Model.User.Image" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
-                    Nowak <i class="mdi mdi-chevron-down"></i>
+                    @(Model.User.FullName ?? User.Identity.Name) <i class="mdi mdi-chevron-down"></i>
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="@Url.Action("profile", "account")" class="dropdown-item notify-item">
                     <i class="fe-user"></i>
                     <span>My Account</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="fe-settings"></i>
-                    <span>Settings</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="fe-lock"></i>
-                    <span>Lock Screen</span>
                 </a>
 
                 <div class="dropdown-divider"></div>
@@ -190,7 +178,7 @@
         </li>
 
         <li>
-            <h4 class="page-title-main">@Model</h4>
+            <h4 class="page-title-main">@Model.Header</h4>
         </li>
 
     </ul>

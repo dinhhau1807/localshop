@@ -13,6 +13,8 @@
     <link href="~/Assets/admin/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="~/Assets/admin/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="~/Assets/admin/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/admin/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/admin/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
 }
 
 @section thirdPartyJs {
@@ -29,9 +31,16 @@
     <script src="~/Assets/admin/libs/datatables/dataTables.select.min.js"></script>
     <script src="~/Assets/admin/libs/pdfmake/pdfmake.min.js"></script>
     <script src="~/Assets/admin/libs/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Assets/admin/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Assets/admin/libs/toastr/toastr.min.js"></script>
 
     <!-- Datatables init -->
     <script src="~/Assets/admin/js/pages/datatables.init.js"></script>
+    <script src="~/Assets/admin/js/pages/sweet-alerts.init.js"></script>
+    <script src="~/Assets/admin/js/pages/toastr.init.js"></script>
+
+    <!-- Controller -->
+    <script src="~/Assets/admin/js/controllers/user/indexController.js"></script>
 }
 
 
@@ -55,7 +64,7 @@
                 <tbody>
                     @foreach (var user in Model)
                     {
-                        <tr>
+                        <tr  data-user-id="@user.User.Id">
                             <td>@user.User.Email</td>
                             <td>@user.User.FullName</td>
                             <td>@user.User.PhoneNumber</td>
@@ -64,10 +73,10 @@
                             <td><span class="badge badge-primary">@user.Roles.FirstOrDefault()</span></td>
                             <td>@(Html.Raw(user.User.LockoutEnabled ? "<span class='text-danger'>Blocked</span>" : "None"))</td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Change password">
+                                <a href="#" class="btn btn-primary" title="Change password">
                                     <i class="mdi mdi-lock"></i>
                                 </a>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete user">
+                                <a href="#" class="btn btn-danger ls-btn-delete" title="Delete user">
                                     <i class="mdi mdi-trash-can"></i>
                                 </a>
                             </td>

@@ -8,6 +8,8 @@ namespace localshop
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            BundleTable.EnableOptimizations = true;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -25,6 +27,11 @@ namespace localshop
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/cores/admin/css").Include(
+                "~/assets/admin/css/bootstrap.min.css",
+                "~/assets/admin/css/icons.min.css",
+                "~/assets/admin/css/app.min.css"));
         }
     }
 }

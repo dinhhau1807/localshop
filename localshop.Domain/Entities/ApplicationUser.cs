@@ -15,6 +15,7 @@ namespace localshop.Domain.Entities
         {
             LockoutEnabled = false;
             CreatedDate = DateTime.Now;
+            Image = "/assets/admin/images/logo-sm.png";
         }
 
         #region Properties

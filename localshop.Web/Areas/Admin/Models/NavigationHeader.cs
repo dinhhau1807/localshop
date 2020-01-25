@@ -9,5 +9,6 @@ namespace localshop.Areas.Admin.Models
     {
         public const string Dashboard = "Dashboard";
         public const string UserIndex = "List users";
+        public const string AccountProfile = "Profile";
     }
 }

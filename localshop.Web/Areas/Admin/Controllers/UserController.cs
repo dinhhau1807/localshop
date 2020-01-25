@@ -37,7 +37,6 @@ namespace localshop.Areas.Admin.Controllers
             }
         }
 
-        // GET: Admin/User
         public ActionResult Index()
         {
             var model = new List<ListUserViewModel>();
@@ -61,6 +60,34 @@ namespace localshop.Areas.Admin.Controllers
             }
 
             return View(model);
+        }
+
+        // TODO: Not finished
+        [HttpPost]
+        public async Task<JsonResult> Delete(string userId)
+        {
+            var user = await UserManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                //var result = await UserManager.DeleteAsync(user);
+                if (/*result.Succeeded*/ true)
+                {
+                    return Json(new
+                    {
+                        success = true
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                });
+            }
+
+            return Json(new
+            {
+                success = false
+            });
         }
     }
 }
