@@ -1,6 +1,8 @@
-﻿using localshop.Areas.Admin.ViewModels;
+﻿using AutoMapper;
+using localshop.Areas.Admin.ViewModels;
 using localshop.Core.Common;
 using localshop.Core.DTO.Admin;
+using localshop.Domain.Entities;
 using localshop.Infrastructures.Attributes;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -19,15 +21,17 @@ namespace localshop.Areas.Admin.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IMapper _mapper;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IMapper mapper)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _mapper = mapper;
         }
 
         public ApplicationSignInManager SignInManager
@@ -65,20 +69,7 @@ namespace localshop.Areas.Admin.Controllers
         public ViewResult UpdateProfile()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-
-            var userDto = new UpdateProfileDTO
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber,
-                Country = user.Country,
-                City = user.City,
-                State = user.State,
-                Zip = user.Zip,
-                Address1 = user.Address1,
-                Address2 = user.Address2,
-                Image = user.Image
-            };
+            var userDto = _mapper.Map<ApplicationUser, UpdateProfileDTO>(user);
 
             return View(userDto);
         }
@@ -95,20 +86,10 @@ namespace localshop.Areas.Admin.Controllers
                 return View(userDto);
             }
 
-            user.FirstName = userDto.FirstName;
-            user.LastName = userDto.LastName;
-            user.PhoneNumber = userDto.PhoneNumber;
-            user.Country = userDto.Country;
-            user.City = userDto.City;
-            user.State = userDto.State;
-            user.Zip = userDto.Zip;
-            user.Address1 = userDto.Address1;
-            user.Address2 = userDto.Address2;
-
             if (image != null)
             {
-                userDto.Image = Path.Combine("/Assets/images/useravatars", Path.GetFileName(image.FileName));
-                string path = Path.Combine(Server.MapPath("~/Assets/images/useravatars"), Path.GetFileName(image.FileName));
+                userDto.Image = Path.Combine(@"\Assets\images\useravatars\", $"user_{user.Id}" + Path.GetExtension(image.FileName));
+                string path = Path.Combine(Server.MapPath(@"~\Assets\images\useravatars\"), $"user_{user.Id}" + Path.GetExtension(image.FileName));
                 image.SaveAs(path);
             }
             else
@@ -116,7 +97,7 @@ namespace localshop.Areas.Admin.Controllers
                 userDto.Image = user.Image;
             }
 
-            user.Image = userDto.Image;
+            user = _mapper.Map(userDto, user);
 
             UserManager.Update(user);
 
