@@ -185,6 +185,8 @@
     <Compile Include="Areas\Admin\Models\NavigationHeader.cs" />
     <Compile Include="Areas\Admin\ViewModels\ListUserViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\SidebarViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\TopbarViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -268,6 +270,7 @@
     <Content Include="Assets\admin\images\users\user-9.jpg" />
     <Content Include="Assets\admin\js\app.js" />
     <Content Include="Assets\admin\js\app.min.js" />
+    <Content Include="Assets\admin\js\controllers\user\indexController.js" />
     <Content Include="Assets\admin\js\pages\chartist.init.js" />
     <Content Include="Assets\admin\js\pages\chartjs.init.js" />
     <Content Include="Assets\admin\js\pages\charts-other.init.js" />
@@ -486,6 +489,8 @@
     <Content Include="Areas\Admin\Views\Nav\_Topbar.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Nav\_Footer.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Profile.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\UpdateProfile.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

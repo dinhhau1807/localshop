@@ -1,11 +1,13 @@
 ﻿using localshop.Areas.Admin.ViewModels;
 using localshop.Core.Common;
+using localshop.Core.DTO.Admin;
 using localshop.Infrastructures.Attributes;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -52,7 +54,74 @@ namespace localshop.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet]
+        public new ViewResult Profile()
+        {
+            var model = UserManager.FindById(User.Identity.GetUserId());
+            return View(model);
+        }
 
+        [HttpGet]
+        public ViewResult UpdateProfile()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            var userDto = new UpdateProfileDTO
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                Country = user.Country,
+                City = user.City,
+                State = user.State,
+                Zip = user.Zip,
+                Address1 = user.Address1,
+                Address2 = user.Address2,
+                Image = user.Image
+            };
+
+            return View(userDto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateProfile(UpdateProfileDTO userDto, HttpPostedFileBase image)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            if (!ModelState.IsValid)
+            {
+                userDto.Image = user.Image;
+                return View(userDto);
+            }
+
+            user.FirstName = userDto.FirstName;
+            user.LastName = userDto.LastName;
+            user.PhoneNumber = userDto.PhoneNumber;
+            user.Country = userDto.Country;
+            user.City = userDto.City;
+            user.State = userDto.State;
+            user.Zip = userDto.Zip;
+            user.Address1 = userDto.Address1;
+            user.Address2 = userDto.Address2;
+
+            if (image != null)
+            {
+                userDto.Image = Path.Combine("/Assets/images/useravatars", Path.GetFileName(image.FileName));
+                string path = Path.Combine(Server.MapPath("~/Assets/images/useravatars"), Path.GetFileName(image.FileName));
+                image.SaveAs(path);
+            }
+            else
+            {
+                userDto.Image = user.Image;
+            }
+
+            user.Image = userDto.Image;
+
+            UserManager.Update(user);
+
+            return RedirectToAction("profile");
+        }
 
         [HttpGet]
         [AllowAnonymous]
