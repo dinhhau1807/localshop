@@ -18,5 +18,26 @@ namespace localshop.Domain.Concretes
         {
             return new ApplicationDbContext();
         }
+
+        #region DbSet
+        public DbSet<Product> Products { get; set; }
+
+        #endregion
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //------------------------------------------------------------------------
+            // Products
+            modelBuilder.Entity<Product>().HasKey(p => p.Id);
+            modelBuilder.Entity<Product>().Property(p => p.Sku).IsRequired().HasMaxLength(450);
+            modelBuilder.Entity<Product>().HasIndex(p => p.Sku).IsUnique();
+            modelBuilder.Entity<Product>().Property(p => p.Name).IsRequired();
+            modelBuilder.Entity<Product>().Property(p => p.MetaTitle).IsRequired();
+
+            //------------------------------------------------------------------------
+            // Images
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

@@ -52,9 +52,13 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="NewId, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\NewId.3.0.2\lib\net452\NewId.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -81,9 +85,14 @@
     <Compile Include="Concretes\ApplicationDbContext.cs" />
     <Compile Include="Entities\ApplicationRole.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Product.cs" />
     <Compile Include="Migrations\202001221649359_Add_ApplicationUserProperties.cs" />
     <Compile Include="Migrations\202001221649359_Add_ApplicationUserProperties.designer.cs">
       <DependentUpon>202001221649359_Add_ApplicationUserProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001272019315_Add_Product.cs" />
+    <Compile Include="Migrations\202001272019315_Add_Product.designer.cs">
+      <DependentUpon>202001272019315_Add_Product.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,6 +113,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202001221649359_Add_ApplicationUserProperties.resx">
       <DependentUpon>202001221649359_Add_ApplicationUserProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001272019315_Add_Product.resx">
+      <DependentUpon>202001272019315_Add_Product.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
