@@ -54,7 +54,6 @@
                         <th>Email</th>
                         <th>Name</th>
                         <th>Phone</th>
-                        <th>Country</th>
                         <th>Created date</th>
                         <th>Role</th>
                         <th>Blocked</th>
@@ -69,8 +68,7 @@
                             <td>@user.User.Email</td>
                             <td>@user.User.FullName</td>
                             <td>@user.User.PhoneNumber</td>
-                            <td>@user.User.Country</td>
-                            <td>@user.User.CreatedDate</td>
+                            <td>@user.User.CreatedDate.ToShortDateString()</td>
                             <td>
                                 <select class="badge badge-light user-role">
                                     @foreach (var role in Model.Roles)
