@@ -15,14 +15,16 @@ namespace localshop.Areas.Admin.Controllers
     public class UserController : BaseController
     {
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public UserController()
         {
         }
 
-        public UserController(ApplicationUserManager userManager)
+        public UserController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
+            RoleManager = roleManager;
         }
 
         public ApplicationUserManager UserManager
@@ -37,9 +39,23 @@ namespace localshop.Areas.Admin.Controllers
             }
         }
 
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+
+
+        [HttpGet]
         public ActionResult Index()
         {
-            var model = new List<ListUserViewModel>();
+            var listUser = new List<ListUserViewModel>();
 
             foreach (var user in UserManager.Users.ToList())
             {
@@ -56,31 +72,75 @@ namespace localshop.Areas.Admin.Controllers
                     Roles = roles
                 };
 
-                model.Add(u);
+                listUser.Add(u);
             }
+
+            var model = new ListUserWithRolesViewModel
+            {
+                ListUser = listUser,
+                Roles = RoleManager.Roles.Where(r => r.Name != RoleNames.Root).ToList()
+            };
 
             return View(model);
         }
 
-        // TODO: Not finished
+
+        [HttpPost]
+        public async Task<JsonResult> ChangeRole(string userId, string roleName)
+        {
+            if (RoleManager.RoleExists(roleName) && roleName != RoleNames.Root)
+            {
+                var roles = await UserManager.GetRolesAsync(userId);
+
+                var removeRoleResult = await UserManager.RemoveFromRolesAsync(userId, roles.ToArray());
+                if (removeRoleResult.Succeeded)
+                {
+                    var result = await UserManager.AddToRoleAsync(userId, roleName);
+                    if (result.Succeeded)
+                    {
+                        return Json(new { success = true });
+                    }
+                }
+            }
+
+            return Json(new { success = false });
+        }
+
+
         [HttpPost]
         public async Task<JsonResult> Delete(string userId)
         {
-            var user = await UserManager.FindByIdAsync(userId);
-            if (user != null)
-            {
-                //var result = await UserManager.DeleteAsync(user);
-                if (/*result.Succeeded*/ true)
-                {
-                    return Json(new
-                    {
-                        success = true
-                    });
-                }
+            bool isSucceed = false;
 
+            var roles = await UserManager.GetRolesAsync(userId);
+
+            var removeRoleResult = await UserManager.RemoveFromRolesAsync(userId, roles.ToArray());
+            if (removeRoleResult.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    var result = await UserManager.DeleteAsync(user);
+                    if (result.Succeeded)
+                    {
+                        isSucceed = true;
+                    }
+                    else
+                    {
+                        isSucceed = false;
+                    }
+                }
+                else
+                {
+                    isSucceed = false;
+                }
+            }
+
+            if (isSucceed)
+            {
                 return Json(new
                 {
-                    success = false,
+                    success = true
                 });
             }
 

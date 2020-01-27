@@ -7,7 +7,7 @@
         <!-- User box -->
         <div class="user-box text-center">
             <img src="@Model.User.Image" alt="user-img" title="@Model.User.FullName" class="rounded-circle img-thumbnail avatar-lg">
-            @Html.ActionLink((Model.User.FullName ?? User.Identity.Name), "profile", "account", null, new { @class = "text-dark dropdown-toggle h5 mt-2 mb-1 d-block" })
+            @Html.ActionLink((string.IsNullOrWhiteSpace(Model.User.FullName) ? User.Identity.Name : Model.User.FullName), "profile", "account", null, new { @class = "text-dark dropdown-toggle h5 mt-2 mb-1 d-block" })
             <p class="badge badge-primary">@Model.Role</p>
         </div>
 
@@ -34,26 +34,13 @@
 
                 <li>
                     <a href="javascript: void(0);">
-                        <i class="mdi mdi-invert-colors"></i>
-                        <span> User Interface </span>
+                        <i class="mdi mdi-package-variant"></i>
+                        <span> Product </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
-                        <li><a href="#">Buttons</a></li>
-                        <li><a href="ui-cards.html">Cards</a></li>
-                        <li><a href="ui-draggable-cards.html">Draggable Cards</a></li>
-                        <li><a href="ui-checkbox-radio.html">Checkboxs-Radios</a></li>
-                        <li><a href="ui-material-icons.html">Material Design Icons</a></li>
-                        <li><a href="ui-font-awesome-icons.html">Font Awesome</a></li>
-                        <li><a href="ui-dripicons.html">Dripicons</a></li>
-                        <li><a href="ui-themify-icons.html">Themify Icons</a></li>
-                        <li><a href="ui-modals.html">Modals</a></li>
-                        <li><a href="ui-notification.html">Notification</a></li>
-                        <li><a href="ui-range-slider.html">Range Slider</a></li>
-                        <li><a href="ui-components.html">Components</a>
-                        <li><a href="ui-sweetalert.html">Sweet Alert</a>
-                        <li><a href="ui-treeview.html">Tree view</a>
-                        <li><a href="ui-widgets.html">Widgets</a></li>
+                        <li><a href="#">Product list</a></li>
+                        <li><a href="#">Add product</a></li>
                     </ul>
                 </li>
 

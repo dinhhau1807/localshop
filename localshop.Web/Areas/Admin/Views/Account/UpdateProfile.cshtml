@@ -92,10 +92,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    @*<label for="image">Image</label>
-                                        <input type="file" name="image" class="dropify" data-default-file="@Model.Image" />*@
                                     @Html.LabelFor(m => m.Image)
-                                    @Html.TextBoxFor(m => m.Image, new { @class = "dropify", data_default_file = Model.Image, type = "file" })
+                                    @Html.TextBoxFor(m => m.Image, new { @class = "dropify", data_default_file = Model.Image.Split(new string[] { "?t=" }, StringSplitOptions.RemoveEmptyEntries)[0], type = "file" })
                                 </div>
 
                                 <div class="form-group text-right mb-0">
@@ -115,8 +113,5 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </div> <!-- end col -->
-</div>

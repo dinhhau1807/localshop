@@ -1,4 +1,4 @@
-﻿@model IList<localshop.Areas.Admin.ViewModels.ListUserViewModel>
+﻿@model localshop.Areas.Admin.ViewModels.ListUserWithRolesViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -9,6 +9,7 @@
 }
 
 @section thirdPartyCss {
+    <!-- Datatables Css -->
     <link href="~/Assets/admin/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="~/Assets/admin/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="~/Assets/admin/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
@@ -18,6 +19,7 @@
 }
 
 @section thirdPartyJs {
+    <!-- Datatables -->
     <script src="~/Assets/admin/libs/datatables/jquery.dataTables.min.js"></script>
     <script src="~/Assets/admin/libs/datatables/dataTables.bootstrap4.js"></script>
     <script src="~/Assets/admin/libs/datatables/dataTables.responsive.min.js"></script>
@@ -43,7 +45,6 @@
     <script src="~/Assets/admin/js/controllers/user/indexController.js"></script>
 }
 
-
 <div class="row">
     <div class="col-12">
         <div class="card-box">
@@ -62,20 +63,31 @@
                 </thead>
 
                 <tbody>
-                    @foreach (var user in Model)
+                    @foreach (var user in Model.ListUser)
                     {
-                        <tr  data-user-id="@user.User.Id">
+                        <tr data-user-id="@user.User.Id">
                             <td>@user.User.Email</td>
                             <td>@user.User.FullName</td>
                             <td>@user.User.PhoneNumber</td>
                             <td>@user.User.Country</td>
                             <td>@user.User.CreatedDate</td>
-                            <td><span class="badge badge-primary">@user.Roles.FirstOrDefault()</span></td>
+                            <td>
+                                <select class="badge badge-light user-role">
+                                    @foreach (var role in Model.Roles)
+                                    {
+                                        if (role.Name == user.Roles.First())
+                                        {
+                                            <option value="@role.Name" selected>@role.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@role.Name">@role.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </td>
                             <td>@(Html.Raw(user.User.LockoutEnabled ? "<span class='text-danger'>Blocked</span>" : "None"))</td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-primary" title="Change password">
-                                    <i class="mdi mdi-lock"></i>
-                                </a>
                                 <a href="#" class="btn btn-danger ls-btn-delete" title="Delete user">
                                     <i class="mdi mdi-trash-can"></i>
                                 </a>

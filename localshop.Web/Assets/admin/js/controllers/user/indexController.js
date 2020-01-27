@@ -19,6 +19,7 @@
 
     var table = $('#datatable').DataTable();
 
+    // Delete user
     table.on('click', '.ls-btn-delete', function (e) {
         var $tr = $(this).closest('tr');
 
@@ -48,8 +49,30 @@
                     error: function () {
                         toastr["error"]("Something went wrong!");
                     },
-                })
+                });
             }
+        })
+    });
+
+    // Change role
+    $('.user-role').on('change', function () {
+        var $tr = $(this).closest('tr');
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/admin/user/changerole",
+            data: { userId: $tr.data("user-id"), roleName: $(this).val() },
+            success: function (response) {
+                if (response.success) {
+                    toastr["success"]("Changed role!");
+                } else {
+                    toastr["error"]("Something went wrong!");
+                }
+            },
+            error: function () {
+                toastr["error"]("Something went wrong!");
+            },
         })
     });
 });

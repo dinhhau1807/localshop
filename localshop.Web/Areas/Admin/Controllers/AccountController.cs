@@ -70,6 +70,7 @@ namespace localshop.Areas.Admin.Controllers
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
             var userDto = _mapper.Map<ApplicationUser, UpdateProfileDTO>(user);
+            userDto.Image += $"?t={DateTime.Now.Ticks}";
 
             return View(userDto);
         }

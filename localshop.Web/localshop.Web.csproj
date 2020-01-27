@@ -191,10 +191,11 @@
     <Compile Include="Areas\Admin\Controllers\NavController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\NavigationHeader.cs" />
-    <Compile Include="Areas\Admin\ViewModels\ListUserViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\LoginViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\SidebarViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\TopbarViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\User\ListUserWithRolesViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\User\ListUserViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Nav\SidebarViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Nav\TopbarViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
