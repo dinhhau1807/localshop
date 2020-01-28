@@ -90,6 +90,7 @@
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Status.cs" />
     <Compile Include="Migrations\202001221649359_Add_ApplicationUserProperties.cs" />
     <Compile Include="Migrations\202001221649359_Add_ApplicationUserProperties.designer.cs">
       <DependentUpon>202001221649359_Add_ApplicationUserProperties.cs</DependentUpon>
@@ -105,6 +106,14 @@
     <Compile Include="Migrations\202001281444208_Add_Category.cs" />
     <Compile Include="Migrations\202001281444208_Add_Category.designer.cs">
       <DependentUpon>202001281444208_Add_Category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001281453156_Add_FK_Product_Category.cs" />
+    <Compile Include="Migrations\202001281453156_Add_FK_Product_Category.designer.cs">
+      <DependentUpon>202001281453156_Add_FK_Product_Category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001281514510_Add_Status_Edit_Product.cs" />
+    <Compile Include="Migrations\202001281514510_Add_Status_Edit_Product.designer.cs">
+      <DependentUpon>202001281514510_Add_Status_Edit_Product.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,6 +141,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001281444208_Add_Category.resx">
       <DependentUpon>202001281444208_Add_Category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001281453156_Add_FK_Product_Category.resx">
+      <DependentUpon>202001281453156_Add_FK_Product_Category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001281514510_Add_Status_Edit_Product.resx">
+      <DependentUpon>202001281514510_Add_Status_Edit_Product.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

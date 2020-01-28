@@ -26,9 +26,9 @@ namespace localshop.Domain.Entities
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string ShortDesciption { get; set; }
 
-        public string Detail { get; set; }
+        public string LongDescription { get; set; }
 
         public decimal Price { get; set; }
 
@@ -42,17 +42,21 @@ namespace localshop.Domain.Entities
 
         public DateTime? DateModified { get; set; }
 
-        // Product Specifications
+        // Product Specifications (Detail)
 
+
+        // FK_Status
         // Product status (In stock, Out of stock, ...)
+        public string StatusId { get; set; }
+        public Status Status { get; set;}
 
-        // Join Image table
+        // Product images
         public ICollection<Image> Images { get; set; }
 
 
         // FK_CategoryTable
-        //public int? CategoryId { get; set; }
-        //public Category Category { get; set; }
+        public string CategoryId { get; set; }
+        public Category Category { get; set; }
 
         // FK_Brand
 
