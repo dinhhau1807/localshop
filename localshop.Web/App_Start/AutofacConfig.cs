@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using AutoMapper;
+using localshop.Domain.Abstractions;
 using localshop.Domain.Concretes;
 using localshop.Domain.Entities;
 using localshop.Infrastructures;
@@ -72,7 +73,7 @@ namespace localshop
                 DataProtectionProvider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("Application​"),
             });
 
-
+            builder.RegisterType<ProductRepository>().As<IProductRepository>().AsSelf().InstancePerRequest();
         }
     }
 }

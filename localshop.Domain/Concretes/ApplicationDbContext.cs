@@ -21,7 +21,7 @@ namespace localshop.Domain.Concretes
 
         #region DbSet
         public DbSet<Product> Products { get; set; }
-
+        public DbSet<Image> Images { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace localshop.Domain.Concretes
 
             //------------------------------------------------------------------------
             // Images
+            modelBuilder.Entity<Image>().HasKey(i => i.Id);
+            modelBuilder.Entity<Image>().Property(i => i.Path).IsRequired();
+            modelBuilder.Entity<Image>().Property(i => i.ProductId).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

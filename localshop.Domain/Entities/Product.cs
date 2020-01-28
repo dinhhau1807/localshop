@@ -11,10 +11,9 @@ namespace localshop.Domain.Entities
     {
         public Product()
         {
-            Id = NewId.Next().ToString();
+            Price = 0;
             Quantity = 0;
             IsActive = true;
-            DateAdded = DateTime.Now;
         }
 
         public string Id { get; set; }
@@ -48,7 +47,7 @@ namespace localshop.Domain.Entities
         // Product status (In stock, Out of stock, ...)
 
         // Join Image table
-        //public ICollection<Image> Images { get; set; }
+        public ICollection<Image> Images { get; set; }
 
 
         // FK_CategoryTable
