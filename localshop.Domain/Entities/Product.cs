@@ -11,6 +11,9 @@ namespace localshop.Domain.Entities
     {
         public Product()
         {
+            // Product tags
+            Tags = new HashSet<Tag>();
+
             Price = 0;
             Quantity = 0;
             IsActive = true;
@@ -42,21 +45,23 @@ namespace localshop.Domain.Entities
 
         public DateTime? DateModified { get; set; }
 
-        // Product Specifications (Detail)
+        // Product specifications (Detail)
 
-
-        // FK_Status
-        // Product status (In stock, Out of stock, ...)
-        public string StatusId { get; set; }
-        public Status Status { get; set;}
 
         // Product images
         public ICollection<Image> Images { get; set; }
 
+        // FK_Status
+        // Product status (In stock, Out of stock, ...)
+        public string StatusId { get; set; }
+        public Status Status { get; set; }
 
         // FK_CategoryTable
         public string CategoryId { get; set; }
         public Category Category { get; set; }
+
+        // Product tags
+        public virtual ICollection<Tag> Tags { get; set; }
 
         // FK_Brand
 

@@ -58,6 +58,18 @@ namespace localshop.Domain.Concretes
             modelBuilder.Entity<Tag>().HasKey(t => t.Id);
             modelBuilder.Entity<Tag>().Property(t => t.Name).IsRequired();
 
+            //------------------------------------------------------------------------
+            // ProductTags
+            modelBuilder.Entity<Product>()
+                        .HasMany<Tag>(p => p.Tags)
+                        .WithMany(t => t.Products)
+                        .Map(pt =>
+                        {
+                            pt.MapLeftKey("ProductId");
+                            pt.MapRightKey("TagId");
+                            pt.ToTable("ProductTags");
+                        });
+
             base.OnModelCreating(modelBuilder);
         }
     }
