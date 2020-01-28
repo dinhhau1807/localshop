@@ -91,6 +91,7 @@
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Status.cs" />
+    <Compile Include="Entities\Tag.cs" />
     <Compile Include="Migrations\202001221649359_Add_ApplicationUserProperties.cs" />
     <Compile Include="Migrations\202001221649359_Add_ApplicationUserProperties.designer.cs">
       <DependentUpon>202001221649359_Add_ApplicationUserProperties.cs</DependentUpon>
@@ -114,6 +115,10 @@
     <Compile Include="Migrations\202001281514510_Add_Status_Edit_Product.cs" />
     <Compile Include="Migrations\202001281514510_Add_Status_Edit_Product.designer.cs">
       <DependentUpon>202001281514510_Add_Status_Edit_Product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001281551068_Add_Tag.cs" />
+    <Compile Include="Migrations\202001281551068_Add_Tag.designer.cs">
+      <DependentUpon>202001281551068_Add_Tag.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001281514510_Add_Status_Edit_Product.resx">
       <DependentUpon>202001281514510_Add_Status_Edit_Product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001281551068_Add_Tag.resx">
+      <DependentUpon>202001281551068_Add_Tag.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -24,6 +24,7 @@ namespace localshop.Domain.Concretes
         public DbSet<Image> Images { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Status> Statuses { get; set; }
+        public DbSet<Tag> Tags { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -52,7 +53,10 @@ namespace localshop.Domain.Concretes
             modelBuilder.Entity<Status>().HasKey(s => s.Id);
             modelBuilder.Entity<Status>().Property(s => s.Name).IsRequired();
 
-
+            //------------------------------------------------------------------------
+            // Tags
+            modelBuilder.Entity<Tag>().HasKey(t => t.Id);
+            modelBuilder.Entity<Tag>().Property(t => t.Name).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }
