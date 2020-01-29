@@ -11,5 +11,6 @@ namespace localshop.Areas.Admin.Models
         public const string UserIndex = "List users";
         public const string AccountProfile = "Profile";
         public const string ProductIndex = "List products";
+        public const string AddProduct = "Add new product";
     }
 }

@@ -15,6 +15,8 @@ namespace localshop.Domain.Abstractions
 
         Product FindById(string id);
 
+        Product FindBySku(string sku);
+
         void Save(Product product);
 
         Product Delete(string id);

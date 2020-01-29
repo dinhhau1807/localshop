@@ -1,0 +1,100 @@
+﻿@model AddProductViewModel
+
+@{
+    ViewBag.Title = "Add";
+}
+
+@section topbar {
+    @Html.Action("topbar", "nav", new { header = NavigationHeader.AddProduct })
+}
+
+@section thirdPartyCss {
+    <!-- dropify -->
+    <link href="~/Assets/admin/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+}
+
+@section thirdPartyJs {
+    <!-- Validation js (Parsleyjs) -->
+    <script src="~/Assets/admin/libs/parsleyjs/parsley.min.js"></script>
+
+    <!-- validation init -->
+    <script src="~/Assets/admin/js/pages/form-validation.init.js"></script>
+
+    <!-- dropify js -->
+    <script src="~/Assets/admin/libs/dropify/dropify.min.js"></script>
+
+    <!-- form-upload init -->
+    <script src="~/Assets/admin/js/pages/form-fileupload.init.js"></script>
+
+    <script>
+        // gt, gte, lt, lte, notequalto extra validators
+        var parseRequirement = function (requirement) {
+            if (isNaN(+requirement))
+                return parseFloat(jQuery(requirement).val());
+            else
+                return +requirement;
+        };
+
+        window.Parsley.addValidator('lt', {
+            validateString: function (value, requirement) {
+                return parseFloat(value) < parseRequirement(requirement);
+            },
+            messages: {
+                en: 'This value should be a smaller than regular price',
+            },
+            priority: 32
+        });
+    </script>
+}
+
+<div class="row">
+    <div class="col-12">
+        @using (Html.BeginForm("save", "product", FormMethod.Post, new { role = "form", data_parsley_validate = "", novalidate = "" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="mt-0 header-title">Product infomation</h4>
+                        <p class="text-muted font-14">
+                            Add product information below
+                        </p>
+
+                        <div class="p-2">
+                            <div class="form-horizontal">
+                                @{Html.RenderPartial("_Add_Product", Model.Product);}
+
+                                <div class="form-group mb-0 text-right">
+
+                                    <a href="@Url.Action("index", "product")" class="btn btn-light waves-effect waves-dark">
+                                        Cancel
+                                    </a>
+                                    <button type="reset" class="btn btn-light waves-effect waves-dark">
+                                        Reset
+                                    </button>
+                                    <button class="btn btn-primary waves-effect waves-light" type="submit">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- end row -->
+            </div> <!-- end card-box -->
+
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="mt-0 header-title">Product specifications</h4>
+                        <p class="text-muted font-14">
+                            Add product specifications below
+                        </p>
+                        <p>Not implemented yet!</p>
+                    </div>
+                </div> <!-- end row -->
+            </div> <!-- end card-box -->
+        }
+    </div><!-- end col -->
+</div>
+<!-- end row -->

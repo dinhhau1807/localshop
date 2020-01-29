@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using localshop.Core.Common;
 using localshop.Domain.Abstractions;
 using localshop.Domain.Entities;
 using MassTransit;
@@ -39,6 +40,11 @@ namespace localshop.Domain.Concretes
             return _context.Products.FirstOrDefault(p => p.Id == id);
         }
 
+        public Product FindBySku(string sku)
+        {
+            return _context.Products.FirstOrDefault(p => p.Sku == sku);
+        }
+
         public Product Delete(string id)
         {
             var product = _context.Products.First(p => p.Id == id);
@@ -49,9 +55,17 @@ namespace localshop.Domain.Concretes
 
         public void Save(Product product)
         {
-            if (!string.IsNullOrWhiteSpace(product.Id))
+            if (string.IsNullOrWhiteSpace(product.Id))
             {
                 product.Id = NewId.Next().ToString();
+
+                var metaTitle = product.Name.GenerateSlug();
+                if (_context.Products.Any(p => p.MetaTitle == metaTitle))
+                {
+                    metaTitle += "-" + NewId.Next().ToString().Split('-').Last();
+                }
+
+                product.MetaTitle = metaTitle;
                 product.DateAdded = DateTime.Now;
                 _context.Products.Add(product);
             }

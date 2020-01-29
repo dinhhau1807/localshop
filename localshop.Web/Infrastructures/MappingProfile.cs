@@ -26,6 +26,9 @@ namespace localshop.Infrastructures
             #region DTO to Domain
             // Account Controller
             CreateMap<UpdateProfileDTO, ApplicationUser>();
+            
+            // Product Controller
+            CreateMap<AddProductDTO, Product>();
             #endregion
         }
 
