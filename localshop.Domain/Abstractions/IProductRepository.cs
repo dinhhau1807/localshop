@@ -9,7 +9,7 @@ namespace localshop.Domain.Abstractions
 {
     public interface IProductRepository : IDisposable
     {
-        IEnumerable<Product> Products { get; }
+        IQueryable<Product> Products { get; }
 
         IEnumerable<string> GetImages(string id);
 

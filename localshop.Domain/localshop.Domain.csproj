@@ -112,17 +112,21 @@
     <Compile Include="Migrations\202001281453156_Add_FK_Product_Category.designer.cs">
       <DependentUpon>202001281453156_Add_FK_Product_Category.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001281514510_Add_Status_Edit_Product.cs" />
-    <Compile Include="Migrations\202001281514510_Add_Status_Edit_Product.designer.cs">
-      <DependentUpon>202001281514510_Add_Status_Edit_Product.cs</DependentUpon>
+    <Compile Include="Migrations\202001290820246_Edit_Product.cs" />
+    <Compile Include="Migrations\202001290820246_Edit_Product.designer.cs">
+      <DependentUpon>202001290820246_Edit_Product.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001281551068_Add_Tag.cs" />
-    <Compile Include="Migrations\202001281551068_Add_Tag.designer.cs">
-      <DependentUpon>202001281551068_Add_Tag.cs</DependentUpon>
+    <Compile Include="Migrations\202001290822285_Add_Status.cs" />
+    <Compile Include="Migrations\202001290822285_Add_Status.designer.cs">
+      <DependentUpon>202001290822285_Add_Status.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001281600338_Add_ProductTag.cs" />
-    <Compile Include="Migrations\202001281600338_Add_ProductTag.designer.cs">
-      <DependentUpon>202001281600338_Add_ProductTag.cs</DependentUpon>
+    <Compile Include="Migrations\202001290827018_Add_Tag.cs" />
+    <Compile Include="Migrations\202001290827018_Add_Tag.designer.cs">
+      <DependentUpon>202001290827018_Add_Tag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001290831045_Add_ProductTag.cs" />
+    <Compile Include="Migrations\202001290831045_Add_ProductTag.designer.cs">
+      <DependentUpon>202001290831045_Add_ProductTag.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -154,14 +158,17 @@
     <EmbeddedResource Include="Migrations\202001281453156_Add_FK_Product_Category.resx">
       <DependentUpon>202001281453156_Add_FK_Product_Category.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001281514510_Add_Status_Edit_Product.resx">
-      <DependentUpon>202001281514510_Add_Status_Edit_Product.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001290820246_Edit_Product.resx">
+      <DependentUpon>202001290820246_Edit_Product.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001281551068_Add_Tag.resx">
-      <DependentUpon>202001281551068_Add_Tag.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001290822285_Add_Status.resx">
+      <DependentUpon>202001290822285_Add_Status.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202001281600338_Add_ProductTag.resx">
-      <DependentUpon>202001281600338_Add_ProductTag.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001290827018_Add_Tag.resx">
+      <DependentUpon>202001290827018_Add_Tag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001290831045_Add_ProductTag.resx">
+      <DependentUpon>202001290831045_Add_ProductTag.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

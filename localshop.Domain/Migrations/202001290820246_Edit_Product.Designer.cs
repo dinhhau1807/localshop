@@ -7,13 +7,13 @@ namespace localshop.Domain.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class Add_Status_Edit_Product : IMigrationMetadata
+    public sealed partial class Edit_Product : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Add_Status_Edit_Product));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Edit_Product));
         
         string IMigrationMetadata.Id
         {
-            get { return "202001281514510_Add_Status_Edit_Product"; }
+            get { return "202001290820246_Edit_Product"; }
         }
         
         string IMigrationMetadata.Source

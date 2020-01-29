@@ -50,7 +50,7 @@ namespace localshop.Domain.Concretes
 
             //------------------------------------------------------------------------
             // Statuses
-            modelBuilder.Entity<Status>().HasKey(s => s.Id);
+            modelBuilder.Entity<Status>().HasKey(s => s.Id).ToTable("Statuses");
             modelBuilder.Entity<Status>().Property(s => s.Name).IsRequired();
 
             //------------------------------------------------------------------------

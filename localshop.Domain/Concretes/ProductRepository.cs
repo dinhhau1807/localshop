@@ -21,7 +21,7 @@ namespace localshop.Domain.Concretes
             _mapper = mapper;
         }
 
-        public IEnumerable<Product> Products
+        public IQueryable<Product> Products
         {
             get
             {

@@ -7,13 +7,13 @@ namespace localshop.Domain.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class Add_ProductTag : IMigrationMetadata
+    public sealed partial class Add_Tag : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Add_ProductTag));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Add_Tag));
         
         string IMigrationMetadata.Id
         {
-            get { return "202001281600338_Add_ProductTag"; }
+            get { return "202001290827018_Add_Tag"; }
         }
         
         string IMigrationMetadata.Source
