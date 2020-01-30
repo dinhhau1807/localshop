@@ -69,7 +69,7 @@
                             <td>
                                 <img class="mr-1" src="@(product.Images.Count>0?product.Images.First().Path:"")" alt="image" height="60" width="60" style="object-fit:scale-down;">
                                 <p class="d-inline-block align-middle mb-0">
-                                    <a href="#" class="d-inline-block align-middle mb-0 product-name" title="@product.Name">@product.Name.Truncate(50)</a>
+                                    <a href="#" class="d-inline-block align-middle mb-0 product-name" title="@product.Name">@product.Name.Truncate(40)</a>
                                     <br />
                                     <span class="text-muted font-13">@(product.Category != null ? product.Category.Name : "")</span>
                                 </p>
@@ -88,7 +88,20 @@
                                 }
                             </td>
                             <td>@product.Quantity</td>
-                            <td><span class="badge badge-success">@(product.Status != null ? product.Status.Name : "")</span></td>
+                            <td>
+                                @if (product.Status != null)
+                                {
+                                    if (product.Status.Name == StatusNames.InStock)
+                                    {
+                                        <span class="badge badge-success">@product.Status.Name</span>
+                                    }
+
+                                    if (product.Status.Name == StatusNames.OutOfStock)
+                                    {
+                                        <span class="badge badge-warning">@product.Status.Name</span>
+                                    }
+                                }
+                            </td>
                             <td>
                                 <span>Added: @product.DateAdded.ToShortDateString()</span>
                                 @if (product.DateModified != null)

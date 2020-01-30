@@ -45,6 +45,21 @@ namespace localshop.Domain.Concretes
             return _context.Products.FirstOrDefault(p => p.Sku == sku);
         }
 
+        public bool SetStatus(string productId, string statusName)
+        {
+            var product = FindById(productId);
+            var statusIds = _context.Statuses.Where(s => s.Name == statusName).Select(s => s.Id);
+
+            if (product != null && statusIds.Count() > 0)
+            {
+                product.StatusId = statusIds.First();
+                _context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
         public Product Delete(string id)
         {
             var product = _context.Products.First(p => p.Id == id);

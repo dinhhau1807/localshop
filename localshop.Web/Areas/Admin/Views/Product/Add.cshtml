@@ -11,6 +11,9 @@
 @section thirdPartyCss {
     <!-- dropify -->
     <link href="~/Assets/admin/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Notification css (Toastr) -->
+    <link href="~/Assets/admin/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
 }
 
 @section thirdPartyJs {
@@ -25,6 +28,10 @@
 
     <!-- form-upload init -->
     <script src="~/Assets/admin/js/pages/form-fileupload.init.js"></script>
+
+    <!-- Toastr js -->
+    <script src="~/Assets/admin/libs/toastr/toastr.min.js"></script>
+    <script src="~/Assets/admin/js/pages/toastr.init.js"></script>
 
     <script>
         // gt, gte, lt, lte, notequalto extra validators
@@ -44,13 +51,44 @@
             },
             priority: 32
         });
+
+        $(document).ready(function () {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            if ('@TempData["success"]' == "Success") {
+                toastr['success']("Success!");
+            }
+        });
     </script>
 }
 
 <div class="row">
     <div class="col-12">
-        @using (Html.BeginForm("save", "product", FormMethod.Post, new { role = "form", data_parsley_validate = "", novalidate = "" }))
+        @using (Html.BeginForm("add", "product", FormMethod.Post, new { role = "form", data_parsley_validate = "", novalidate = "" }))
         {
+            <div class="text-danger">
+                <div class="row">
+                    <div class="col">
+                        @Html.ValidationSummary(true)
+                    </div>
+                </div>
+            </div>
             @Html.AntiForgeryToken()
             <div class="card-box">
                 <div class="row">
@@ -64,17 +102,38 @@
                             <div class="form-horizontal">
                                 @{Html.RenderPartial("_Add_Product", Model.Product);}
 
-                                <div class="form-group mb-0 text-right">
+                                <div class="form-group row">
+                                    @Html.LabelFor(m => m.CategoryId, new { @class = "col-sm-2 col-form-label" })
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "- Select category -", new { @class = "form-control", required = "" })
+                                    </div>
+                                </div>
 
-                                    <a href="@Url.Action("index", "product")" class="btn btn-light waves-effect waves-dark">
-                                        Cancel
-                                    </a>
-                                    <button type="reset" class="btn btn-light waves-effect waves-dark">
-                                        Reset
-                                    </button>
-                                    <button class="btn btn-primary waves-effect waves-light" type="submit">
-                                        Save Changes
-                                    </button>
+                                <div class="form-group row">
+                                    @Html.LabelFor(m => m.StatusId, new { @class = "col-sm-2 col-form-label" })
+                                    <div class="col-sm-10">
+                                        @Html.DropDownListFor(m => m.StatusId, new SelectList(Model.Statuses, "Id", "Name"), new { @class = "form-control", required = "" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-0">
+                                    <div class="d-flex justify-content-end flex-sm-row flex-column align-items-center">
+                                        <div class="custom-control custom-switch d-sm-inline-block align-self-center mr-sm-4 mr-0 mb-sm-0 mb-2">
+                                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "custom-control-input" })
+                                            <label class="custom-control-label" for="@Html.IdFor(m=>m.IsActive)">Show product ?</label>
+                                        </div>
+                                        <div class="d-sm-inline-block">
+                                            <a href="@Url.Action("index", "product")" class="btn btn-light waves-effect waves-dark">
+                                                Cancel
+                                            </a>
+                                            <button type="reset" class="btn btn-light waves-effect waves-dark">
+                                                Reset
+                                            </button>
+                                            <button class="btn btn-primary waves-effect waves-light" type="submit">
+                                                Save Changes
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

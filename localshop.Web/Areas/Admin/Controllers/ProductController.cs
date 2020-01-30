@@ -16,11 +16,15 @@ namespace localshop.Areas.Admin.Controllers
     {
         private IMapper _mapper;
         private IProductRepository _productRepo;
+        private ICategoryRepository _categoryRepo;
+        private IStatusRepository _statusRepo;
 
-        public ProductController(IMapper mapper, IProductRepository productRepo)
+        public ProductController(IMapper mapper, IProductRepository productRepo, ICategoryRepository categoryRepo, IStatusRepository statusRepo)
         {
             _mapper = mapper;
             _productRepo = productRepo;
+            _categoryRepo = categoryRepo;
+            _statusRepo = statusRepo;
         }
 
         public ViewResult Index()
@@ -39,30 +43,44 @@ namespace localshop.Areas.Admin.Controllers
             var model = new AddProductViewModel
             {
                 Product = new Product(),
-                Categories = null
+                Categories = _categoryRepo.Categories.AsEnumerable(),
+                Statuses = _statusRepo.Statuses.AsEnumerable()
             };
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(AddProductDTO productDTO)
+        public ActionResult Add(AddProductDTO productDTO)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                var model = new AddProductViewModel
+                {
+                    Product = _mapper.Map<Product>(productDTO),
+                    Categories = _categoryRepo.Categories.AsEnumerable(),
+                    Statuses = _statusRepo.Statuses.AsEnumerable()
+                };
+                return View(model);
             }
 
             if (_productRepo.FindBySku(productDTO.Sku) != null)
             {
+                var model = new AddProductViewModel
+                {
+                    Product = _mapper.Map<Product>(productDTO),
+                    Categories = _categoryRepo.Categories.AsEnumerable(),
+                    Statuses = _statusRepo.Statuses.AsEnumerable()
+                };
                 ModelState.AddModelError("", "SKU is used by another product.");
-                return View();
+                return View(model);
             }
 
             var product = _mapper.Map<Product>(productDTO);
             _productRepo.Save(product);
 
-            return RedirectToAction("index");
+            TempData["Success"] = "Success";
+            return RedirectToAction("add");
         }
     }
 }

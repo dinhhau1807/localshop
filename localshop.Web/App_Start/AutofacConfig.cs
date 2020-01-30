@@ -74,6 +74,8 @@ namespace localshop
             });
 
             builder.RegisterType<ProductRepository>().As<IProductRepository>().AsSelf().InstancePerRequest();
+            builder.RegisterType<CategoryRepository>().As<ICategoryRepository>().AsSelf().InstancePerRequest();
+            builder.RegisterType<StatusRepository>().As<IStatusRepository>().AsSelf().InstancePerRequest();
         }
     }
 }

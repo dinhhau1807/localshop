@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\RoleNames.cs" />
+    <Compile Include="Common\StatusNames.cs" />
     <Compile Include="Common\StringHelper.cs" />
     <Compile Include="DTO\Admin\AddProductDTO.cs" />
     <Compile Include="DTO\Admin\UpdateProfileDTO.cs" />
