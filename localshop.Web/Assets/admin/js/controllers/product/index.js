@@ -19,8 +19,8 @@
 
     var table = $('#datatable').DataTable();
 
-    // Delete user
-    table.on('click', '.ls-btn-delete', function (e) {
+    // Delete product
+    table.on('click', '.ls-product-delete', function (e) {
         var $tr = $(this).closest('tr');
 
         Swal({
@@ -36,11 +36,11 @@
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: "/admin/user/delete",
-                    data: { userId: $tr.data("user-id") },
+                    url: "/admin/product/delete",
+                    data: { productId: $tr.data("product-id") },
                     success: function (response) {
                         if (response.success) {
-                            toastr["success"]("User deleted!");
+                            toastr["success"]("Product deleted!");
                             table.row($tr).remove().draw();
                         } else {
                             toastr["error"]("Something went wrong!");
@@ -51,28 +51,6 @@
                     },
                 });
             }
-        })
-    });
-
-    // Change role
-    $('.user-role').on('change', function () {
-        var $tr = $(this).closest('tr');
-
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "/admin/user/changerole",
-            data: { userId: $tr.data("user-id"), roleName: $(this).val() },
-            success: function (response) {
-                if (response.success) {
-                    toastr["success"]("Changed role!");
-                } else {
-                    toastr["error"]("Something went wrong!");
-                }
-            },
-            error: function () {
-                toastr["error"]("Something went wrong!");
-            },
         })
     });
 });

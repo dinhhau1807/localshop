@@ -42,7 +42,7 @@
     <script src="~/Assets/admin/js/pages/toastr.init.js"></script>
 
     <!-- Controller -->
-    <script src="~/Assets/admin/js/controllers/user/indexController.js"></script>
+    <script src="~/Assets/admin/js/controllers/user/index.js"></script>
 }
 
 <div class="row">
@@ -86,7 +86,7 @@
                             </td>
                             <td>@(Html.Raw(user.User.LockoutEnabled ? "<span class='text-danger'>Blocked</span>" : "None"))</td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-outline-danger btn-sm ls-btn-delete" title="Delete user">
+                                <a href="#" class="btn btn-outline-danger btn-sm ls-user-delete" title="Delete user">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
                             </td>

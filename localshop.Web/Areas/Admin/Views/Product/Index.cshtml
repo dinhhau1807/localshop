@@ -43,7 +43,7 @@
     <script src="~/Assets/admin/js/pages/toastr.init.js"></script>
 
     <!-- Controller -->
-    <script src="~/Assets/admin/js/controllers/user/indexController.js"></script>
+    <script src="~/Assets/admin/js/controllers/product/index.js"></script>
 }
 
 <div class="row">
@@ -65,7 +65,7 @@
                 <tbody>
                     @foreach (var product in Model)
                     {
-                        <tr>
+                        <tr data-product-id=@product.Id>
                             <td>
                                 <img class="mr-1" src="@(product.Images.Count>0?product.Images.First().Path:"")" alt="image" height="60" width="60" style="object-fit:scale-down;">
                                 <p class="d-inline-block align-middle mb-0">
@@ -111,8 +111,8 @@
                                 }
                             </td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-outline-primary btn-sm ls-product-edit"><i class="far fa-edit"></i></a>
-                                <a href="#" class="btn btn-outline-danger btn-sm ls-product-delete"><i class="far fa-trash-alt"></i></a>
+                                <a href="@Url.Action("edit", "product", new { id=product.Id })" class="btn btn-outline-primary btn-sm ls-product-edit"><i class="far fa-edit"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm ls-product-delete"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     }

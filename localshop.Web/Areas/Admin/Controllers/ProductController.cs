@@ -82,5 +82,25 @@ namespace localshop.Areas.Admin.Controllers
             TempData["Success"] = "Success";
             return RedirectToAction("add");
         }
+
+        [HttpPost]
+        public JsonResult Delete(string productId)
+        {
+            var product = _productRepo.FindById(productId);
+            if (product != null)
+            {
+                _productRepo.Delete(productId);
+
+                return Json(new
+                {
+                    success = true
+                });
+            }
+
+            return Json(new
+            {
+                success = false
+            });
+        }
     }
 }
