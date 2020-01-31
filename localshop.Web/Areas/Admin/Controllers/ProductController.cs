@@ -40,7 +40,7 @@ namespace localshop.Areas.Admin.Controllers
         [HttpGet]
         public ViewResult Add()
         {
-            var model = new AddProductViewModel
+            var model = new ProductViewModel
             {
                 Product = new Product(),
                 Categories = _categoryRepo.Categories.AsEnumerable(),
@@ -55,7 +55,7 @@ namespace localshop.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var model = new AddProductViewModel
+                var model = new ProductViewModel
                 {
                     Product = _mapper.Map<Product>(productDTO),
                     Categories = _categoryRepo.Categories.AsEnumerable(),
@@ -66,7 +66,7 @@ namespace localshop.Areas.Admin.Controllers
 
             if (_productRepo.FindBySku(productDTO.Sku) != null)
             {
-                var model = new AddProductViewModel
+                var model = new ProductViewModel
                 {
                     Product = _mapper.Map<Product>(productDTO),
                     Categories = _categoryRepo.Categories.AsEnumerable(),
@@ -101,6 +101,72 @@ namespace localshop.Areas.Admin.Controllers
             {
                 success = false
             });
+        }
+
+        [HttpGet]
+        public ActionResult Edit(string id)
+        {
+            var product = _productRepo.FindById(id);
+
+            if (product != null)
+            {
+                var model = new ProductViewModel
+                {
+                    Product = product,
+                    IsActive = product.IsActive,
+                    CategoryId = product.CategoryId,
+                    Categories = _categoryRepo.Categories.AsEnumerable(),
+                    StatusId = product.StatusId,
+                    Statuses = _statusRepo.Statuses.AsEnumerable()
+                };
+
+                return View(model);
+            }
+
+            return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditProductDTO editProductDTO)
+        {
+            var product = _productRepo.FindById(editProductDTO.Id);
+
+            if (!ModelState.IsValid)
+            {
+                var m = new ProductViewModel
+                {
+                    Product = product ?? _mapper.Map<Product>(editProductDTO),
+                    CategoryId = editProductDTO.CategoryId,
+                    Categories = _categoryRepo.Categories.AsEnumerable(),
+                    StatusId = editProductDTO.StatusId,
+                    Statuses = _statusRepo.Statuses.AsEnumerable()
+                };
+
+                return View(m);
+            }
+
+            if (product != null)
+            {
+                var productEdited = _mapper.Map(editProductDTO, product);
+
+                _productRepo.Save(productEdited);
+
+                TempData["SaveSuccess"] = "Success";
+                return RedirectToAction("index");
+            }
+
+            var model = new ProductViewModel
+            {
+                Product = _mapper.Map<Product>(editProductDTO),
+                CategoryId = editProductDTO.CategoryId,
+                Categories = _categoryRepo.Categories.AsEnumerable(),
+                StatusId = editProductDTO.StatusId,
+                Statuses = _statusRepo.Statuses.AsEnumerable()
+            };
+
+            ModelState.AddModelError("", "Product Id is invalid.");
+            return View(model);
         }
     }
 }

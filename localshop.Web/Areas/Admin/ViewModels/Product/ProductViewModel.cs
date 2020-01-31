@@ -6,9 +6,9 @@ using System.Web;
 
 namespace localshop.Areas.Admin.ViewModels
 {
-    public class AddProductViewModel
+    public class ProductViewModel
     {
-        public AddProductViewModel()
+        public ProductViewModel()
         {
             IsActive = true;
         }

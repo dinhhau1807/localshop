@@ -29,6 +29,7 @@ namespace localshop.Infrastructures
             
             // Product Controller
             CreateMap<AddProductDTO, Product>();
+            CreateMap<EditProductDTO, Product>();
             #endregion
         }
 

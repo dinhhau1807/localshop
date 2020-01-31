@@ -1,11 +1,12 @@
-﻿@model ProductViewModel
+﻿@using localshop.Core.Common
+@model ProductViewModel
 
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Edit";
 }
 
 @section topbar {
-    @Html.Action("topbar", "nav", new { header = NavigationHeader.AddProduct })
+    @Html.Action("topbar", "nav", new { header = NavigationHeader.EditProduct + $": {Model.Product.Name.Truncate(100)}" })
 }
 
 @section thirdPartyCss {
@@ -89,7 +90,7 @@
 
 <div class="row">
     <div class="col-12">
-        @using (Html.BeginForm("add", "product", FormMethod.Post, new { role = "form", data_parsley_validate = "", novalidate = "" }))
+        @using (Html.BeginForm("edit", "product", FormMethod.Post, new { role = "form", data_parsley_validate = "", novalidate = "" }))
         {
             <div class="text-danger">
                 <div class="row">

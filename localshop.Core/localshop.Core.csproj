@@ -46,6 +46,7 @@
     <Compile Include="Common\StatusNames.cs" />
     <Compile Include="Common\StringHelper.cs" />
     <Compile Include="DTO\Admin\AddProductDTO.cs" />
+    <Compile Include="DTO\Admin\EditProductDTO.cs" />
     <Compile Include="DTO\Admin\UpdateProfileDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
