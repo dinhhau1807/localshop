@@ -15,6 +15,18 @@
 
     <!-- Notification css (Toastr) -->
     <link href="~/Assets/admin/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 150px;
+        }
+
+        #productImages img {
+            width: 150px;
+            height: 150px;
+            object-fit: scale-down;
+        }
+    </style>
 }
 
 @section thirdPartyJs {
@@ -34,58 +46,13 @@
     <script src="~/Assets/admin/libs/toastr/toastr.min.js"></script>
     <script src="~/Assets/admin/js/pages/toastr.init.js"></script>
 
-    <script>
-        // gt, gte, lt, lte, notequalto extra validators
-        var parseRequirement = function (requirement) {
-            if (isNaN(+requirement))
-                return parseFloat(jQuery(requirement).val());
-            else
-                return +requirement;
-        };
+    <!-- CKFinder -->
+    <script src="~/Assets/CKFinderScripts/ckfinder.js" type="text/javascript"></script>
 
-        window.Parsley.addValidator('lt', {
-            validateString: function (value, requirement) {
-                return parseFloat(value) < parseRequirement(requirement);
-            },
-            messages: {
-                en: 'This value should be a smaller than regular price',
-            },
-            priority: 32
-        });
+    <!-- CKEditor -->
+    <script src="~/Assets/ckeditor5-build-classic-16.0.0/ckeditor.js" type="text/javascript"></script>
 
-        window.Parsley.addValidator('decimal', {
-            validateString: function (value) {
-                return new RegExp('^[0-9]+(,[0-9]{2})?$','g').test(value);
-            },
-            messages: {
-                en: 'This value should be an integer or decimal (,00)',
-            }
-        });
-
-        $(document).ready(function () {
-            toastr.options = {
-                "closeButton": false,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": false,
-                "positionClass": "toast-bottom-right",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "2000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            }
-
-            if ('@TempData["success"]' == "Success") {
-                toastr['success']("Success!");
-            }
-        });
-    </script>
+    <script src="~/Assets/admin/js/controllers/product/edit.js"></script>
 }
 
 <div class="row">
@@ -149,6 +116,32 @@
                         </div>
                     </div>
 
+                </div> <!-- end row -->
+            </div> <!-- end card-box -->
+
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex">
+                            <div>
+                                <h4 class="mt-0 header-title">Product images</h4>
+                                <p class="text-muted font-14">
+                                    Add images for product
+                                </p>
+                            </div>
+                            <button type="button" class="btn btn-primary ml-auto align-self-start btn-choose-images">Choose images</button>
+                        </div>
+                        @Html.HiddenFor(m => m.Images)
+                        <div class="d-flex flex-wrap" id="productImages">
+                            @foreach (var image in Model.Product.Images)
+                            {
+                                <div class="position-relative m-2">
+                                    <img src="@image.Path" />
+                                    <a href="javascript:void(0)" class="position-absolute px-1 bg-light clear-image" style="top:0;left:0;"><span class="fas fa-times"></span></a>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div> <!-- end row -->
             </div> <!-- end card-box -->
 

@@ -33,6 +33,8 @@ namespace localshop.Core.DTO.Admin
         [Required]
         public bool IsActive { get; set; }
 
+        public string Images { get; set; }
+
         public string StatusId { get; set; }
 
         public string CategoryId { get; set; }

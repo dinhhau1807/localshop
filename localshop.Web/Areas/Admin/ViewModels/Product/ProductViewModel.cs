@@ -16,6 +16,8 @@ namespace localshop.Areas.Admin.ViewModels
         public bool IsActive { get; set; }
         public Product Product { get; set; }
 
+        public string Images { get; set; }
+
         public string CategoryId { get; set; }
         public IEnumerable<Category> Categories { get; set; }
 

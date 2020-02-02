@@ -59,7 +59,7 @@ namespace localshop.Areas.Admin.Controllers
                 {
                     Product = _mapper.Map<Product>(productDTO),
                     Categories = _categoryRepo.Categories.AsEnumerable(),
-                    Statuses = _statusRepo.Statuses.AsEnumerable()
+                    Statuses = _statusRepo.Statuses.AsEnumerable(),
                 };
                 return View(model);
             }
@@ -70,13 +70,28 @@ namespace localshop.Areas.Admin.Controllers
                 {
                     Product = _mapper.Map<Product>(productDTO),
                     Categories = _categoryRepo.Categories.AsEnumerable(),
-                    Statuses = _statusRepo.Statuses.AsEnumerable()
+                    Statuses = _statusRepo.Statuses.AsEnumerable(),
                 };
                 ModelState.AddModelError("", "SKU is used by another product.");
                 return View(model);
             }
 
+            var images = new List<Image>();
+            if (!string.IsNullOrWhiteSpace(productDTO.Images))
+            {
+                foreach (var imgUrl in productDTO.Images.Split('@'))
+                {
+                    var image = new Image
+                    {
+                        Path = imgUrl
+                    };
+                    images.Add(image);
+                }
+            }
+
             var product = _mapper.Map<Product>(productDTO);
+            product.Images = images;
+
             _productRepo.Save(product);
 
             TempData["Success"] = "Success";
@@ -110,6 +125,13 @@ namespace localshop.Areas.Admin.Controllers
 
             if (product != null)
             {
+                product.Images = new List<Image>();
+                var images = _productRepo.GetImages(id);
+                foreach (var img in images)
+                {
+                    product.Images.Add(new Image { Path = img });
+                }
+
                 var model = new ProductViewModel
                 {
                     Product = product,
@@ -117,7 +139,8 @@ namespace localshop.Areas.Admin.Controllers
                     CategoryId = product.CategoryId,
                     Categories = _categoryRepo.Categories.AsEnumerable(),
                     StatusId = product.StatusId,
-                    Statuses = _statusRepo.Statuses.AsEnumerable()
+                    Statuses = _statusRepo.Statuses.AsEnumerable(),
+                    Images = string.Join("@", _productRepo.GetImages(id).ToArray())
                 };
 
                 return View(model);
@@ -140,7 +163,8 @@ namespace localshop.Areas.Admin.Controllers
                     CategoryId = editProductDTO.CategoryId,
                     Categories = _categoryRepo.Categories.AsEnumerable(),
                     StatusId = editProductDTO.StatusId,
-                    Statuses = _statusRepo.Statuses.AsEnumerable()
+                    Statuses = _statusRepo.Statuses.AsEnumerable(),
+                    Images = editProductDTO.Images
                 };
 
                 return View(m);
@@ -148,7 +172,18 @@ namespace localshop.Areas.Admin.Controllers
 
             if (product != null)
             {
-                var productEdited = _mapper.Map(editProductDTO, product);
+                var productEdited = _mapper.Map<Product>(product);
+                productEdited = _mapper.Map(editProductDTO, productEdited);
+
+                productEdited.Images = new List<Image>();
+                if (editProductDTO.Images != null)
+                {
+                    var newImages = editProductDTO.Images.Split('@');
+                    foreach (var img in newImages)
+                    {
+                        productEdited.Images.Add(new Image { ProductId = productEdited.Id, Path = img });
+                    }
+                }
 
                 _productRepo.Save(productEdited);
 
@@ -162,7 +197,8 @@ namespace localshop.Areas.Admin.Controllers
                 CategoryId = editProductDTO.CategoryId,
                 Categories = _categoryRepo.Categories.AsEnumerable(),
                 StatusId = editProductDTO.StatusId,
-                Statuses = _statusRepo.Statuses.AsEnumerable()
+                Statuses = _statusRepo.Statuses.AsEnumerable(),
+                Images = editProductDTO.Images
             };
 
             ModelState.AddModelError("", "Product Id is invalid.");

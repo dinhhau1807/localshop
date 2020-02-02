@@ -34,6 +34,8 @@ namespace localshop.Core.DTO.Admin
 
         public string CategoryId { get; set; }
 
+        public string Images { get; set; }
+
         public IEnumerable<string> Tags { get; set; }
     }   
 }

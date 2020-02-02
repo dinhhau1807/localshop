@@ -28,8 +28,8 @@ namespace localshop.Infrastructures
             CreateMap<UpdateProfileDTO, ApplicationUser>();
             
             // Product Controller
-            CreateMap<AddProductDTO, Product>();
-            CreateMap<EditProductDTO, Product>();
+            CreateMap<AddProductDTO, Product>().ForMember(m => m.Images, opt => opt.Ignore());
+            CreateMap<EditProductDTO, Product>().ForMember(m => m.Images, opt => opt.Ignore());
             #endregion
         }
 
