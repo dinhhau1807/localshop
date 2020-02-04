@@ -1,4 +1,4 @@
-﻿using localshop.Domain.Entities;
+﻿using localshop.Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace localshop.Domain.Abstractions
 {
     public interface IStatusRepository : IDisposable
     {
-        IQueryable<Status> Statuses { get; }
+        IEnumerable<StatusDTO> Statuses { get; }
     }
 }

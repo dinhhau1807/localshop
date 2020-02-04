@@ -1,4 +1,4 @@
-﻿using localshop.Domain.Entities;
+﻿using localshop.Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +14,14 @@ namespace localshop.Areas.Admin.ViewModels
         }
 
         public bool IsActive { get; set; }
-        public Product Product { get; set; }
+        public ProductDTO Product { get; set; }
 
         public string Images { get; set; }
 
         public string CategoryId { get; set; }
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<CategoryDTO> Categories { get; set; }
 
         public string StatusId { get; set; }
-        public IEnumerable<Status> Statuses { get; set; }
+        public IEnumerable<StatusDTO> Statuses { get; set; }
     }
 }

@@ -45,9 +45,14 @@
     <Compile Include="Common\RoleNames.cs" />
     <Compile Include="Common\StatusNames.cs" />
     <Compile Include="Common\StringHelper.cs" />
-    <Compile Include="DTO\Admin\AddProductDTO.cs" />
-    <Compile Include="DTO\Admin\EditProductDTO.cs" />
-    <Compile Include="DTO\Admin\UpdateProfileDTO.cs" />
+    <Compile Include="DTO\AddProductDTO.cs" />
+    <Compile Include="DTO\CategoryDTO.cs" />
+    <Compile Include="DTO\EditProductDTO.cs" />
+    <Compile Include="DTO\ImageDTO.cs" />
+    <Compile Include="DTO\ProductDTO.cs" />
+    <Compile Include="DTO\StatusDTO.cs" />
+    <Compile Include="DTO\TagDTO.cs" />
+    <Compile Include="DTO\UpdateProfileDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

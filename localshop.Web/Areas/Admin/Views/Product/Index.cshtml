@@ -1,5 +1,6 @@
 ﻿@using localshop.Core.Common
-@model IEnumerable<localshop.Domain.Entities.Product>
+
+@model ListProductViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -89,15 +90,18 @@
                 </thead>
 
                 <tbody>
-                    @foreach (var product in Model)
+                    @foreach (var product in Model.Products)
                     {
+                        var productCategory = Model.Categories.FirstOrDefault(c => c.Id == product.CategoryId);
+                        var productStatus = Model.Statuses.FirstOrDefault(s => s.Id == product.StatusId);
+
                         <tr data-product-id=@product.Id>
                             <td>
-                                <img class="mr-1" src="@(product.Images.Count>0?product.Images.First().Path:"")" alt="image" height="60" width="60" style="object-fit:scale-down;">
+                                <img class="mr-1" src="@(product.Images.Count>0?product.Images.First():"")" alt="image" height="60" width="60" style="object-fit:scale-down;">
                                 <p class="d-inline-block align-middle mb-0">
                                     <a href="#" class="d-inline-block align-middle mb-0 product-name" title="@product.Name">@product.Name.Truncate(40)</a>
                                     <br />
-                                    <span class="text-muted font-13">@(product.Category != null ? product.Category.Name : "")</span>
+                                    <span class="text-muted font-13">@(productCategory != null ? productCategory.Name : "")</span>
                                 </p>
                             </td>
                             <td>@product.Sku</td>
@@ -115,16 +119,16 @@
                             </td>
                             <td>@product.Quantity</td>
                             <td>
-                                @if (product.Status != null)
+                                @if (productStatus != null)
                                 {
-                                    if (product.Status.Name == StatusNames.InStock)
+                                    if (productStatus.Name == StatusNames.InStock)
                                     {
-                                        <span class="badge badge-success">@product.Status.Name</span>
+                                        <span class="badge badge-success">@productStatus.Name</span>
                                     }
 
-                                    if (product.Status.Name == StatusNames.OutOfStock)
+                                    if (productStatus.Name == StatusNames.OutOfStock)
                                     {
-                                        <span class="badge badge-warning">@product.Status.Name</span>
+                                        <span class="badge badge-warning">@productStatus.Name</span>
                                     }
                                 }
                             </td>
@@ -142,7 +146,7 @@
                             </td>
                         </tr>
                     }
-                    <tr>
+                    @*<tr>
                         <td>
                             <img class="mr-1" src="~/assets/admin/images/big/bg.jpg" alt="" height="60" width="60" style="object-fit:scale-down;">
                             <p class="d-inline-block align-middle mb-0">
@@ -164,7 +168,7 @@
                             <a href="#" class="btn btn-outline-primary btn-sm"><i class="far fa-edit"></i></a>
                             <a href="#" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></a>
                         </td>
-                    </tr>
+                    </tr>*@
                 </tbody>
             </table>
         </div>

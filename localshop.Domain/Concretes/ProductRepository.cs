@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using localshop.Core.Common;
+using localshop.Core.DTO;
 using localshop.Domain.Abstractions;
 using localshop.Domain.Entities;
 using MassTransit;
@@ -23,11 +24,11 @@ namespace localshop.Domain.Concretes
             _mapper = mapper;
         }
 
-        public IQueryable<Product> Products
+        public IEnumerable<ProductDTO> Products
         {
             get
             {
-                return _context.Products.AsQueryable();
+                return _context.Products.AsEnumerable().Select(p => _mapper.Map<Product, ProductDTO>(p));
             }
         }
 
@@ -36,19 +37,21 @@ namespace localshop.Domain.Concretes
             return _context.Images.Where(i => i.ProductId == id).Select(i => i.Path).ToList();
         }
 
-        public Product FindById(string id)
+        public ProductDTO FindById(string id)
         {
-            return _context.Products.FirstOrDefault(p => p.Id == id);
+            var product  = _context.Products.FirstOrDefault(p => p.Id == id);
+            return _mapper.Map<Product, ProductDTO>(product);
         }
 
-        public Product FindBySku(string sku)
+        public ProductDTO FindBySku(string sku)
         {
-            return _context.Products.FirstOrDefault(p => p.Sku == sku);
+            var product = _context.Products.FirstOrDefault(p => p.Sku == sku);
+            return _mapper.Map<Product, ProductDTO>(product);
         }
 
         public bool SetStatus(string productId, string statusName)
         {
-            var product = FindById(productId);
+            var product = _context.Products.FirstOrDefault(p => p.Id == productId);
             var statusIds = _context.Statuses.Where(s => s.Name == statusName).Select(s => s.Id);
 
             if (product != null && statusIds.Count() > 0)
@@ -61,56 +64,70 @@ namespace localshop.Domain.Concretes
             return false;
         }
 
-        public Product Delete(string id)
+        public ProductDTO Delete(string id)
         {
             var product = _context.Products.First(p => p.Id == id);
+
+            if (product == null)
+            {
+                return null;
+            }
+
             _context.Images.RemoveRange(_context.Images.Where(i => i.ProductId == id));
             _context.Products.Remove(product);
             _context.SaveChanges();
-            return product;
+
+            return _mapper.Map<Product, ProductDTO>(product);
         }
 
-        public void Save(Product product)
+        public void Save(ProductDTO productDTO)
         {
-            if (string.IsNullOrWhiteSpace(product.Id))
+            if (string.IsNullOrWhiteSpace(productDTO.Id))
             {
-                product.Id = NewId.Next().ToString();
-                if (product.Images != null && product.Images.Count > 0)
+                productDTO.Id = NewId.Next().ToString();
+                var productImages = new List<Image>();
+
+                if (productDTO.Images != null && productDTO.Images.Count > 0)
                 {
-                    foreach (var image in product.Images)
+                    foreach (var image in productDTO.Images)
                     {
-                        image.ProductId = product.Id;
+                        productImages.Add(new Image
+                        {
+                            ProductId = productDTO.Id,
+                            Path = image
+                        });
                     }
                 }
 
-                var metaTitle = product.Name.GenerateSlug();
+                var metaTitle = productDTO.Name.GenerateSlug();
                 if (_context.Products.Any(p => p.MetaTitle == metaTitle))
                 {
                     metaTitle += "-" + NewId.Next().ToString().Split('-').Last();
                 }
 
-                product.MetaTitle = metaTitle;
-                product.DateAdded = DateTime.Now;
+                productDTO.MetaTitle = metaTitle;
+                productDTO.DateAdded = DateTime.Now;
 
+                var product = _mapper.Map<ProductDTO, Product>(productDTO);
+                
                 _context.Products.Add(product);
-                _context.Images.AddRange(product.Images);
+                _context.Images.AddRange(productImages);
             }
             else
             {
-                var dbEntry = _context.Products.First(p => p.Id == product.Id);
+                var dbEntry = _context.Products.First(p => p.Id == productDTO.Id);
 
-                var dbEntryImages = GetImages(product.Id);
-                var newImages = product.Images.ToList();
+                var dbEntryImages = GetImages(productDTO.Id);
+                var newImages = productDTO.Images.ToList();
 
-                dbEntry = _mapper.Map<Product>(product);
-                dbEntry.Images = null;
+                dbEntry = _mapper.Map(productDTO, dbEntry);
 
                 // Remove image
                 foreach (var path in dbEntryImages)
                 {
-                    if (!newImages.Any(i => i.Path == path))
+                    if (!newImages.Any(i => i == path))
                     {
-                        var image = _context.Images.First(i => i.ProductId == product.Id && i.Path == path);
+                        var image = _context.Images.First(i => i.ProductId == productDTO.Id && i.Path == path);
                         _context.Images.Remove(image);
                         continue;
                     }
@@ -119,13 +136,21 @@ namespace localshop.Domain.Concretes
                 // Add image
                 foreach (var newImg in newImages)
                 {
-                    if (!dbEntryImages.Any(path => path == newImg.Path))
+                    if (!dbEntryImages.Any(path => path == newImg))
                     {
-                        var image = new Image { ProductId = dbEntry.Id, Path = newImg.Path };
+                        var image = new Image { ProductId = dbEntry.Id, Path = newImg };
                         _context.Images.Add(image);
                     }
                 }
 
+                // Update metatitle
+                var metaTitle = productDTO.Name.GenerateSlug();
+                if (_context.Products.Any(p => p.MetaTitle == metaTitle))
+                {
+                    metaTitle += "-" + NewId.Next().ToString().Split('-').Last();
+                }
+
+                dbEntry.MetaTitle = metaTitle;
                 dbEntry.DateModified = DateTime.Now;
             }
             _context.SaveChanges();

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using localshop.Core.DTO;
 using localshop.Domain.Abstractions;
 using localshop.Domain.Entities;
 using System;
@@ -20,11 +21,11 @@ namespace localshop.Domain.Concretes
             _context = context;
         }
 
-        public IQueryable<Category> Categories
+        public IEnumerable<CategoryDTO> Categories
         {
             get
             {
-                return _context.Categories.AsQueryable();
+                return _context.Categories.AsEnumerable().Select(c => _mapper.Map<Category, CategoryDTO>(c));
             }
         }
 

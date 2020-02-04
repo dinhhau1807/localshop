@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace localshop.Core.DTO.Admin
+namespace localshop.Core.DTO
 {
     public class AddProductDTO
     {   

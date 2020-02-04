@@ -1,4 +1,5 @@
-﻿using localshop.Domain.Entities;
+﻿using localshop.Core.DTO;
+using localshop.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,16 @@ namespace localshop.Domain.Abstractions
 {
     public interface IProductRepository : IDisposable
     {
-        IQueryable<Product> Products { get; }
+        IEnumerable<ProductDTO> Products { get; }
 
         IEnumerable<string> GetImages(string id);
 
-        Product FindById(string id);
+        ProductDTO FindById(string id);
 
-        Product FindBySku(string sku);
+        ProductDTO FindBySku(string sku);
 
-        void Save(Product product);
+        void Save(ProductDTO product);
 
-        Product Delete(string id);
+        ProductDTO Delete(string id);
     }
 }

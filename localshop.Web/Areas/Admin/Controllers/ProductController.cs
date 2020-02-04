@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using localshop.Areas.Admin.ViewModels;
-using localshop.Core.DTO.Admin;
+using localshop.Core.DTO;
 using localshop.Domain.Abstractions;
 using localshop.Domain.Entities;
 using System;
@@ -29,11 +29,18 @@ namespace localshop.Areas.Admin.Controllers
 
         public ViewResult Index()
         {
-            var model = _productRepo.Products
-                .Include(p => p.Status)
-                .Include(p => p.Images)
-                .Include(p => p.Category)
-                .ToList();
+            var products = _productRepo.Products.ToList();
+            foreach (var p in products)
+            {
+                p.Images = _productRepo.GetImages(p.Id).ToList();
+            }
+
+            var model = new ListProductViewModel
+            {
+                Products = products,
+                Categories = _categoryRepo.Categories,
+                Statuses = _statusRepo.Statuses
+            };
             return View(model);
         }
 
@@ -42,7 +49,7 @@ namespace localshop.Areas.Admin.Controllers
         {
             var model = new ProductViewModel
             {
-                Product = new Product(),
+                Product = new ProductDTO(),
                 Categories = _categoryRepo.Categories.AsEnumerable(),
                 Statuses = _statusRepo.Statuses.AsEnumerable()
             };
@@ -57,9 +64,9 @@ namespace localshop.Areas.Admin.Controllers
             {
                 var model = new ProductViewModel
                 {
-                    Product = _mapper.Map<Product>(productDTO),
+                    Product = new ProductDTO(),
                     Categories = _categoryRepo.Categories.AsEnumerable(),
-                    Statuses = _statusRepo.Statuses.AsEnumerable(),
+                    Statuses = _statusRepo.Statuses.AsEnumerable()
                 };
                 return View(model);
             }
@@ -68,28 +75,24 @@ namespace localshop.Areas.Admin.Controllers
             {
                 var model = new ProductViewModel
                 {
-                    Product = _mapper.Map<Product>(productDTO),
+                    Product = _mapper.Map<AddProductDTO, ProductDTO>(productDTO),
                     Categories = _categoryRepo.Categories.AsEnumerable(),
-                    Statuses = _statusRepo.Statuses.AsEnumerable(),
+                    Statuses = _statusRepo.Statuses.AsEnumerable()
                 };
                 ModelState.AddModelError("", "SKU is used by another product.");
                 return View(model);
             }
 
-            var images = new List<Image>();
+            var images = new List<string>();
             if (!string.IsNullOrWhiteSpace(productDTO.Images))
             {
                 foreach (var imgUrl in productDTO.Images.Split('@'))
                 {
-                    var image = new Image
-                    {
-                        Path = imgUrl
-                    };
-                    images.Add(image);
+                    images.Add(imgUrl);
                 }
             }
 
-            var product = _mapper.Map<Product>(productDTO);
+            var product = _mapper.Map<AddProductDTO, ProductDTO>(productDTO);
             product.Images = images;
 
             _productRepo.Save(product);
@@ -125,12 +128,7 @@ namespace localshop.Areas.Admin.Controllers
 
             if (product != null)
             {
-                product.Images = new List<Image>();
-                var images = _productRepo.GetImages(id);
-                foreach (var img in images)
-                {
-                    product.Images.Add(new Image { Path = img });
-                }
+                product.Images = _productRepo.GetImages(id).ToList();
 
                 var model = new ProductViewModel
                 {
@@ -140,7 +138,7 @@ namespace localshop.Areas.Admin.Controllers
                     Categories = _categoryRepo.Categories.AsEnumerable(),
                     StatusId = product.StatusId,
                     Statuses = _statusRepo.Statuses.AsEnumerable(),
-                    Images = string.Join("@", _productRepo.GetImages(id).ToArray())
+                    Images = string.Join("@", product.Images.ToArray())
                 };
 
                 return View(model);
@@ -159,7 +157,7 @@ namespace localshop.Areas.Admin.Controllers
             {
                 var m = new ProductViewModel
                 {
-                    Product = product ?? _mapper.Map<Product>(editProductDTO),
+                    Product = product ?? _mapper.Map<EditProductDTO, ProductDTO>(editProductDTO),
                     CategoryId = editProductDTO.CategoryId,
                     Categories = _categoryRepo.Categories.AsEnumerable(),
                     StatusId = editProductDTO.StatusId,
@@ -172,16 +170,15 @@ namespace localshop.Areas.Admin.Controllers
 
             if (product != null)
             {
-                var productEdited = _mapper.Map<Product>(product);
-                productEdited = _mapper.Map(editProductDTO, productEdited);
+                var productEdited = _mapper.Map(editProductDTO, product);
 
-                productEdited.Images = new List<Image>();
-                if (editProductDTO.Images != null)
+                productEdited.Images = new List<string>();
+                if (!string.IsNullOrWhiteSpace(editProductDTO.Images))
                 {
                     var newImages = editProductDTO.Images.Split('@');
                     foreach (var img in newImages)
                     {
-                        productEdited.Images.Add(new Image { ProductId = productEdited.Id, Path = img });
+                        productEdited.Images.Add(img);
                     }
                 }
 
@@ -193,7 +190,7 @@ namespace localshop.Areas.Admin.Controllers
 
             var model = new ProductViewModel
             {
-                Product = _mapper.Map<Product>(editProductDTO),
+                Product = _mapper.Map<EditProductDTO, ProductDTO>(editProductDTO),
                 CategoryId = editProductDTO.CategoryId,
                 Categories = _categoryRepo.Categories.AsEnumerable(),
                 StatusId = editProductDTO.StatusId,

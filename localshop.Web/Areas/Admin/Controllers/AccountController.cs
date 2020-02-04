@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using localshop.Areas.Admin.ViewModels;
 using localshop.Core.Common;
-using localshop.Core.DTO.Admin;
+using localshop.Core.DTO;
 using localshop.Domain.Entities;
 using localshop.Infrastructures.Attributes;
 using Microsoft.AspNet.Identity;
