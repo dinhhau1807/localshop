@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace localshop.Core.DTO
 {
@@ -42,7 +37,6 @@ namespace localshop.Core.DTO
         public string Address2 { get; set; }
 
         public string Image { get; set; }
-
 
         public string FullName
         {

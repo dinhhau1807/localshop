@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace localshop.Core.Common
 {
@@ -19,13 +16,13 @@ namespace localshop.Core.Common
         public static string GenerateSlug(this string value)
         {
             string str = value.ToUnsigned().RemoveAccent().ToLower();
-            // invalid chars           
+            // invalid chars
             str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
-            // convert multiple spaces into one space   
+            // convert multiple spaces into one space
             str = Regex.Replace(str, @"\s+", " ").Trim();
-            // cut and trim 
+            // cut and trim
             str = str.Substring(0, str.Length <= 45 ? str.Length : 45).Trim();
-            str = Regex.Replace(str, @"\s", "-"); // hyphens   
+            str = Regex.Replace(str, @"\s", "-"); // hyphens
             return str;
         }
 

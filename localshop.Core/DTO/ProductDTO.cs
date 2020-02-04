@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace localshop.Core.DTO
 {
@@ -17,22 +17,32 @@ namespace localshop.Core.DTO
 
         public string Id { get; set; }
 
+        [Display(Name = "SKU")]
+        [Required]
         public string Sku { get; set; }
 
         public string MetaTitle { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [AllowHtml]
+        [Display(Name = "Short description")]
         public string ShortDesciption { get; set; }
 
+        [AllowHtml]
+        [Display(Name = "Long description")]
         public string LongDescription { get; set; }
 
+        [Required]
         public decimal Price { get; set; }
 
         public decimal? DiscountPrice { get; set; }
 
+        [Required]
         public int Quantity { get; set; }
 
+        [Required]
         public bool IsActive { get; set; }
 
         public DateTime DateAdded { get; set; }
@@ -41,8 +51,10 @@ namespace localshop.Core.DTO
 
         public IList<string> Images { get; set; }
 
+        [Display(Name = "Status")]
         public string StatusId { get; set; }
 
+        [Display(Name = "Category")]
         public string CategoryId { get; set; }
     }
 }

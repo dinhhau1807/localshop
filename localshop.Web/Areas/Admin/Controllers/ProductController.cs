@@ -153,23 +153,29 @@ namespace localshop.Areas.Admin.Controllers
         {
             var product = _productRepo.FindById(editProductDTO.Id);
 
+            var errorModel = new ProductViewModel
+            {
+                Product = product ?? _mapper.Map<EditProductDTO, ProductDTO>(editProductDTO),
+                CategoryId = editProductDTO.CategoryId,
+                Categories = _categoryRepo.Categories.AsEnumerable(),
+                StatusId = editProductDTO.StatusId,
+                Statuses = _statusRepo.Statuses.AsEnumerable(),
+                Images = editProductDTO.Images
+            };
+
             if (!ModelState.IsValid)
             {
-                var m = new ProductViewModel
-                {
-                    Product = product ?? _mapper.Map<EditProductDTO, ProductDTO>(editProductDTO),
-                    CategoryId = editProductDTO.CategoryId,
-                    Categories = _categoryRepo.Categories.AsEnumerable(),
-                    StatusId = editProductDTO.StatusId,
-                    Statuses = _statusRepo.Statuses.AsEnumerable(),
-                    Images = editProductDTO.Images
-                };
-
-                return View(m);
+                return View(errorModel);
             }
 
             if (product != null)
             {
+                if (editProductDTO.Sku != product.Sku && _productRepo.FindBySku(editProductDTO.Sku) != null)
+                {
+                    ModelState.AddModelError("", "SKU is used by another product.");
+                    return View(errorModel);
+                }
+
                 var productEdited = _mapper.Map(editProductDTO, product);
 
                 productEdited.Images = new List<string>();
@@ -188,18 +194,8 @@ namespace localshop.Areas.Admin.Controllers
                 return RedirectToAction("index");
             }
 
-            var model = new ProductViewModel
-            {
-                Product = _mapper.Map<EditProductDTO, ProductDTO>(editProductDTO),
-                CategoryId = editProductDTO.CategoryId,
-                Categories = _categoryRepo.Categories.AsEnumerable(),
-                StatusId = editProductDTO.StatusId,
-                Statuses = _statusRepo.Statuses.AsEnumerable(),
-                Images = editProductDTO.Images
-            };
-
             ModelState.AddModelError("", "Product Id is invalid.");
-            return View(model);
+            return View(errorModel);
         }
     }
 }

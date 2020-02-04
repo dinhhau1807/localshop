@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace localshop.Core.DTO
 {
     public class AddProductDTO
-    {   
+    {
         [Required]
         public string Sku { get; set; }
 
         [Required]
         public string Name { get; set; }
 
+        [AllowHtml]
         public string ShortDesciption { get; set; }
 
+        [AllowHtml]
         public string LongDescription { get; set; }
 
         [Required]
@@ -37,5 +36,5 @@ namespace localshop.Core.DTO
         public string Images { get; set; }
 
         public IEnumerable<string> Tags { get; set; }
-    }   
+    }
 }
