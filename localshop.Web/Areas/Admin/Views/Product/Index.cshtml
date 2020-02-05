@@ -97,7 +97,7 @@
 
                         <tr data-product-id=@product.Id>
                             <td>
-                                <img class="mr-1" src="@(product.Images.Count>0?product.Images.First():"")" alt="image" height="60" width="60" style="object-fit:scale-down;">
+                                <img class="mr-1" src="@(product.Images.Count>0?product.Images.First():"/Assets/admin/images/no-image.png")" alt="image" height="60" width="60" style="object-fit:scale-down;">
                                 <p class="d-inline-block align-middle mb-0">
                                     <a href="#" class="d-inline-block align-middle mb-0 product-name" title="@product.Name">@product.Name.Truncate(40)</a>
                                     <br />

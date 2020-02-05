@@ -19,10 +19,10 @@ namespace localshop.Infrastructures
         public void AdminProfile()
         {
             #region Domain to DTO
-            // Account Controller 
+            // Account 
             CreateMap<ApplicationUser, UpdateProfileDTO>();
 
-            // Product Controller
+            // Product 
             CreateMap<Product, ProductDTO>();
 
             // Category
@@ -39,11 +39,14 @@ namespace localshop.Infrastructures
             #endregion
 
             #region DTO to Domain
-            // Account Controller
+            // Account 
             CreateMap<UpdateProfileDTO, ApplicationUser>();
 
-            // Product Controller
+            // Product 
             CreateMap<ProductDTO, Product>().ForMember(m => m.Images, opt => opt.Ignore());
+
+            // Category
+            CreateMap<CategoryDTO, Category>();
             #endregion
 
             #region DTO to DTO

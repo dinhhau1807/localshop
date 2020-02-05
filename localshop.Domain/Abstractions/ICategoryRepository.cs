@@ -10,5 +10,14 @@ namespace localshop.Domain.Abstractions
     public interface ICategoryRepository : IDisposable
     {
         IEnumerable<CategoryDTO> Categories { get; }
+
+        int CountProduct(string id);
+
+        CategoryDTO FindById(string id);
+
+        CategoryDTO Delete(string id);
+
+        bool Save(CategoryDTO categoryDTO);
+
     }
 }

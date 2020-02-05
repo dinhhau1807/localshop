@@ -39,7 +39,7 @@ namespace localshop.Domain.Concretes
 
         public ProductDTO FindById(string id)
         {
-            var product  = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
             return _mapper.Map<Product, ProductDTO>(product);
         }
 
@@ -109,7 +109,7 @@ namespace localshop.Domain.Concretes
                 productDTO.DateAdded = DateTime.Now;
 
                 var product = _mapper.Map<ProductDTO, Product>(productDTO);
-                
+
                 _context.Products.Add(product);
                 _context.Images.AddRange(productImages);
             }
@@ -120,7 +120,17 @@ namespace localshop.Domain.Concretes
                 var dbEntryImages = GetImages(productDTO.Id);
                 var newImages = productDTO.Images.ToList();
 
-                dbEntry = _mapper.Map(productDTO, dbEntry);
+                // Update metatitle
+                if (dbEntry.Name != productDTO.Name)
+                {
+                    var metaTitle = productDTO.Name.GenerateSlug();
+                    if (_context.Products.Any(p => (p.MetaTitle != dbEntry.MetaTitle) && (p.MetaTitle == metaTitle)))
+                    {
+                        metaTitle += "-" + NewId.Next().ToString().Split('-').Last();
+                    }
+
+                    productDTO.MetaTitle = metaTitle;
+                }
 
                 // Remove image
                 foreach (var path in dbEntryImages)
@@ -143,14 +153,7 @@ namespace localshop.Domain.Concretes
                     }
                 }
 
-                // Update metatitle
-                var metaTitle = productDTO.Name.GenerateSlug();
-                if (_context.Products.Any(p => p.MetaTitle == metaTitle))
-                {
-                    metaTitle += "-" + NewId.Next().ToString().Split('-').Last();
-                }
-
-                dbEntry.MetaTitle = metaTitle;
+                dbEntry = _mapper.Map(productDTO, dbEntry);
                 dbEntry.DateModified = DateTime.Now;
             }
             _context.SaveChanges();
