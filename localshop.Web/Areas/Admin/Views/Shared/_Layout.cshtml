@@ -1,13 +1,8 @@
-﻿
-@{
-    ViewBag.Title = "_Layout";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>localshop - Electronic store</title>
+    <title>localshop - @(ViewBag.Title ?? "Electronic store")</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="localshop" name="HauNguyen" />
@@ -16,7 +11,6 @@
     <!-- third party css -->
     @RenderSection("thirdPartyCss", required: false)
     <!-- third party css end -->
-
     <!-- App css -->
     <link href="~/Assets/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Assets/admin/css/icons.min.css" rel="stylesheet" type="text/css" />
@@ -37,18 +31,15 @@
             </div>
         </div>*@
     <!-- End Preloader-->
-
     <!-- Begin page -->
     <div id="wrapper">
 
         <!-- Topbar Start -->
         @RenderSection("topbar", required: true)
         <!-- end Topbar -->
-
         <!-- ========== Left Sidebar Start ========== -->
         @Html.Action("sidebar", "nav")
         <!-- Left Sidebar End -->
-
         <!-- ============================================================== -->
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
@@ -87,7 +78,7 @@
     <!-- third party js ends -->
     <!-- App js -->
     <script src="~/Assets/admin/js/app.min.js"></script>
-
+    <script src="~/Assets/plugins/modernizr-2.8.3.js"></script>
 </body>
 </html>
 

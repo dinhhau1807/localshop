@@ -1,44 +1,83 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>localshop - @(ViewBag.Title ?? "Electronic store")</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS
+    ============================================ -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Assets/client/css/vendor/bootstrap.min.css">
+
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="~/Assets/client/css/vendor/line-awesome.css">
+    <link rel="stylesheet" href="~/Assets/client/css/vendor/themify.css">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="~/Assets/client/css/plugins/animate.css">
+    <link rel="stylesheet" href="~/Assets/client/css/plugins/owl-carousel.css">
+    <link rel="stylesheet" href="~/Assets/client/css/plugins/slick.css">
+    <link rel="stylesheet" href="~/Assets/client/css/plugins/magnific-popup.css">
+    <link rel="stylesheet" href="~/Assets/client/css/plugins/jquery-ui.css">
+    @RenderSection("thirdPartyCss", false)
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/Assets/client/css/style.css">
 
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
+    <div class="main-wrapper">
+        <!-- Header -->
+        @Html.Action("header", "nav")
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
+
+        <!-- Footer -->
+        @Html.Action("footer", "nav")
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <!-- JS
+    ============================================ -->
+    <!-- Core JS -->
+    <script src="~/Assets/client/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="~/Assets/client/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="~/Assets/client/js/vendor/popper.js"></script>
+    <script src="~/Assets/client/js/vendor/bootstrap.min.js"></script>
+
+    <!-- Plugins JS -->
+    <script src="~/Assets/client/js/plugins/countdown.js"></script>
+    <script src="~/Assets/client/js/plugins/counterup.js"></script>
+    <script src="~/Assets/client/js/plugins/images-loaded.js"></script>
+    <script src="~/Assets/client/js/plugins/isotope.js"></script>
+    <script src="~/Assets/client/js/plugins/instafeed.js"></script>
+    <script src="~/Assets/client/js/plugins/jquery-ui.js"></script>
+    <script src="~/Assets/client/js/plugins/jquery-ui-touch-punch.js"></script>
+    <script src="~/Assets/client/js/plugins/magnific-popup.js"></script>
+    <script src="~/Assets/client/js/plugins/owl-carousel.js"></script>
+    <script src="~/Assets/client/js/plugins/scrollup.js"></script>
+    <script src="~/Assets/client/js/plugins/waypoints.js"></script>
+    <script src="~/Assets/client/js/plugins/slick.js"></script>
+    <script src="~/Assets/client/js/plugins/wow.js"></script>
+    <script src="~/Assets/client/js/plugins/textillate.js"></script>
+    <script src="~/Assets/client/js/plugins/elevatezoom.js"></script>
+    <script src="~/Assets/client/js/plugins/sticky-sidebar.js"></script>
+    <script src="~/Assets/client/js/plugins/smoothscroll.js"></script>
+    @RenderSection("thirdPartyJs", false)
+
+    <!-- Main JS -->
+    <script src="~/Assets/client/js/main.js"></script>
 </body>
+
 </html>

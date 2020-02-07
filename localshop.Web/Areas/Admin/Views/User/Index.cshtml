@@ -1,7 +1,7 @@
 ﻿@model ListUserWithRolesViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "User";
 }
 
 @section topbar {
@@ -86,7 +86,7 @@
                             </td>
                             <td>@(Html.Raw(user.User.LockoutEnabled ? "<span class='text-danger'>Blocked</span>" : "None"))</td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-outline-danger btn-sm ls-user-delete" title="Delete user">
+                                <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm ls-user-delete" title="Delete user">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
                             </td>
