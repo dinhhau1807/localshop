@@ -160,6 +160,7 @@ namespace localshop.Areas.Admin.Controllers
         }
 
 
+        #region Helpers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -180,7 +181,6 @@ namespace localshop.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
-        #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

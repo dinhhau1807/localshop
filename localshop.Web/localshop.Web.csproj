@@ -259,6 +259,9 @@
     <Compile Include="Infrastructures\MappingProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Account\LoginRegisterViewModel.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\admin\css\app-rtl.css" />
@@ -806,6 +809,7 @@
     <Content Include="Assets\client\js\plugins\magnific-popup.js" />
     <Content Include="Assets\client\js\plugins\owl-carousel.js" />
     <Content Include="Assets\client\js\plugins\parallax.js" />
+    <Content Include="Assets\client\js\plugins\parsley.js" />
     <Content Include="Assets\client\js\plugins\plugins.js" />
     <Content Include="Assets\client\js\plugins\plugins.min.js" />
     <Content Include="Assets\client\js\plugins\scrollup.js" />
@@ -1571,8 +1575,6 @@
     <Folder Include="Assets\files\.ckfinder\cache\data\Files\" />
     <Folder Include="Assets\files\files\" />
     <Folder Include="Models\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\files\.ckfinder\cache\data\Images\11.jpg.cache" />
@@ -1673,6 +1675,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Nav\_Footer.cshtml" />
     <Content Include="Views\Nav\_Header.cshtml" />
+    <Content Include="Views\Account\LoginRegister.cshtml" />
+    <Content Include="Views\Account\_Login.cshtml" />
+    <Content Include="Views\Account\_Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\localshop.Core\localshop.Core.csproj">

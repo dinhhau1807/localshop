@@ -1,0 +1,96 @@
+﻿@model LoginRegisterViewModel
+
+@{
+    ViewBag.Title = "Login - Register";
+}
+
+@section thirdPartyCss {
+    <style>
+        .parsley-errors-list {
+            color: lightcoral;
+            margin-top: -20px;
+            margin-bottom: 20px;
+        }
+
+        .parsley-success {
+            border: solid 1px lightgreen !important;
+        }
+
+        .parsley-error {
+            border: solid 1px lightcoral !important;
+        }
+
+        .ls-error {
+            margin-bottom: 0;
+        }
+    </style>
+}
+
+@section thirdPartyJs {
+    <script src="~/Assets/client/js/plugins/parsley.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ('@TempData["ActiveRegister"]' == 'active') {
+                $('#registerTab').trigger('click');
+            }
+
+            $('form').parsley();
+            $.listen('parsley:field:error', function(ParsleyField) {
+                ParsleyField.$element.prev('i.fa').removeClass('ls-success').addClass('ls-error');
+            });
+            $.listen('parsley:field:success', function(ParsleyField) {
+                ParsleyField.$element.prev('i.fa').removeClass('ls-error').addClass("ls-success");
+            });
+        });
+    </script>
+}
+
+<div class="breadcrumb-area bg-img" style="background-image:url(/Assets/client/images/bg/breadcrumb.jpg);">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <h2>Account</h2>
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li class="active">@ViewBag.Title</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="login-register-area pt-85 pb-90">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a id="loginTab" class="active" data-toggle="tab" href="#lg1">
+                            <h4> login </h4>
+                        </a>
+                        <a id="registerTab" data-toggle="tab" href="#lg2">
+                            <h4> register </h4>
+                        </a>
+                    </div>
+                    <div class="tab-content">
+                        <div id="lg1" class="tab-pane active">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    @{Html.RenderPartial("_Login", Model.Login);}
+                                </div>
+                            </div>
+                        </div>
+                        <div id="lg2" class="tab-pane">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    @{Html.RenderPartial("_Register", Model.Register);}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

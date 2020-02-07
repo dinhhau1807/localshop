@@ -1,4 +1,7 @@
-﻿@model ListUserWithRolesViewModel
+﻿@using localshop.Core.Common
+
+@model ListUserWithRolesViewModel
+
 
 @{
     ViewBag.Title = "User";
@@ -70,10 +73,15 @@
                             <td>@user.User.PhoneNumber</td>
                             <td>@user.User.CreatedDate.ToShortDateString()</td>
                             <td>
-                                <select class="badge badge-light user-role">
+                                <select class="badge @(user.Roles.Count > 0?"badge-light":"badge-warning") user-role">
                                     @foreach (var role in Model.Roles)
                                     {
-                                        if (role.Name == user.Roles.First())
+                                        var r = user.Roles.FirstOrDefault();
+                                        if (r != null && role.Name == r)
+                                        {
+                                            <option value="@role.Name" selected>@role.Name</option>
+                                        }
+                                        else if (r == null && role.Name == RoleNames.Customer)
                                         {
                                             <option value="@role.Name" selected>@role.Name</option>
                                         }

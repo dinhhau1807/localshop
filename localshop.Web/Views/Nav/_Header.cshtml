@@ -1,25 +1,37 @@
-﻿<!-- Navigation -->
+﻿@using localshop.Core.Common
+
+<!-- Navigation -->
 <header class="header-area header-padding-4">
     <div class="main-header-wrap">
         <div class="header-top pt-15 pb-15 bg-black-3">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-lg-4">
                         <div class="welcome">
-                            <p>Welcome to localshop</p>
+                            <p>
+                                Welcome to localshop
+                            </p>
                         </div>
                     </div>
                     <div class="col-lg-8">
                         <div class="setting-wrap-2">
                             <div class="setting-content2-right">
-                                @if (User.Identity.IsAuthenticated)
+                                @if (User.Identity.IsAuthenticated && 
+                                   !(User.IsInRole(RoleNames.Root) || 
+                                     User.IsInRole(RoleNames.Administrator) || 
+                                     User.IsInRole(RoleNames.Modifier)))
                                 {
-                                    <a href="wishlist.html">Wishlist</a>
-                                    <a href="my-account.html">My Account</a>
+                                <a href="wishlist.html">Wishlist</a>
+                                <a href="my-account.html">My Account</a>
+                                using (Html.BeginForm("logout", "account", FormMethod.Post, new { @class="ml-3 d-inline-block" }))
+                                {
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-dark btn-sm" type="submit">Logout</button>
+                                }
                                 }
                                 else
                                 {
-                                    @Html.ActionLink("Sign in", "login", "account")
+                                @Html.ActionLink("Sign in", "login", "account", new { returnUrl = Request.Url.AbsolutePath }, null)
                                 }
                             </div>
                         </div>
