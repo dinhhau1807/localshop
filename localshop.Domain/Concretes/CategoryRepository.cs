@@ -30,6 +30,17 @@ namespace localshop.Domain.Concretes
             }
         }
 
+        public string GetCategory(string categoryId)
+        {
+            var category = _context.Categories.FirstOrDefault(c => c.Id == categoryId);
+            if (category == null)
+            {
+                return null;
+            }
+
+            return category.Name;
+        }
+
         public int CountProduct(string id)
         {
             return _context.Products.Count(p => p.CategoryId == id);

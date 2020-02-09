@@ -19,5 +19,6 @@ namespace localshop.Domain.Abstractions
 
         bool Save(CategoryDTO categoryDTO);
 
+        string GetCategory(string categoryId);
     }
 }

@@ -49,21 +49,6 @@ namespace localshop.Domain.Concretes
             return _mapper.Map<Product, ProductDTO>(product);
         }
 
-        public bool SetStatus(string productId, string statusName)
-        {
-            var product = _context.Products.FirstOrDefault(p => p.Id == productId);
-            var statusIds = _context.Statuses.Where(s => s.Name == statusName).Select(s => s.Id);
-
-            if (product != null && statusIds.Count() > 0)
-            {
-                product.StatusId = statusIds.First();
-                _context.SaveChanges();
-                return true;
-            }
-
-            return false;
-        }
-
         public ProductDTO Delete(string id)
         {
             var product = _context.Products.First(p => p.Id == id);

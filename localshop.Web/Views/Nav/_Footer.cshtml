@@ -1,11 +1,12 @@
-﻿
+﻿@using localshop.Core.Common
+
 <footer class="footer-area bg-black-3 pt-100 section-padding-4">
     <div class="container-fluid">
         <div class="footer-top pb-60">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-12 col-sm-6">
                     <div class="footer-widget footer-contact-wrap-2 mb-40">
-                        <a href="/"><img src="~/Assets/admin/images/logo-light.png" width="250" alt="logo"></a>
+                        <a href="/"><img src="@ImageLinks.LogoLight" width="250" alt="logo"></a>
                         <div class="footer-contact-content-2">
                             <div class="footer-info-hm5">
                                 <span>Phone</span>
@@ -13,7 +14,7 @@
                             </div>
                             <div class="footer-info-hm5">
                                 <span>Mail</span>
-                                <p><a href="mailto:localshop@gmail.com">localshop@gmail.com</a></p>
+                                <p><a href="mailto:localshop@example.com">localshop@example.com</a></p>
                             </div>
                             <div class="footer-social-hm5">
                                 <span>Follow us</span>
@@ -86,7 +87,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 col-md-6 col-sm-6 text-center">
                     <div class="copyright-2">
-                        <p>Copyright © <a href="/">localshop</a>. All Right Reserved</p>
+                        <p>Copyright © <a href="@Url.Action("index", "home")">localshop</a>. All Right Reserved</p>
                     </div>
                 </div>
             </div>

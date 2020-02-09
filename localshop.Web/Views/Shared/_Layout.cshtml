@@ -43,7 +43,6 @@
         <!-- ============================================================== -->
         <!-- End Page content -->
         <!-- ============================================================== -->
-
         <!-- Footer -->
         @Html.Action("footer", "nav")
     </div>
@@ -78,6 +77,19 @@
 
     <!-- Main JS -->
     <script src="~/Assets/client/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(document).on('stickAdd', function () {
+                $('.stick-active').removeClass('d-none').addClass('d-block');
+                $('.stick-main').removeClass('col-md-12').addClass('col-xl-8 col-lg-7');
+            });
+
+            $(document).on('stickRemove', function () {
+                $('.stick-active').removeClass('d-block').addClass('d-none');
+                $('.stick-main').removeClass('col-xl-8 col-lg-7').addClass('col-md-12');
+            });
+        });
+    </script>
 </body>
 
 </html>

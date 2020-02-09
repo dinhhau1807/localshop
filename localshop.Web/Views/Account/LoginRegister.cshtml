@@ -19,10 +19,6 @@
         .parsley-error {
             border: solid 1px lightcoral !important;
         }
-
-        .ls-error {
-            margin-bottom: 0;
-        }
     </style>
 }
 
@@ -34,14 +30,6 @@
             if ('@TempData["ActiveRegister"]' == 'active') {
                 $('#registerTab').trigger('click');
             }
-
-            $('form').parsley();
-            $.listen('parsley:field:error', function(ParsleyField) {
-                ParsleyField.$element.prev('i.fa').removeClass('ls-success').addClass('ls-error');
-            });
-            $.listen('parsley:field:success', function(ParsleyField) {
-                ParsleyField.$element.prev('i.fa').removeClass('ls-error').addClass("ls-success");
-            });
         });
     </script>
 }

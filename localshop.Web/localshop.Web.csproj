@@ -251,17 +251,22 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructures\Attributes\AdminAuthorizeAttribute.cs" />
     <Compile Include="Infrastructures\CKFinderAuthenticator.cs" />
     <Compile Include="Infrastructures\MappingProfile.cs" />
+    <Compile Include="Models\PriceFilter.cs" />
+    <Compile Include="Models\SortBy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Account\LoginRegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Shop\ProductViewModel.cs" />
+    <Compile Include="ViewModels\Shop\ShopViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\admin\css\app-rtl.css" />
@@ -1574,7 +1579,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Assets\files\.ckfinder\cache\data\Files\" />
     <Folder Include="Assets\files\files\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\files\.ckfinder\cache\data\Images\11.jpg.cache" />
@@ -1678,6 +1682,7 @@
     <Content Include="Views\Account\LoginRegister.cshtml" />
     <Content Include="Views\Account\_Login.cshtml" />
     <Content Include="Views\Account\_Register.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\localshop.Core\localshop.Core.csproj">

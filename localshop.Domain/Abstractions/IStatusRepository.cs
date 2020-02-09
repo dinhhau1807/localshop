@@ -10,5 +10,7 @@ namespace localshop.Domain.Abstractions
     public interface IStatusRepository : IDisposable
     {
         IEnumerable<StatusDTO> Statuses { get; }
+        bool SetStatus(string productId, string statusName);
+        string GetStatus(string statusId);
     }
 }

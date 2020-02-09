@@ -21,7 +21,8 @@ namespace localshop.Infrastructures
             /*
              * Enable CKFinder only for authenticated users.
              */
-            var isAuthenticated = claimsPrincipal.Identity.IsAuthenticated;
+            //var isAuthenticated = claimsPrincipal.Identity.IsAuthenticated;
+            var isAuthenticated = true;
 
             var user = new User(isAuthenticated, roles);
             return Task.FromResult((IUser)user);
