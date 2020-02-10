@@ -23,30 +23,47 @@ namespace localshop.Controllers
             _statusRepo = statusRepo;
         }
 
-        public ActionResult Index(int? page, int? view, int? minPrie, int? maxPrice, SortByEnums? sortBy)
+        public ActionResult Index(ProductFilter filter)
         {
+            // Set null with defautl filter
+            filter.View = filter.View.GetValueOrDefault(20) == 20 ? null : filter.View;
+            filter.SortBy = filter.SortBy.GetValueOrDefault(SortByEnums.Default) == SortByEnums.Default ? null : filter.SortBy;
+
+            // Get all active product
             var products = _productRepo.Products.Where(p => p.IsActive == true).ToList();
 
-            var model = new ShopViewModel
+            // Filter
+            // -- Search
+            if (!string.IsNullOrWhiteSpace(filter.Search))
             {
-                PagingInfo = new PagingInfo
-                {
-                    CurrentPage = page.GetValueOrDefault(1),
-                    ItemsPerPage = view.GetValueOrDefault(20),
-                    TotalItems = products.Count()
-                },
-                Products = new List<ProductViewModel>(),
-                Categories = _categoryRepo.Categories.AsEnumerable(),
-                Statuses = _statusRepo.Statuses.AsEnumerable(),
+                products = products.Where(p => p.Name.ToLower().ToUnsigned().Contains(filter.Search.ToLower().ToUnsigned())).ToList();
+            }
 
-                FilteredResult = products.Count(),
-                SortBy = sortBy.GetValueOrDefault(SortByEnums.Default) == SortByEnums.Default ? null : sortBy,
-                View = view.GetValueOrDefault(20) == 20 ? null : view,
+            // -- Category
+            if (!string.IsNullOrWhiteSpace(filter.Category))
+            {
+                var categoryId = _categoryRepo.GetId(filter.Category);
+                products = products.Where(p => p.CategoryId == categoryId).ToList();
+            }
 
-                PriceFilter = new PriceFilter()
-            };
+            // -- Price
+            if (products.Count > 0)
+            {
+                filter.PriceFilter.MinPrice = Math.Floor(products.Min(p => p.DiscountPrice ?? p.Price));
+                filter.PriceFilter.MaxPrice = Math.Ceiling(products.Max(p => p.DiscountPrice ?? p.Price));
+            }
+            else
+            {
+                filter.PriceFilter.MinPrice = 0;
+                filter.PriceFilter.MaxPrice = 1;
+            }
+            if (filter.MinPrice != null && filter.MaxPrice != null)
+            {
+                products = products.Where(p => ((p.DiscountPrice ?? p.Price) >= filter.MinPrice.Value) && ((p.DiscountPrice ?? p.Price) <= filter.MaxPrice.Value)).ToList();
+            }
 
-            switch (sortBy)
+            // -- Sort by
+            switch (filter.SortBy)
             {
                 case SortByEnums.NameAZ:
                     products = products.OrderBy(p => p.Name).ToList();
@@ -65,18 +82,24 @@ namespace localshop.Controllers
                     break;
             }
 
-            products = products.Skip((model.PagingInfo.CurrentPage - 1) * model.PagingInfo.ItemsPerPage).Take(model.PagingInfo.ItemsPerPage).ToList();
+            // Get result
+            filter.FilteredResult = products.Count;
 
-            if (products.Count > 0)
+            var model = new ShopViewModel
             {
-                model.PriceFilter.MinPrice = products.Select(p => p.DiscountPrice ?? p.Price).Min();
-                model.PriceFilter.MaxPrice = products.Select(p => p.DiscountPrice ?? p.Price).Max();
-            }
-            else
-            {
-                model.PriceFilter.MinPrice = 0;
-                model.PriceFilter.MaxPrice = 1;
-            }
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = filter.Page.GetValueOrDefault(1),
+                    ItemsPerPage = filter.View.GetValueOrDefault(20),
+                    TotalItems = products.Count()
+                },
+                Products = new List<ProductViewModel>(),
+                Categories = _categoryRepo.Categories.AsEnumerable(),
+                Statuses = _statusRepo.Statuses.AsEnumerable(),
+                Filter = filter
+            };
+
+            products = products.Skip((model.PagingInfo.CurrentPage - 1) * model.PagingInfo.ItemsPerPage).Take(model.PagingInfo.ItemsPerPage).ToList();
 
             foreach (var p in products)
             {

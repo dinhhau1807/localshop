@@ -259,6 +259,7 @@
     <Compile Include="Infrastructures\CKFinderAuthenticator.cs" />
     <Compile Include="Infrastructures\MappingProfile.cs" />
     <Compile Include="Models\PriceFilter.cs" />
+    <Compile Include="Models\ProductFilter.cs" />
     <Compile Include="Models\SortBy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
