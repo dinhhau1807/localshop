@@ -251,13 +251,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructures\Attributes\AdminAuthorizeAttribute.cs" />
+    <Compile Include="Infrastructures\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructures\CKFinderAuthenticator.cs" />
+    <Compile Include="Infrastructures\ListRouteConstraint.cs" />
     <Compile Include="Infrastructures\MappingProfile.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\PriceFilter.cs" />
     <Compile Include="Models\ProductFilter.cs" />
     <Compile Include="Models\SortBy.cs" />
@@ -266,6 +270,8 @@
     <Compile Include="ViewModels\Account\LoginRegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Product\ProductDetailViewModel.cs" />
+    <Compile Include="ViewModels\Product\ProductRelatedViewModel.cs" />
     <Compile Include="ViewModels\Shop\ProductViewModel.cs" />
     <Compile Include="ViewModels\Shop\ShopViewModel.cs" />
   </ItemGroup>
@@ -803,6 +809,7 @@
     <Content Include="Assets\client\images\testimonial\client-1.png" />
     <Content Include="Assets\client\images\testimonial\client-2.png" />
     <Content Include="Assets\client\images\testimonial\client-3.png" />
+    <Content Include="Assets\client\js\controllers\shop\index.js" />
     <Content Include="Assets\client\js\main.js" />
     <Content Include="Assets\client\js\plugins\countdown.js" />
     <Content Include="Assets\client\js\plugins\counterup.js" />
@@ -1684,6 +1691,7 @@
     <Content Include="Views\Account\_Login.cshtml" />
     <Content Include="Views\Account\_Register.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\localshop.Core\localshop.Core.csproj">

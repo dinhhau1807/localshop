@@ -18,6 +18,8 @@ namespace localshop.Domain.Abstractions
 
         ProductDTO FindBySku(string sku);
 
+        ProductDTO FindByMetaTitle(string metaTitle);
+
         void Save(ProductDTO product);
 
         ProductDTO Delete(string id);

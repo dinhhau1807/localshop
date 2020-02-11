@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace localshop.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         private IMapper _mapper;
         private IProductRepository _productRepo;

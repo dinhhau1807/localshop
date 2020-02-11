@@ -28,7 +28,7 @@ namespace localshop.Domain.Concretes
         {
             get
             {
-                return _context.Products.AsEnumerable().Select(p => _mapper.Map<Product, ProductDTO>(p));
+                return _context.Products.Where(p => p.IsActive == true).AsEnumerable().Select(p => _mapper.Map<Product, ProductDTO>(p));
             }
         }
 
@@ -39,13 +39,19 @@ namespace localshop.Domain.Concretes
 
         public ProductDTO FindById(string id)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = _context.Products.Where(p => p.IsActive == true).FirstOrDefault(p => p.Id == id);
             return _mapper.Map<Product, ProductDTO>(product);
         }
 
         public ProductDTO FindBySku(string sku)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Sku == sku);
+            var product = _context.Products.Where(p => p.IsActive == true).FirstOrDefault(p => p.Sku == sku);
+            return _mapper.Map<Product, ProductDTO>(product);
+        }
+
+        public ProductDTO FindByMetaTitle(string metaTitle)
+        {
+            var product = _context.Products.Where(p => p.IsActive == true).FirstOrDefault(p => p.MetaTitle == metaTitle);
             return _mapper.Map<Product, ProductDTO>(product);
         }
 

@@ -30,7 +30,7 @@ namespace localshop.Controllers
             filter.SortBy = filter.SortBy.GetValueOrDefault(SortByEnums.Default) == SortByEnums.Default ? null : filter.SortBy;
 
             // Get all active product
-            var products = _productRepo.Products.Where(p => p.IsActive == true).ToList();
+            var products = _productRepo.Products.ToList();
 
             // Filter
             // -- Search

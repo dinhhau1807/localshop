@@ -18,6 +18,7 @@ namespace localshop.Models
 
         public int FilteredResult { get; set; }
 
+
         // Right filter bar
         public int? Page { get; set; }
         public int? View { get; set; }
