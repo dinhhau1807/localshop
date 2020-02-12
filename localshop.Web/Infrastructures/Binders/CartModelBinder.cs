@@ -22,7 +22,7 @@ namespace localshop.Infrastructures
             if (cart == null)
             {
                 cart = new Cart();
-                if (controllerContext.HttpContext.Session == null)
+                if (controllerContext.HttpContext.Session != null)
                 {
                     controllerContext.HttpContext.Session[sessionKey] = cart;
                 }

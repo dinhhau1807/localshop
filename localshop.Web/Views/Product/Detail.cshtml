@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
-                <div class="product-details-content pro-details-content-modify">
+                <div id="product-detail" class="product-details-content pro-details-content-modify">
                     <span>@Model.Category</span>
                     <h2>@Model.Product.Name</h2>
                     <div class="product-ratting-review">
@@ -89,7 +89,7 @@
                     </div>
                     <div class="pro-details-quality">
                         <div class="cart-plus-minus">
-                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="02">
+                            <input class="cart-plus-minus-box" type="text" name="Quantity" value="1">
                         </div>
                     </div>
                     <div class="pro-details-compare-wishlist">
@@ -103,7 +103,7 @@
                     @if (Model.Status != StatusNames.OutOfStock)
                     {
                         <div class="pro-details-buy-now btn-hover btn-hover-radious">
-                            <a href="#">Add To Cart</a>
+                            <a class="add-to-cart" href="javascript:void(0)" data-productid="@Model.Product.Id">Add To Cart</a>
                         </div>
                     }
                 </div>
@@ -297,7 +297,7 @@
                     </div>
                     <div class="product-content">
                         <span>@p.Category</span>
-                        <h4><a href="product-details.html">@p.Product.Name</a></h4>
+                        <h4><a href="@Url.Action("detail", "product", new { metaTitle = p.Product.MetaTitle })">@p.Product.Name</a></h4>
                         <div class="price-addtocart">
                             <div class="product-price">
                                 @if (p.Product.DiscountPrice != null)
@@ -313,7 +313,7 @@
                             @if (p.Status != StatusNames.OutOfStock)
                             {
                                 <div class="product-addtocart">
-                                    <a title="Add To Cart" href="#">+ Add To Cart</a>
+                                    <a class="add-to-cart" title="Add To Cart" href="javascript:void(0)" data-productid="@p.Product.Id">+ Add To Cart</a>
                                 </div>
                             }
                         </div>

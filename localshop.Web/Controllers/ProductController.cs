@@ -1,9 +1,7 @@
 ﻿using localshop.Domain.Abstractions;
 using localshop.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace localshop.Controllers
@@ -38,7 +36,7 @@ namespace localshop.Controllers
             };
             product.Images = _productRepo.GetImages(product.Id).ToList();
 
-            var relatedProduct = _productRepo.Products.Where(p => p.CategoryId == product.CategoryId).ToList();
+            var relatedProduct = _productRepo.Products.Where(p => p.CategoryId == product.CategoryId && p.Id!= product.Id).ToList();
             foreach (var p in relatedProduct)
             {
                 var related = new ProductRelatedViewModel

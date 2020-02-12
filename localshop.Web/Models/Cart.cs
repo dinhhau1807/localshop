@@ -14,44 +14,16 @@ namespace localshop.Models
 
     public class Cart
     {
-        private List<CartLine> lineCollection = new List<CartLine>();
+        public List<CartLine> LineCollection = new List<CartLine>();
 
-        public IEnumerable<CartLine> Lines
+        public decimal Summary
         {
-            get { return lineCollection; }
+            get { return LineCollection.Sum(l => (l.Product.DiscountPrice ?? l.Product.Price) * l.Quantity); }
         }
 
-        public void AddItem(ProductDTO product, int quantity)
+        public int SummaryQuantity
         {
-            CartLine line = lineCollection.Where(p => p.Product.Id == product.Id).FirstOrDefault();
-
-            if (line == null)
-            {
-                line = new CartLine
-                {
-                    Product = product,
-                    Quantity = quantity
-                };
-            }
-            else
-            {
-                line.Quantity += quantity;
-            }
-        }
-
-        public void RemoveLine(ProductDTO product)
-        {
-            lineCollection.RemoveAll(l => l.Product.Id == product.Id);
-        }
-
-        public decimal Summary()
-        {
-            return lineCollection.Sum(l => (l.Product.DiscountPrice ?? l.Product.Price) * l.Quantity);
-        }
-
-        public void Clear()
-        {
-            lineCollection.Clear();
+            get { return LineCollection.Sum(l => l.Quantity); }
         }
     }
 }

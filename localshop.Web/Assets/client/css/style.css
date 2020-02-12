@@ -3106,7 +3106,7 @@ button, input, optgroup, select, textarea {
     position: absolute;
     right: 15px;
     top: 100%;
-    width: 300px;
+    width: 350px;
     z-index: 9999;
     -webkit-box-shadow: 0 0 20px 0.4px rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 20px 0.4px rgba(0, 0, 0, 0.1);
