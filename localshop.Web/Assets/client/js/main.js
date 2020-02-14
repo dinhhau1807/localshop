@@ -1017,6 +1017,25 @@ function custom() {
             $('.stick-main').removeClass('col-xl-8 col-lg-7').addClass('col-md-12');
         });
 
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
         // Get cart
         $.ajax({
             type: "GET",
@@ -1024,9 +1043,6 @@ function custom() {
             url: "/cart/getCart",
             success: function (response) {
                 if (response.success) {
-                    console.log("Get cart!");
-                    console.log(response.cart);
-
                     response.cart.LineCollection.forEach(l => {
                         let product = l.Product;
                         let item = `<li class="single-shopping-cart">
@@ -1058,11 +1074,11 @@ function custom() {
                     $('.count-style-3').text(response.summaryQuantity);
                     $('.count-style').text(`${response.summaryQuantity} Items`);
                 } else {
-                    console.log("Something went wrong!");
+                    toastr["error"]("Something went wrong!");
                 }
             },
             error: function () {
-                console.log("Something went wrong!");
+                toastr["error"]("Something went wrong!");
             }
         });
 
@@ -1077,13 +1093,20 @@ function custom() {
                 type: "POST",
                 dataType: "json",
                 url: "/cart/addToCart",
-                data: { productId, quantity },
+                data: {
+                    productId,
+                    quantity
+                },
                 success: function (response) {
                     if (response.success) {
-                        console.log(response.cart);
+                        if (response.warningMessage) {
+                            toastr["warning"]("Some product is out of stock, so you can only set max quantity we have in stock!");
+                        } else {
+                            toastr["success"]("Added product to cart!");
+                        }
 
                         var line = response.cart.LineCollection.find(p => p.Product.Id == productId);
-                        var product = line.Product;
+                        var product = line ? line.Product : null;
 
                         if (response.addNew) {
                             var newItem = `<li class="single-shopping-cart">
@@ -1117,13 +1140,15 @@ function custom() {
                         $('.count-style').text(`${response.summaryQuantity} Items`);
 
                         // Update line quantity
-                        $('.cart-product-quantity').parent().find(`[data-productId="${product.Id}"]`).text(`(x${line.Quantity})`);
+                        if (product) {
+                            $('.cart-product-quantity').parent().find(`[data-productId="${product.Id}"]`).text(`(x${line.Quantity})`);
+                        };
                     } else {
-                        console.log("Something went wrong!");
+                        toastr["error"]("Something went wrong!");
                     }
                 },
                 error: function () {
-                    console.log("Something went wrong!");
+                    toastr["error"]("Something went wrong!");
                 }
             })
         });
@@ -1142,8 +1167,6 @@ function custom() {
                 data: { productId },
                 success: function (response) {
                     if (response.success) {
-                        console.log(response.cart);
-
                         // Update cart summary
                         $('.shop-total').text(`$${response.summary}`);
                         $('.mini-cart-price-3').text(`$${response.summary}`);
@@ -1156,13 +1179,13 @@ function custom() {
                         // Remove item
                         lines.remove();
                     } else {
-                        console.log("Something went wrong!");
+                        toastr["error"]("Something went wrong!");
                     }
                 },
                 error: function () {
-                    console.log("Something went wrong!");
+                    toastr["error"]("Something went wrong!");
                 }
-            })
+            });
         });
     });
 }

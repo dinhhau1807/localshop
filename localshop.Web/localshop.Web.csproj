@@ -536,6 +536,8 @@
     <Content Include="Assets\client\css\plugins\plugins.css" />
     <Content Include="Assets\client\css\plugins\plugins.min.css" />
     <Content Include="Assets\client\css\plugins\slick.css" />
+    <Content Include="Assets\client\css\plugins\toastr.css" />
+    <Content Include="Assets\client\css\plugins\toastr.min.css" />
     <Content Include="Assets\client\css\style.css" />
     <Content Include="Assets\client\css\style.min.css" />
     <Content Include="Assets\client\css\vendor\bootstrap.min.css" />
@@ -831,6 +833,7 @@
     <Content Include="Assets\client\js\plugins\smoothscroll.js" />
     <Content Include="Assets\client\js\plugins\sticky-sidebar.js" />
     <Content Include="Assets\client\js\plugins\textillate.js" />
+    <Content Include="Assets\client\js\plugins\toastr.min.js" />
     <Content Include="Assets\client\js\plugins\waypoints.js" />
     <Content Include="Assets\client\js\plugins\wow.js" />
     <Content Include="Assets\client\js\vendor\bootstrap.min.js" />
@@ -1683,6 +1686,7 @@
     <Content Include="Assets\client\scss\_slider.scss" />
     <Content Include="Assets\client\scss\_variabls.scss" />
     <Content Include="Assets\client\images\slider\hm6-bg-1_346142d1-6106-4615-ab60-229cc0430c5f.jpg" />
+    <Content Include="Assets\client\js\plugins\toastr.js.map" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -1693,6 +1697,7 @@
     <Content Include="Views\Account\_Register.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\localshop.Core\localshop.Core.csproj">

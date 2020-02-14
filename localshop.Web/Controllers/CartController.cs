@@ -1,11 +1,13 @@
 ﻿using localshop.Core.Common;
 using localshop.Domain.Abstractions;
 using localshop.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace localshop.Controllers
 {
@@ -16,6 +18,12 @@ namespace localshop.Controllers
         public CartController(IProductRepository productRepo)
         {
             _productRepo = productRepo;
+        }
+
+        [HttpGet]
+        public ViewResult Index(Cart cart)
+        {
+            return View(cart);
         }
 
         [HttpGet]
@@ -34,31 +42,53 @@ namespace localshop.Controllers
         public JsonResult AddToCart(Cart cart, string productId, int quantity = 1)
         {
             bool addNew = false;
+            var warningMessage = "";
+
+            if (quantity < 0)
+            {
+                quantity = 1;
+            }
 
             var product = _productRepo.FindById(productId);
             if (product != null)
             {
                 CartLine line = cart.LineCollection.Where(p => p.Product.Id == product.Id).FirstOrDefault();
 
-                if (line == null)
+                if (product.Quantity != 0)
                 {
-                    line = new CartLine
+                    if (quantity != 0)
                     {
-                        Product = product,
-                        Quantity = quantity
-                    };
-                    product.Images = _productRepo.GetImages(product.Id).ToList();
-                    if (product.Images.Count == 0)
-                    {
-                        product.Images.Add(ImageLinks.BrokenProductImage);
+                        if (line == null)
+                        {
+                            line = new CartLine
+                            {
+                                Product = product,
+                                Quantity = quantity
+                            };
+                            product.Images = _productRepo.GetImages(product.Id).ToList();
+                            if (product.Images.Count == 0)
+                            {
+                                product.Images.Add(ImageLinks.BrokenProductImage);
+                            }
+
+                            cart.LineCollection.Add(line);
+                            addNew = true;
+                        }
+                        else
+                        {
+                            line.Quantity += quantity;
+                        }
                     }
 
-                    cart.LineCollection.Add(line);
-                    addNew = true;
+                    if (line.Quantity > product.Quantity)
+                    {
+                        line.Quantity = product.Quantity;
+                        warningMessage = "Some product is out of stock, so you can only set max quantity we have in stock!";
+                    }
                 }
                 else
                 {
-                    line.Quantity += quantity;
+                    warningMessage = "Some product is out of stock, so you can only set max quantity we have in stock!";
                 }
             }
 
@@ -66,6 +96,7 @@ namespace localshop.Controllers
             {
                 success = true,
                 addNew = addNew,
+                warningMessage = warningMessage,
                 cart = cart,
                 summary = cart.Summary,
                 summaryQuantity = cart.SummaryQuantity
@@ -91,17 +122,63 @@ namespace localshop.Controllers
         }
 
         [HttpPost]
-        public JsonResult ClearAll(Cart cart)
+        public ActionResult RemoveProduct(Cart cart, string productId)
         {
-            cart.LineCollection.Clear();
+            var product = _productRepo.FindById(productId);
+            if (product != null)
+            {
+                cart.LineCollection.RemoveAll(l => l.Product.Id == product.Id);
+            }
+
+            return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCart(Cart cart, string model)
+        {
+            JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+            Line[] lines = json_serializer.Deserialize<Line[]>(model);
+
+            foreach (var product in lines)
+            {
+                var line = cart.LineCollection.FirstOrDefault(l => l.Product.Id == product.Id);
+                if (line != null)
+                {
+                    if (product.Quantity <= 0)
+                    {
+                        product.Quantity = 1;
+                    }
+
+                    if (product.Quantity > line.Product.Quantity)
+                    {
+                        TempData["OutOfStock"] = "true";
+                        if (line.Product.Quantity == 0)
+                        {
+                            cart.LineCollection.Remove(line);
+                        }
+                        else
+                        {
+                            line.Quantity = line.Product.Quantity;
+                        }
+                    }
+                    else
+                    {
+                        line.Quantity = product.Quantity;
+                    }
+                }
+            }
 
             return Json(new
             {
                 success = true,
-                cart = cart,
-                summary = cart.Summary,
-                summaryQuantity = cart.SummaryQuantity
             });
+        }
+
+        [HttpPost]
+        public ActionResult ClearAll(Cart cart)
+        {
+            cart.LineCollection.Clear();
+            return RedirectToAction("index");
         }
     }
 }

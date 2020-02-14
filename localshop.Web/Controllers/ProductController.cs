@@ -42,7 +42,7 @@ namespace localshop.Controllers
                 var related = new ProductRelatedViewModel
                 {
                     Product = p,
-                    Status = _statusRepo.GetStatus(product.StatusId),
+                    Status = _statusRepo.GetStatus(p.StatusId),
                     Category = model.Category,
                 };
                 p.Images = _productRepo.GetImages(p.Id).ToList();

@@ -6,7 +6,7 @@
 }
 
 @section topbar {
-    @Html.Action("topbar", "nav", new { header = NavigationHeader.EditProduct + $": {Model.Product.Name.Truncate(100)}" })
+    @Html.Action("topbar", "nav", new { header = NavigationHeader.EditProduct })
 }
 
 @section thirdPartyCss {

@@ -1,4 +1,5 @@
 ﻿using localshop.Core.DTO;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,15 @@ using System.Web;
 
 namespace localshop.Models
 {
+    // For update cart via Json
+    public class Line
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
+    }
+
     public class CartLine
     {
         public ProductDTO Product { get; set; }
