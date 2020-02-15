@@ -250,6 +250,7 @@
     <Compile Include="Areas\Admin\ViewModels\Nav\TopbarViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -1698,6 +1699,7 @@
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\localshop.Core\localshop.Core.csproj">

@@ -25,6 +25,8 @@ namespace localshop.Domain.Concretes
         public DbSet<Category> Categories { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -69,6 +71,26 @@ namespace localshop.Domain.Concretes
                             pt.MapRightKey("TagId");
                             pt.ToTable("ProductTags");
                         });
+
+            //------------------------------------------------------------------------
+            // Orders
+            modelBuilder.Entity<Order>().HasKey(o => o.Id);
+            modelBuilder.Entity<Order>().Property(o => o.FirstName).IsRequired();
+            modelBuilder.Entity<Order>().Property(o => o.LastName).IsRequired();
+            modelBuilder.Entity<Order>().Property(o => o.Email).IsRequired();
+            modelBuilder.Entity<Order>().Property(o => o.PhoneNumber).IsRequired();
+            modelBuilder.Entity<Order>().Property(o => o.Country).IsRequired();
+            modelBuilder.Entity<Order>().Property(o => o.City).IsRequired();
+            modelBuilder.Entity<Order>().Property(o => o.State).IsRequired();
+            modelBuilder.Entity<Order>().Property(o => o.Zip).IsRequired();
+            modelBuilder.Entity<Order>().Property(o => o.Address1).IsRequired();
+
+            //------------------------------------------------------------------------
+            // OrderDetails
+            modelBuilder.Entity<OrderDetail>().HasKey(od => od.Id);
+            modelBuilder.Entity<OrderDetail>().Property(od => od.OrderId).IsRequired();
+            modelBuilder.Entity<OrderDetail>().Property(od => od.Name).IsRequired();
+            modelBuilder.Entity<OrderDetail>().Property(od => od.Sku).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

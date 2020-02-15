@@ -74,6 +74,8 @@
     <Compile Include="DTO\CategoryDTO.cs" />
     <Compile Include="DTO\EditProductDTO.cs" />
     <Compile Include="DTO\ImageDTO.cs" />
+    <Compile Include="DTO\OrderDetailDTO.cs" />
+    <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\StatusDTO.cs" />
     <Compile Include="DTO\TagDTO.cs" />

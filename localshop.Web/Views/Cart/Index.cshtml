@@ -31,6 +31,10 @@
                 toastr["warning"]("Some product is out of stock, so you can only set max quantity we have in stock!");
             }
 
+            if ("@TempData["EmptyMessage"]" == "true") {
+                toastr["info"]("Your cart is empty!");
+            }
+
             $('#cart-btn-update').off('click').on('click', function () {
                 var $trs = $('.cart-table-content tbody').children();
 
@@ -97,7 +101,7 @@
                                 <th>Until Price</th>
                                 <th>Qty</th>
                                 <th>Subtotal</th>
-                                <th>action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -168,16 +172,17 @@
                             <div class="title-wrap">
                                 <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                             </div>
-                            <h5>Total products <span>$260.00</span></h5>
-                            <div class="total-shipping">
-                                <h5>Total shipping</h5>
-                                <ul>
-                                    <li><input type="checkbox"> Standard <span>$20.00</span></li>
-                                    <li><input type="checkbox"> Express <span>$30.00</span></li>
-                                </ul>
-                            </div>
-                            <h4 class="grand-totall-title">Grand Total <span>$260.00</span></h4>
-                            <a href="#">Proceed to Checkout</a>
+                            <h5>Total products <span>$@Model.Summary</span></h5>
+                            @*<div class="total-shipping">
+                                    <h5>Total shipping</h5>
+                                    <ul>
+                                        <li><input type="checkbox"> Standard <span>$20.00</span></li>
+                                        <li><input type="checkbox"> Express <span>$30.00</span></li>
+                                    </ul>
+                                </div>*@
+                            <hr />
+                            <h4 class="grand-totall-title">Grand Total <span>$@Model.Summary</span></h4>
+                            <a href="@Url.Action("index", "checkout")">Proceed to Checkout</a>
                         </div>
                     </div>
                 </div>

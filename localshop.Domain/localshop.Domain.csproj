@@ -93,6 +93,8 @@
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Image.cs" />
+    <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\OrderDetail.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\Tag.cs" />
@@ -131,6 +133,14 @@
     <Compile Include="Migrations\202001290831045_Add_ProductTag.cs" />
     <Compile Include="Migrations\202001290831045_Add_ProductTag.designer.cs">
       <DependentUpon>202001290831045_Add_ProductTag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002150816140_Add_Order.cs" />
+    <Compile Include="Migrations\202002150816140_Add_Order.designer.cs">
+      <DependentUpon>202002150816140_Add_Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002151007301_Add_OrderDetail.cs" />
+    <Compile Include="Migrations\202002151007301_Add_OrderDetail.designer.cs">
+      <DependentUpon>202002151007301_Add_OrderDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -173,6 +183,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001290831045_Add_ProductTag.resx">
       <DependentUpon>202001290831045_Add_ProductTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002150816140_Add_Order.resx">
+      <DependentUpon>202002150816140_Add_Order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002151007301_Add_OrderDetail.resx">
+      <DependentUpon>202002151007301_Add_OrderDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

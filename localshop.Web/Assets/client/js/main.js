@@ -111,7 +111,7 @@
 
     /* Product slider active */
     $('.product-slider-active').owlCarousel({
-        loop: true,
+        loop: false,
         nav: false,
         autoplay: false,
         autoplayTimeout: 5000,
