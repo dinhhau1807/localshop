@@ -139,31 +139,32 @@ namespace localshop.Controllers
             JavaScriptSerializer json_serializer = new JavaScriptSerializer();
             Line[] lines = json_serializer.Deserialize<Line[]>(model);
 
-            foreach (var product in lines)
+            foreach (var productLine in lines)
             {
-                var line = cart.LineCollection.FirstOrDefault(l => l.Product.Id == product.Id);
+                var line = cart.LineCollection.FirstOrDefault(l => l.Product.Id == productLine.Id);
                 if (line != null)
                 {
-                    if (product.Quantity <= 0)
+                    if (productLine.Quantity <= 0)
                     {
-                        product.Quantity = 1;
+                        productLine.Quantity = 1;
                     }
 
-                    if (product.Quantity > line.Product.Quantity)
+                    var currentQuantity = _productRepo.FindById(line.Product.Id).Quantity;
+                    if (productLine.Quantity > currentQuantity)
                     {
                         TempData["OutOfStock"] = "true";
-                        if (line.Product.Quantity == 0)
+                        if (currentQuantity == 0)
                         {
                             cart.LineCollection.Remove(line);
                         }
                         else
                         {
-                            line.Quantity = line.Product.Quantity;
+                            line.Quantity = currentQuantity;
                         }
                     }
                     else
                     {
-                        line.Quantity = product.Quantity;
+                        line.Quantity = productLine.Quantity;
                     }
                 }
             }

@@ -21,7 +21,7 @@ namespace localshop.Domain.Entities
 
         public DateTime? UpdateDate { get; set; }
 
-        public DateTime ShipDate { get; set; }
+        public DateTime? ShipDate { get; set; }
 
         public string OrderNotes { get; set; }
 

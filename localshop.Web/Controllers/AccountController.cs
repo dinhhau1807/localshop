@@ -59,11 +59,7 @@ namespace localshop.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl = "")
         {
-            if (User.Identity.IsAuthenticated && !(
-                User.IsInRole(RoleNames.Root) ||
-                User.IsInRole(RoleNames.Administrator) ||
-                User.IsInRole(RoleNames.Modifier)
-                ))
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToLocal(returnUrl);
             }

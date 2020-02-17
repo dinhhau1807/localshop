@@ -11,6 +11,9 @@ namespace localshop.Core.DTO
     {
         public string Id { get; set; }
 
+        public string UserId { get; set; }
+
+
         [Required]
         public decimal SubTotal { get; set; }
 
@@ -21,6 +24,7 @@ namespace localshop.Core.DTO
         [Required]
         public DateTime ShipDate { get; set; }
 
+        [Display(Name = "Order notes")]
         public string OrderNotes { get; set; }
 
         // Order infomation

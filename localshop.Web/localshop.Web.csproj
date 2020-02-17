@@ -266,12 +266,13 @@
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\PriceFilter.cs" />
     <Compile Include="Models\ProductFilter.cs" />
-    <Compile Include="Models\SortBy.cs" />
+    <Compile Include="Models\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Account\LoginRegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Checkout\CheckoutViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductDetailViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductRelatedViewModel.cs" />
     <Compile Include="ViewModels\Shop\ProductViewModel.cs" />
@@ -1700,6 +1701,7 @@
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Checkout\_Add_Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\localshop.Core\localshop.Core.csproj">

@@ -83,10 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\ICategoryRepository.cs" />
+    <Compile Include="Abstractions\IOrderRepository.cs" />
     <Compile Include="Abstractions\IProductRepository.cs" />
     <Compile Include="Abstractions\IStatusRepository.cs" />
     <Compile Include="Concretes\ApplicationDbContext.cs" />
     <Compile Include="Concretes\CategoryRepository.cs" />
+    <Compile Include="Concretes\OrderRepository.cs" />
     <Compile Include="Concretes\ProductRepository.cs" />
     <Compile Include="Concretes\StatusRepository.cs" />
     <Compile Include="Entities\ApplicationRole.cs" />
@@ -142,6 +144,10 @@
     <Compile Include="Migrations\202002151007301_Add_OrderDetail.designer.cs">
       <DependentUpon>202002151007301_Add_OrderDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002171025555_Edit_Order_AllowNull_ShipDate.cs" />
+    <Compile Include="Migrations\202002171025555_Edit_Order_AllowNull_ShipDate.designer.cs">
+      <DependentUpon>202002171025555_Edit_Order_AllowNull_ShipDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -189,6 +195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002151007301_Add_OrderDetail.resx">
       <DependentUpon>202002151007301_Add_OrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002171025555_Edit_Order_AllowNull_ShipDate.resx">
+      <DependentUpon>202002171025555_Edit_Order_AllowNull_ShipDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

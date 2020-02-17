@@ -1071,7 +1071,7 @@ function custom() {
                     $('.mini-cart-price').text(`$${response.summary}`);
 
                     // Update cart count
-                    $('.count-style-3').text(response.summaryQuantity);
+                    $('.count-style-3').text(response.summaryQuantity > 99 ? ":D" : response.summaryQuantity);
                     $('.count-style').text(`${response.summaryQuantity} Items`);
                 } else {
                     toastr["error"]("Something went wrong!");
@@ -1087,7 +1087,7 @@ function custom() {
             e.preventDefault();
 
             var productId = $(this).data('productid');
-            var quantity = $('#product-detail').find('input[name="Quantity"]').val();
+            var quantityInput = $('#product-detail').find('input[name="Quantity"]');
 
             $.ajax({
                 type: "POST",
@@ -1095,7 +1095,7 @@ function custom() {
                 url: "/cart/addToCart",
                 data: {
                     productId,
-                    quantity
+                    quantity: quantityInput.val()
                 },
                 success: function (response) {
                     if (response.success) {
@@ -1105,6 +1105,7 @@ function custom() {
                             toastr["success"]("Added product to cart!");
                         }
 
+                        quantityInput.val(1);
                         var line = response.cart.LineCollection.find(p => p.Product.Id == productId);
                         var product = line ? line.Product : null;
 
@@ -1136,7 +1137,7 @@ function custom() {
                         $('.mini-cart-price').text(`$${response.summary}`);
 
                         // Update cart count
-                        $('.count-style-3').text(response.summaryQuantity);
+                        $('.count-style-3').text(response.summaryQuantity > 99 ? ":D" : response.summaryQuantity);
                         $('.count-style').text(`${response.summaryQuantity} Items`);
 
                         // Update line quantity
@@ -1173,7 +1174,7 @@ function custom() {
                         $('.mini-cart-price').text(`$${response.summary}`);
 
                         // Update cart count
-                        $('.count-style-3').text(response.summaryQuantity);
+                        $('.count-style-3').text(response.summaryQuantity > 99 ? ":D" : response.summaryQuantity);
                         $('.count-style').text(`${response.summaryQuantity} Items`);
 
                         // Remove item

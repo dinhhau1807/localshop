@@ -67,6 +67,7 @@
     <Compile Include="Common\ImageLinks.cs" />
     <Compile Include="Common\PagingHelpers.cs" />
     <Compile Include="Common\PagingInfo.cs" />
+    <Compile Include="Common\PaymentMethod.cs" />
     <Compile Include="Common\RoleNames.cs" />
     <Compile Include="Common\StatusNames.cs" />
     <Compile Include="Common\StringHelper.cs" />
