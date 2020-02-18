@@ -39,10 +39,6 @@
                 toastr["error"]("Something wrong! Your order isn't placed!");
             }
 
-            if ("@TempData["OrderSuccess"]" == "true") {
-                toastr["success"]("Thank you! Your order is placed!");
-            }
-
             $('#cart-btn-update').off('click').on('click', function () {
                 var $trs = $('.cart-table-content tbody').children();
 

@@ -255,6 +255,7 @@
     <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\TrackingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,6 +278,7 @@
     <Compile Include="ViewModels\Product\ProductRelatedViewModel.cs" />
     <Compile Include="ViewModels\Shop\ProductViewModel.cs" />
     <Compile Include="ViewModels\Shop\ShopViewModel.cs" />
+    <Compile Include="ViewModels\Tracking\TrackingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\admin\css\app-rtl.css" />
@@ -537,6 +539,7 @@
     <Content Include="Assets\client\css\plugins\owl-carousel.css" />
     <Content Include="Assets\client\css\plugins\plugins.css" />
     <Content Include="Assets\client\css\plugins\plugins.min.css" />
+    <Content Include="Assets\client\css\plugins\print.min.css" />
     <Content Include="Assets\client\css\plugins\slick.css" />
     <Content Include="Assets\client\css\plugins\toastr.css" />
     <Content Include="Assets\client\css\plugins\toastr.min.css" />
@@ -824,12 +827,14 @@
     <Content Include="Assets\client\js\plugins\isotope.js" />
     <Content Include="Assets\client\js\plugins\jquery-ui-touch-punch.js" />
     <Content Include="Assets\client\js\plugins\jquery-ui.js" />
+    <Content Include="Assets\client\js\plugins\jquery.sticky-sidebar.min.js" />
     <Content Include="Assets\client\js\plugins\magnific-popup.js" />
     <Content Include="Assets\client\js\plugins\owl-carousel.js" />
     <Content Include="Assets\client\js\plugins\parallax.js" />
     <Content Include="Assets\client\js\plugins\parsley.js" />
     <Content Include="Assets\client\js\plugins\plugins.js" />
     <Content Include="Assets\client\js\plugins\plugins.min.js" />
+    <Content Include="Assets\client\js\plugins\print.min.js" />
     <Content Include="Assets\client\js\plugins\scrollup.js" />
     <Content Include="Assets\client\js\plugins\slick.js" />
     <Content Include="Assets\client\js\plugins\smoothscroll.js" />
@@ -1702,6 +1707,8 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Checkout\_Add_Order.cshtml" />
+    <Content Include="Views\Tracking\Index.cshtml" />
+    <Content Include="Views\Nav\_TrackingHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\localshop.Core\localshop.Core.csproj">

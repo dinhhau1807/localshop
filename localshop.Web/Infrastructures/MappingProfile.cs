@@ -19,40 +19,23 @@ namespace localshop.Infrastructures
         public void AdminProfile()
         {
             #region Domain to DTO
-            // Account 
             CreateMap<ApplicationUser, UpdateProfileDTO>();
-
-            // Product 
             CreateMap<Product, ProductDTO>();
-
-            // Category
             CreateMap<Category, CategoryDTO>();
-
-            // Image
             CreateMap<Image, ImageDTO>();
-
-            // Status
             CreateMap<Status, StatusDTO>();
-
-            // Tag
             CreateMap<Tag, TagDTO>();
             #endregion
 
 
             #region DTO to Domain
-            // Account 
             CreateMap<UpdateProfileDTO, ApplicationUser>();
-
-            // Product 
             CreateMap<ProductDTO, Product>().ForMember(m => m.Images, opt => opt.Ignore());
-
-            // Category
             CreateMap<CategoryDTO, Category>();
             #endregion
 
 
             #region DTO to DTO
-            // Product
             CreateMap<AddProductDTO, ProductDTO>().ForMember(m => m.Images, opt => opt.Ignore());
             CreateMap<EditProductDTO, ProductDTO>().ForMember(m => m.Images, opt => opt.Ignore());
             #endregion
@@ -64,7 +47,8 @@ namespace localshop.Infrastructures
             CreateMap<ApplicationUser, OrderDTO>()
                 .ForMember(o => o.Id, opt => opt.Ignore())
                 .ForMember(o => o.UserId, opt => opt.MapFrom(u => u.Id));
-
+            CreateMap<Order, OrderDTO>();
+            CreateMap<OrderDetail, OrderDetailDTO>();
             #endregion
 
 

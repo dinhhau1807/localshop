@@ -22,12 +22,28 @@ namespace localshop.Domain.Concretes
             _context = context;
         }
 
-        public bool Save(OrderDTO orderDTO, IList<OrderDetailDTO> orderDetailDTOs)
+        public OrderDTO FindById(string id)
         {
+            var order = _context.Orders.FirstOrDefault(o => o.Id == id);
+            if (order == null)
+            {
+                return null;
+            }
+            return _mapper.Map<Order, OrderDTO>(order);
+        }
+
+        public IList<OrderDetailDTO> GetOrderDetails(string id)
+        {
+            var orderDetails = _context.OrderDetails.Where(od => od.OrderId == id).AsEnumerable()
+                                                    .Select(od => _mapper.Map<OrderDetail, OrderDetailDTO>(od)).ToList();
+            return orderDetails;
+        }
+
+        public OrderDTO Save(OrderDTO orderDTO, IList<OrderDetailDTO> orderDetailDTOs)
+        {
+            orderDTO.Id = "#" + string.Join("", NewId.Next().ToString("D").ToUpperInvariant().Split('-'));
+            orderDTO.OrderDate = DateTime.Now;
             var order = _mapper.Map<OrderDTO, Order>(orderDTO);
-            order.Id = "#" + string.Join("", NewId.Next().ToString("D").ToUpperInvariant().Split('-'));
-            order.OrderDate = DateTime.Now;
-            order.ShipDate = null;
 
             var orderDetails = new List<OrderDetail>();
             foreach (var orderDetailDTO in orderDetailDTOs)
@@ -43,12 +59,12 @@ namespace localshop.Domain.Concretes
                 _context.OrderDetails.AddRange(orderDetails);
                 _context.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return false;
+                return null;
             }
 
-            return true;
+            return orderDTO;
         }
     }
 }

@@ -9,6 +9,10 @@ namespace localshop.Domain.Abstractions
 {
     public interface IOrderRepository
     {
-        bool Save(OrderDTO order, IList<OrderDetailDTO> orderDetails);
+        OrderDTO FindById(string id);
+
+        IList<OrderDetailDTO> GetOrderDetails(string id);
+
+        OrderDTO Save(OrderDTO order, IList<OrderDetailDTO> orderDetails);
     }
 }

@@ -21,8 +21,7 @@ namespace localshop.Core.DTO
 
         public DateTime? UpdateDate { get; set; }
 
-        [Required]
-        public DateTime ShipDate { get; set; }
+        public DateTime? ShipDate { get; set; }
 
         [Display(Name = "Order notes")]
         public string OrderNotes { get; set; }

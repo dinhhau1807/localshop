@@ -75,6 +75,12 @@ namespace localshop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PlaceOrder(Cart cart, OrderDTO order)
         {
+            if (cart.LineCollection.Count == 0)
+            {
+                TempData["EmptyMessage"] = "true";
+                return RedirectToAction("index", "cart");
+            }
+
             if (!ModelState.IsValid)
             {
                 var model = new CheckoutViewModel()
@@ -95,17 +101,17 @@ namespace localshop.Controllers
 
             var result = _orderRepo.Save(order, orderDetails);
 
-            if (result)
-            {
-                TempData["OrderSuccess"] = "true";
-                cart.LineCollection.Clear();
-            }
-            else
+            if (result == null)
             {
                 TempData["OrderSuccess"] = "false";
+                return RedirectToAction("index", "cart");
+
             }
 
-            return RedirectToAction("index", "cart");
+            TempData["OrderSuccess"] = "true";
+            cart.LineCollection.Clear();
+
+            return RedirectToAction("index", "tracking", new { id = result.Id });
         }
 
         public List<OrderDetailDTO> GetOrderDetails(Cart cart, bool turnOnNotification = true)
