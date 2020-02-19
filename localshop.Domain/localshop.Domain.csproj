@@ -83,17 +83,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\ICategoryRepository.cs" />
+    <Compile Include="Abstractions\IContactRepository.cs" />
     <Compile Include="Abstractions\IOrderRepository.cs" />
     <Compile Include="Abstractions\IProductRepository.cs" />
     <Compile Include="Abstractions\IStatusRepository.cs" />
     <Compile Include="Concretes\ApplicationDbContext.cs" />
     <Compile Include="Concretes\CategoryRepository.cs" />
+    <Compile Include="Concretes\ContactRepository.cs" />
     <Compile Include="Concretes\OrderRepository.cs" />
     <Compile Include="Concretes\ProductRepository.cs" />
     <Compile Include="Concretes\StatusRepository.cs" />
     <Compile Include="Entities\ApplicationRole.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderDetail.cs" />
@@ -162,6 +165,10 @@
     <Compile Include="Migrations\202002181710552_Update_Order_Add_FK_OrderStatus_FK_PaymentMethod.designer.cs">
       <DependentUpon>202002181710552_Update_Order_Add_FK_OrderStatus_FK_PaymentMethod.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002191943097_Add_Contact.cs" />
+    <Compile Include="Migrations\202002191943097_Add_Contact.designer.cs">
+      <DependentUpon>202002191943097_Add_Contact.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -221,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002181710552_Update_Order_Add_FK_OrderStatus_FK_PaymentMethod.resx">
       <DependentUpon>202002181710552_Update_Order_Add_FK_OrderStatus_FK_PaymentMethod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002191943097_Add_Contact.resx">
+      <DependentUpon>202002191943097_Add_Contact.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

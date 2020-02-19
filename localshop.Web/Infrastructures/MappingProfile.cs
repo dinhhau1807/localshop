@@ -55,6 +55,7 @@ namespace localshop.Infrastructures
             #region DTO to Domain
             CreateMap<OrderDTO, Order>();
             CreateMap<OrderDetailDTO, OrderDetail>();
+            CreateMap<ContactDTO, Contact>();
             #endregion
 
 

@@ -29,6 +29,7 @@ namespace localshop.Domain.Concretes
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -103,6 +104,14 @@ namespace localshop.Domain.Concretes
             // PaymentMethods
             modelBuilder.Entity<PaymentMethod>().HasKey(pm => pm.Id);
             modelBuilder.Entity<PaymentMethod>().Property(pm => pm.Name).IsRequired();
+
+            //------------------------------------------------------------------------
+            // Contacts
+            modelBuilder.Entity<Contact>().HasKey(c => c.Id);
+            modelBuilder.Entity<Contact>().Property(c => c.Name).IsRequired();
+            modelBuilder.Entity<Contact>().Property(c => c.Email).IsRequired();
+            modelBuilder.Entity<Contact>().Property(c => c.Subject).IsRequired();
+            modelBuilder.Entity<Contact>().Property(c => c.Message).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }
