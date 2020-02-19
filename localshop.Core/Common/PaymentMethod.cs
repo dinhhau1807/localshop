@@ -8,7 +8,7 @@ namespace localshop.Core.Common
 {
     public static class PaymentMethod
     {
-        public const string DirectBankTransfer = "DirectBankTransfer";
-        public const string CashOnDelivery = "CashOnDelivery";
+        public const string DirectBankTransfer = "Direct bank transfer";
+        public const string CashOnDelivery = "Casho on delivery";
     }
 }

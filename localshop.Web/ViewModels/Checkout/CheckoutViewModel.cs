@@ -9,6 +9,9 @@ namespace localshop.ViewModels
     public class CheckoutViewModel
     {
         public OrderDTO Order { get; set; }
+
+        public string PaymentMethod { get; set; }
+
         public IList<OrderDetailDTO> OrderDetails { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using localshop.Core.Common;
 using localshop.Core.DTO;
 using localshop.Domain.Abstractions;
 using localshop.Domain.Entities;
@@ -66,6 +67,7 @@ namespace localshop.Controllers
             // Get order details from cart
             model.OrderDetails = GetOrderDetails(cart);
 
+            // Calculate summary
             model.Order.SubTotal = cart.Summary;
 
             return View(model);
@@ -73,7 +75,7 @@ namespace localshop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PlaceOrder(Cart cart, OrderDTO order)
+        public ActionResult PlaceOrder(Cart cart, OrderDTO order, string paymentMethod)
         {
             if (cart.LineCollection.Count == 0)
             {
@@ -81,7 +83,14 @@ namespace localshop.Controllers
                 return RedirectToAction("index", "cart");
             }
 
-            if (!ModelState.IsValid)
+            // Add paymentMethod
+            var addMethodResult = _orderRepo.AddPaymentMethod(order, paymentMethod);
+
+            // Add orderStatus
+            var addOrderStatusResult = _orderRepo.UpdateStatus(order, OrderStatusNames.Pending);
+
+            // Check model valid
+            if (!ModelState.IsValid || addMethodResult == null || addOrderStatusResult == null)
             {
                 var model = new CheckoutViewModel()
                 {
@@ -91,21 +100,25 @@ namespace localshop.Controllers
                 return View("index", model);
             }
 
+            // Add userId if authenticated
             if (User.Identity.IsAuthenticated)
             {
                 order.UserId = User.Identity.GetUserId();
             }
 
+            // Get order details and calulate summary
             var orderDetails = GetOrderDetails(cart, false);
             order.SubTotal = cart.Summary;
 
+
+
+            // Save order to repository
             var result = _orderRepo.Save(order, orderDetails);
 
             if (result == null)
             {
                 TempData["OrderSuccess"] = "false";
                 return RedirectToAction("index", "cart");
-
             }
 
             TempData["OrderSuccess"] = "true";
@@ -114,7 +127,7 @@ namespace localshop.Controllers
             return RedirectToAction("index", "tracking", new { id = result.Id });
         }
 
-        public List<OrderDetailDTO> GetOrderDetails(Cart cart, bool turnOnNotification = true)
+        private List<OrderDetailDTO> GetOrderDetails(Cart cart, bool turnOnNotification = true)
         {
             var orderDetails = new List<OrderDetailDTO>();
 

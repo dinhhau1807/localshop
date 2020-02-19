@@ -1,5 +1,6 @@
 ﻿namespace localshop.Domain.Migrations
 {
+    using localshop.Domain.Concretes;
     using localshop.Domain.Entities;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -22,6 +23,36 @@
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
 
+            SeedRootUserAndRoles(context);
+            SeedOrderStatuses(context);
+            SeedPaymentMethod(context);
+
+            context.SaveChanges();
+        }
+
+        public static void SeedOrderStatuses(ApplicationDbContext context)
+        {
+            var orderStatuses = new OrderStatus[]
+            {
+                new OrderStatus { Id="f9d10000-d769-34e6-4e67-08d7b48f1d56", Name="Pending" },
+                new OrderStatus { Id="f9d10000-d769-34e6-a60e-08d7b48f1d56", Name="Delivered" },
+                new OrderStatus { Id="f9d10000-d769-34e6-a9d0-08d7b48f1d56", Name="Cancelled" }
+            };
+            context.OrderStatuses.AddOrUpdate(orderStatuses);
+        }
+
+        public static void SeedPaymentMethod(ApplicationDbContext context)
+        {
+            var paymentMethods = new PaymentMethod[]
+            {
+                new PaymentMethod { Id="f9d10000-d769-34e6-aadb-08d7b492a03e", Name="Cash on delivery" },
+                new PaymentMethod { Id="f9d10000-d769-34e6-0077-08d7b492a03f", Name="Direct bank transfer" }
+            };
+            context.PaymentMethods.AddOrUpdate(paymentMethods);
+        }
+
+        public static void SeedRootUserAndRoles(ApplicationDbContext context)
+        {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var roleManager = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(context));
 
@@ -61,8 +92,6 @@
             {
                 userManager.AddToRole(userTemp.Id, roleName);
             }
-
-            context.SaveChanges();
         }
     }
 }

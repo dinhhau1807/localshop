@@ -9,6 +9,11 @@ namespace localshop.ViewModels
     public class TrackingViewModel
     {
         public OrderDTO Order { get; set; }
+
+        public string OrderStatus { get; set; }
+
+        public string PaymentMethod { get; set; }
+
         public IList<OrderDetailDTO> OrderDetails { get; set; }
     }
 }

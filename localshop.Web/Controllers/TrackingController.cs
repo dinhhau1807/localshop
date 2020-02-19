@@ -35,6 +35,12 @@ namespace localshop.Controllers
                 OrderDetails = orderDetails
             };
 
+            if (model.Order != null)
+            {
+                model.OrderStatus = _orderRepo.GetOrderStatus(order.OrderStatusId) ?? "...";
+                model.PaymentMethod = _orderRepo.GetPaymentMethod(order.PaymentMethodId) ?? "...";
+            }
+
             return View(model);
         }
     }

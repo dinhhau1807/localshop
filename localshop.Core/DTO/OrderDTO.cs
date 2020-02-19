@@ -26,6 +26,12 @@ namespace localshop.Core.DTO
         [Display(Name = "Order notes")]
         public string OrderNotes { get; set; }
 
+        //[Required]
+        public string PaymentMethodId { get; set; }
+
+        //[Required]
+        public string OrderStatusId { get; set; }
+
         // Order infomation
         [Required]
         [Display(Name = "First name")]

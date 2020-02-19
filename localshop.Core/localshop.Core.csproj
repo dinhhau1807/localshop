@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ImageLinks.cs" />
+    <Compile Include="Common\OrderStatusNames.cs" />
     <Compile Include="Common\PagingHelpers.cs" />
     <Compile Include="Common\PagingInfo.cs" />
     <Compile Include="Common\PaymentMethod.cs" />
@@ -77,6 +78,8 @@
     <Compile Include="DTO\ImageDTO.cs" />
     <Compile Include="DTO\OrderDetailDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
+    <Compile Include="DTO\OrderStatusDTO.cs" />
+    <Compile Include="DTO\PaymentMethodDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\StatusDTO.cs" />
     <Compile Include="DTO\TagDTO.cs" />

@@ -27,6 +27,8 @@ namespace localshop.Domain.Concretes
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -91,6 +93,16 @@ namespace localshop.Domain.Concretes
             modelBuilder.Entity<OrderDetail>().Property(od => od.OrderId).IsRequired();
             modelBuilder.Entity<OrderDetail>().Property(od => od.Name).IsRequired();
             modelBuilder.Entity<OrderDetail>().Property(od => od.Sku).IsRequired();
+
+            //------------------------------------------------------------------------
+            // OrderStatuses
+            modelBuilder.Entity<OrderStatus>().HasKey(os => os.Id).ToTable("OrderStatuses");
+            modelBuilder.Entity<OrderStatus>().Property(os => os.Name).IsRequired();
+
+            //------------------------------------------------------------------------
+            // PaymentMethods
+            modelBuilder.Entity<PaymentMethod>().HasKey(pm => pm.Id);
+            modelBuilder.Entity<PaymentMethod>().Property(pm => pm.Name).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

@@ -97,6 +97,8 @@
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderDetail.cs" />
+    <Compile Include="Entities\OrderStatus.cs" />
+    <Compile Include="Entities\PaymentMethod.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\Tag.cs" />
@@ -148,6 +150,18 @@
     <Compile Include="Migrations\202002171025555_Edit_Order_AllowNull_ShipDate.designer.cs">
       <DependentUpon>202002171025555_Edit_Order_AllowNull_ShipDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002181406372_Add_PaymentMethod.cs" />
+    <Compile Include="Migrations\202002181406372_Add_PaymentMethod.designer.cs">
+      <DependentUpon>202002181406372_Add_PaymentMethod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002181427131_Add_OrderStatus.cs" />
+    <Compile Include="Migrations\202002181427131_Add_OrderStatus.designer.cs">
+      <DependentUpon>202002181427131_Add_OrderStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002181710552_Update_Order_Add_FK_OrderStatus_FK_PaymentMethod.cs" />
+    <Compile Include="Migrations\202002181710552_Update_Order_Add_FK_OrderStatus_FK_PaymentMethod.designer.cs">
+      <DependentUpon>202002181710552_Update_Order_Add_FK_OrderStatus_FK_PaymentMethod.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -198,6 +212,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002171025555_Edit_Order_AllowNull_ShipDate.resx">
       <DependentUpon>202002171025555_Edit_Order_AllowNull_ShipDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002181406372_Add_PaymentMethod.resx">
+      <DependentUpon>202002181406372_Add_PaymentMethod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002181427131_Add_OrderStatus.resx">
+      <DependentUpon>202002181427131_Add_OrderStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002181710552_Update_Order_Add_FK_OrderStatus_FK_PaymentMethod.resx">
+      <DependentUpon>202002181710552_Update_Order_Add_FK_OrderStatus_FK_PaymentMethod.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

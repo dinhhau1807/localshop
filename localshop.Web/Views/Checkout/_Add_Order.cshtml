@@ -8,64 +8,64 @@
                 <div class="billing-info mb-20">
                     @Html.LabelFor(m => m.FirstName, new { @class = "d-inline" })
                     <abbr class="text-danger" title="required">*</abbr>
-                    @Html.TextBoxFor(m => m.FirstName)
+                    @Html.TextBoxFor(m => m.FirstName, new { required = "" })
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="billing-info mb-20">
                     @Html.LabelFor(m => m.LastName, new { @class = "d-inline" })
                     <abbr class="text-danger" title="required">*</abbr>
-                    @Html.TextBoxFor(m => m.LastName)
+                    @Html.TextBoxFor(m => m.LastName, new { required = "" })
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="billing-info mb-20">
                     @Html.LabelFor(m => m.Email, new { @class = "d-inline" })
                     <abbr class="text-danger" title="required">*</abbr>
-                    @Html.TextBoxFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { type = "email", required = "" })
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="billing-info mb-20">
                     @Html.LabelFor(m => m.PhoneNumber, new { @class = "d-inline" })
                     <abbr class="text-danger" title="required">*</abbr>
-                    @Html.TextBoxFor(m => m.PhoneNumber)
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { required = "" })
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="billing-info mb-20">
                     @Html.LabelFor(m => m.Country, new { @class = "d-inline" })
                     <abbr class="text-danger" title="required">*</abbr>
-                    @Html.TextBoxFor(m => m.Country)
+                    @Html.TextBoxFor(m => m.Country, new { required = "" })
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="billing-info mb-20">
                     @Html.LabelFor(m => m.City, new { @class = "d-inline" })
                     <abbr class="text-danger" title="required">*</abbr>
-                    @Html.TextBoxFor(m => m.City)
+                    @Html.TextBoxFor(m => m.City, new { required = "" })
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="billing-info mb-20">
                     @Html.LabelFor(m => m.State, new { @class = "d-inline" })
                     <abbr class="text-danger" title="required">*</abbr>
-                    @Html.TextBoxFor(m => m.State)
+                    @Html.TextBoxFor(m => m.State, new { required = "" })
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="billing-info mb-20">
                     @Html.LabelFor(m => m.Address1, new { @class = "d-inline" })
                     <abbr class="text-danger" title="required">*</abbr>
-                    @Html.TextBoxFor(m => m.Address1, new { @class = "billing-address", placeholder = "House number and street name" })
-                    @Html.TextBoxFor(m => m.Address2, new { placeholder = "Apartment, suite, unit etc." })
+                    @Html.TextBoxFor(m => m.Address1, new { @class = "billing-address mb-0", placeholder = "House number and street name", required = "" })
+                    @Html.TextBoxFor(m => m.Address2, new { @class = "mt-2", placeholder = "Apartment, suite, unit etc." })
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="billing-info mb-20">
                     @Html.LabelFor(m => m.Zip, new { @class = "d-inline" })
                     <abbr class="text-danger" title="required">*</abbr>
-                    @Html.TextBoxFor(m => m.Zip)
+                    @Html.TextBoxFor(m => m.Zip, new { required = "" })
                 </div>
             </div>
         </div>

@@ -66,7 +66,12 @@ namespace localshop.Domain.Entities
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
         // FK_OrderStatus
-        //public int OrderStatusId { get; set; }
+        public string OrderStatusId { get; set; }
+        public OrderStatus OrderStatus { get; set; }
+
+        // FK_PaymentMethod
+        public string PaymentMethodId { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
 
         // FK_Coupon
         //public string CouponId { get; set; }

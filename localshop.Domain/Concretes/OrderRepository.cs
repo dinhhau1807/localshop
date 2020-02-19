@@ -39,6 +39,52 @@ namespace localshop.Domain.Concretes
             return orderDetails;
         }
 
+        public string GetOrderStatus(string orderStatusId)
+        {
+            var orderStatus = _context.OrderStatuses.FirstOrDefault(os => os.Id == orderStatusId);
+            if (orderStatus == null)
+            {
+                return null;
+            }
+
+            return orderStatus.Name;
+        }
+
+        public string GetPaymentMethod(string paymentMethodId)
+        {
+            var paymentMethod = _context.PaymentMethods.FirstOrDefault(pm => pm.Id == paymentMethodId);
+            if (paymentMethod == null)
+            {
+                return null;
+            }
+
+            return paymentMethod.Name;
+        }
+
+        public string AddPaymentMethod(OrderDTO orderDTO, string paymentMethod)
+        {
+            var method = _context.PaymentMethods.FirstOrDefault(pm => pm.Name == paymentMethod);
+            if (paymentMethod == null)
+            {
+                return null;
+            }
+
+            orderDTO.PaymentMethodId = method.Id;
+            return method.Id;
+        }
+
+        public string UpdateStatus(OrderDTO orderDTO, string statusName)
+        {
+            var status = _context.OrderStatuses.FirstOrDefault(os => os.Name == statusName);
+            if (status == null)
+            {
+                return null;
+            }
+
+            orderDTO.OrderStatusId = status.Id;
+            return status.Id;
+        }
+
         public OrderDTO Save(OrderDTO orderDTO, IList<OrderDetailDTO> orderDetailDTOs)
         {
             orderDTO.Id = "#" + string.Join("", NewId.Next().ToString("D").ToUpperInvariant().Split('-'));

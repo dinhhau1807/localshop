@@ -1,4 +1,4 @@
-﻿
+﻿@using localshop.Core.Common
 @model TrackingViewModel
 
 @{
@@ -83,8 +83,30 @@
                                             </div>
                                             <div class="col-8">
                                                 <p>@Model.Order.Id</p>
-                                                <p><span class="badge badge-info">Pending</span></p>
-                                                <p>Cash on delivery</p>
+                                                @switch (Model.OrderStatus)
+                                                {
+                                                    case OrderStatusNames.Pending:
+                                                        {
+                                                            <p><span class="badge badge-info">@Model.OrderStatus</span></p>
+                                                            break;
+                                                        }
+                                                    case OrderStatusNames.Delivered:
+                                                        {
+                                                            <p><span class="badge badge-success">@Model.OrderStatus</span></p>
+                                                            break;
+                                                        }
+                                                    case OrderStatusNames.Cancelled:
+                                                        {
+                                                            <p><span class="badge badge-danger">@Model.OrderStatus</span></p>
+                                                            break;
+                                                        }
+                                                    default:
+                                                        {
+                                                            <p><span class="badge badge-warning">@Model.OrderStatus</span></p>
+                                                            break;
+                                                        }
+                                                }
+                                                <p>@Model.PaymentMethod</p>
                                                 <p>@Model.Order.OrderDate</p>
                                             </div>
                                         </div>
@@ -120,6 +142,29 @@
                                                 <p>@Model.Order.Address2</p>
                                             </div>
                                         </div>
+
+                                        @if (Model.Order.IsShipToDifferentAddress)
+                                        {
+                                            <hr />
+                                            <div class="row mb-2">
+                                                <div class="col-4">
+                                                    <p class="font-weight-bold">Country:</p>
+                                                    <p class="font-weight-bold">City:</p>
+                                                    <p class="font-weight-bold">State:</p>
+                                                    <p class="font-weight-bold">Postcode/ZIP:</p>
+                                                    <p class="font-weight-bold">Address 1:</p>
+                                                    <p class="font-weight-bold">Address 2:</p>
+                                                </div>
+                                                <div class="col-8">
+                                                    <p>@Model.Order.DiffCountry</p>
+                                                    <p>@Model.Order.DiffCity</p>
+                                                    <p>@Model.Order.DiffState</p>
+                                                    <p>@Model.Order.DiffZip</p>
+                                                    <p>@Model.Order.DiffAddress1</p>
+                                                    <p>@Model.Order.DiffAddress2</p>
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
 
@@ -172,10 +217,6 @@
                             </div>
                         </div><!-- End row -->
 
-                        <div class="row">
-                            <div class="col-lg-7 col-12">
-                            </div>
-                        </div><!-- End row -->
                     </div>
 
                     <div class="row">
@@ -192,7 +233,6 @@
                 }
             </div><!-- End row -->
         </div>
-    </div>
     </div>
 
     <!-- JS

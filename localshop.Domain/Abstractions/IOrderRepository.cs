@@ -13,6 +13,14 @@ namespace localshop.Domain.Abstractions
 
         IList<OrderDetailDTO> GetOrderDetails(string id);
 
+        string GetOrderStatus(string orderStatusId);
+
+        string GetPaymentMethod(string paymentMethodId);
+
+        string AddPaymentMethod(OrderDTO orderDTO, string paymentMethod);
+
+        string UpdateStatus(OrderDTO orderDTO, string statusName);
+
         OrderDTO Save(OrderDTO order, IList<OrderDetailDTO> orderDetails);
     }
 }

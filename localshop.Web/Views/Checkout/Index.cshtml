@@ -5,7 +5,26 @@
     ViewBag.Title = "Index";
 }
 
+@section thirdPartyCss {
+    <style>
+        .parsley-errors-list {
+            color: lightcoral;
+            margin-bottom: 10px;
+        }
+
+        .parsley-success {
+            border: solid 1px lightgreen !important;
+        }
+
+        .parsley-error {
+            border: solid 1px lightcoral !important;
+        }
+    </style>
+}
+
 @section thirdPartyJs {
+    <script src="~/Assets/client/js/plugins/parsley.js"></script>
+
     <script>
          toastr.options = {
             "closeButton": false,
@@ -54,7 +73,7 @@
             </div>
         }
 
-        @using (Html.BeginForm("placeorder", "checkout", FormMethod.Post))
+        @using (Html.BeginForm("placeorder", "checkout", FormMethod.Post, new { data_parsley_validate = "", no_validate = "" }))
         {
             @Html.AntiForgeryToken();
             <div class="checkout-wrap pt-30">
@@ -106,8 +125,8 @@
                                 </div>
                                 <div class="payment-method">
                                     <div class="pay-top sin-payment">
-                                        <input id="payment_method_1" class="input-radio" type="radio" value="cheque" checked="checked" name="payment_method">
-                                        <label for="payment_method_1">Direct Bank Transfer</label>
+                                        <input id="payment-method-1" class="input-radio" type="radio" value="@PaymentMethod.DirectBankTransfer" checked="checked" name="@Html.NameFor(m => m.PaymentMethod)">
+                                        <label for="payment-method-1">Direct Bank Transfer</label>
                                         <div class="payment-box payment_method_bacs">
                                             <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
                                             <p class="font-weight-bold">Agribank:</p>
@@ -117,8 +136,8 @@
                                         </div>
                                     </div>
                                     <div class="pay-top sin-payment">
-                                        <input id="payment-method-3" class="input-radio" type="radio" value="cheque" name="payment_method">
-                                        <label for="payment-method-3">Cash on delivery (COD)</label>
+                                        <input id="payment-method-2" class="input-radio" type="radio" value="@PaymentMethod.CashOnDelivery" name="@Html.NameFor(m => m.PaymentMethod)">
+                                        <label for="payment-method-2">Cash on delivery (COD)</label>
                                         <div class="payment-box payment_method_bacs">
                                             <p>You will pay directly to the courier after receiving the goods.</p>
                                         </div>
