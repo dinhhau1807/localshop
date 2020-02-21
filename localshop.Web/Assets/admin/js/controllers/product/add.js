@@ -72,9 +72,6 @@
                     files.forEach(function (file, i) {
                         var newUrl = '/ckfinder' + file.get('url').split('ckfinder')[1];
 
-                        console.log(listImages);
-                        console.log(listImages.indexOf(newUrl));
-
                         if (listImages.indexOf(newUrl) < 0) {
                             listImages.push(newUrl);
 

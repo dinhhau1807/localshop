@@ -30,6 +30,7 @@ namespace localshop.Domain.Concretes
         public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<SpecialFeatured> SpecialFeatureds { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -112,6 +113,15 @@ namespace localshop.Domain.Concretes
             modelBuilder.Entity<Contact>().Property(c => c.Email).IsRequired();
             modelBuilder.Entity<Contact>().Property(c => c.Subject).IsRequired();
             modelBuilder.Entity<Contact>().Property(c => c.Message).IsRequired();
+
+            //------------------------------------------------------------------------
+            // SpecialFeatureds
+            modelBuilder.Entity<SpecialFeatured>().HasKey(sf => sf.Id);
+            modelBuilder.Entity<SpecialFeatured>().Property(sf => sf.Title).IsRequired();
+            modelBuilder.Entity<SpecialFeatured>().Property(sf => sf.Description).IsRequired();
+            modelBuilder.Entity<SpecialFeatured>().Property(sf => sf.Link).IsRequired();
+            modelBuilder.Entity<SpecialFeatured>().Property(sf => sf.BackgroundImage).IsRequired();
+            modelBuilder.Entity<SpecialFeatured>().Property(sf => sf.ProductImage).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

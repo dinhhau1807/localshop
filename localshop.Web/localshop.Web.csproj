@@ -235,6 +235,7 @@
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomePageController.cs" />
     <Compile Include="Areas\Admin\Controllers\NavController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
@@ -395,6 +396,7 @@
     <Content Include="Assets\admin\js\app.min.js" />
     <Content Include="Assets\admin\js\app.min.js.map" />
     <Content Include="Assets\admin\js\controllers\category\index.js" />
+    <Content Include="Assets\admin\js\controllers\homePage\sepcialFeatured.js" />
     <Content Include="Assets\admin\js\controllers\product\add.js" />
     <Content Include="Assets\admin\js\controllers\product\edit.js" />
     <Content Include="Assets\admin\js\controllers\product\index.js" />
@@ -1597,6 +1599,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\ViewModels\HomePage\" />
     <Folder Include="Assets\files\.ckfinder\cache\data\Files\" />
     <Folder Include="Assets\files\files\" />
   </ItemGroup>
@@ -1695,6 +1698,7 @@
     <Content Include="Assets\client\scss\_variabls.scss" />
     <Content Include="Assets\client\images\slider\hm6-bg-1_346142d1-6106-4615-ab60-229cc0430c5f.jpg" />
     <Content Include="Assets\client\js\plugins\toastr.js.map" />
+    <Content Include="Areas\Admin\Views\HomePage\SpecialFeatured.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

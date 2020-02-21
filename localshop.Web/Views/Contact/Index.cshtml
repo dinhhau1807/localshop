@@ -419,7 +419,7 @@
                             </li>
                             <li>
                                 <i class="ti-email"></i>
-                                <a href="#">localshop@gmail.com</a>
+                                <a href="mailto:localshop@gmail.com">localshop@gmail.com</a>
                             </li>
                         </ul>
                     </div>
@@ -433,12 +433,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="contact-map pb-90">
+            <div id="map"></div>
+        </div>
+
         <div class="get-in-touch-wrap">
             <h3>Get In Touch</h3>
             <div class="contact-from contact-shadow">
                 @using (Html.BeginForm("sendmessage", "contact", FormMethod.Post, new { data_parsley_validate = "", no_validate = "" }))
                 {
-
+                    Html.AntiForgeryToken();
                     <div class="row">
                         <div class="col-lg-6">
                             @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", required = "" })
@@ -458,9 +463,6 @@
                     </div>
                 }
             </div>
-        </div>
-        <div class="contact-map pt-90">
-            <div id="map"></div>
         </div>
     </div>
 </div>

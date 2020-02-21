@@ -18,5 +18,7 @@ namespace localshop.Areas.Admin.Models
         public const string EditProduct = "Edit product";
 
         public const string CategoryIndex = "Category";
+
+        public const string SepecialFeatured = "Special Featured";
     }
 }

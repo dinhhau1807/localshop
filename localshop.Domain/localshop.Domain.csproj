@@ -84,12 +84,14 @@
   <ItemGroup>
     <Compile Include="Abstractions\ICategoryRepository.cs" />
     <Compile Include="Abstractions\IContactRepository.cs" />
+    <Compile Include="Abstractions\IHomePageRepository.cs" />
     <Compile Include="Abstractions\IOrderRepository.cs" />
     <Compile Include="Abstractions\IProductRepository.cs" />
     <Compile Include="Abstractions\IStatusRepository.cs" />
     <Compile Include="Concretes\ApplicationDbContext.cs" />
     <Compile Include="Concretes\CategoryRepository.cs" />
     <Compile Include="Concretes\ContactRepository.cs" />
+    <Compile Include="Concretes\HomePageRepository.cs" />
     <Compile Include="Concretes\OrderRepository.cs" />
     <Compile Include="Concretes\ProductRepository.cs" />
     <Compile Include="Concretes\StatusRepository.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="Entities\OrderStatus.cs" />
     <Compile Include="Entities\PaymentMethod.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\SpecialFeatured.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Migrations\202001221649359_Add_ApplicationUserProperties.cs" />
@@ -169,6 +172,10 @@
     <Compile Include="Migrations\202002191943097_Add_Contact.designer.cs">
       <DependentUpon>202002191943097_Add_Contact.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002201425469_Add_SpecialFeatured.cs" />
+    <Compile Include="Migrations\202002201425469_Add_SpecialFeatured.designer.cs">
+      <DependentUpon>202002201425469_Add_SpecialFeatured.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -231,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002191943097_Add_Contact.resx">
       <DependentUpon>202002191943097_Add_Contact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002201425469_Add_SpecialFeatured.resx">
+      <DependentUpon>202002201425469_Add_SpecialFeatured.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

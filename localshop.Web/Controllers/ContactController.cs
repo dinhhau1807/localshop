@@ -22,6 +22,8 @@ namespace localshop.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SendMessage(ContactDTO contact)
         {
             if (!ModelState.IsValid)
