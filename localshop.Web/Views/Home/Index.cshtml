@@ -1,32 +1,32 @@
-﻿
-@{
-
-}
+﻿@model localshop.Core.DTO.SpecialFeaturedDTO
 
 <!-- Main Slide -->
-<div class="slider-area slider-height-6 bg-img" style="background-image:url(/Assets/client/images/slider/3449462.jpg)">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                <div class="slider-content-6">
-                    <h1 class="wow fadeInUp">DyBO Phone</h1>
-                    <p class="wow fadeInUp">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
-                    <div class="slider-btn-6 default-btn btn-hover">
-                        <a class="wow fadeInUp white-color" href="product-details.html">BUY NOW</a>
+@if (Model != null)
+{
+    <div class="slider-area slider-height-6 bg-img" style="background-image:url('@Model.BackgroundImage')">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="slider-content-6">
+                        <h1 class="wow fadeInUp">@Model.Title</h1>
+                        <p class="wow fadeInUp">@Model.Description</p>
+                        <div class="slider-btn-6 default-btn btn-hover">
+                            <a class="wow fadeInUp white-color" href="@Model.Link">BUY NOW</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                <div class="slider-sin-img-hm6">
-                    <img class="tilter" src="~/Assets/client/images/slider/hm5-single-1_8287a2dd-8e8b-4153-827f-f3220e2b1d15_large.png" alt="">
-                    <div class="slider-price">
-                        <h4>$1999</h4>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12 tilter">
+                    <div class="slider-sin-img-hm6">
+                        <img src="@Model.ProductImage" alt="@Model.Title">
+                        <div class="slider-price">
+                            <h4>$@Math.Round(Model.Price, 0)</h4>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
 
 <!-- Banner slide -->
 <div class="banner-area pt-50 pb-70">
