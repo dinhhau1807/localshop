@@ -30,6 +30,14 @@ namespace localshop.Domain.Concretes
             }
         }
 
+        public IList<BannerDTO> Banners
+        {
+            get
+            {
+                return _context.Banners.AsEnumerable().Select(b => _mapper.Map<Banner, BannerDTO>(b)).ToList();
+            }
+        }
+
         public bool SaveSpecialFeatureds(SpecialFeaturedDTO specialFeaturedDTO)
         {
             var specialFeatured = _context.SpecialFeatureds.FirstOrDefault(sf => sf.Id == specialFeaturedDTO.Id);
@@ -47,6 +55,46 @@ namespace localshop.Domain.Concretes
                 specialFeatured = _mapper.Map(specialFeaturedDTO, specialFeatured);
                 _context.SaveChanges();
             }
+
+            return true;
+        }
+
+        public bool SaveBanner(BannerDTO bannerDTO)
+        {
+            var banner = _context.Banners.FirstOrDefault(b => b.Id == bannerDTO.Id);
+
+            if (banner == null)
+            {
+                bannerDTO.Id = NewId.Next().ToString();
+                banner = _mapper.Map<BannerDTO, Banner>(bannerDTO);
+                _context.Banners.Add(banner);
+            }
+            else
+            {
+                banner = _mapper.Map(bannerDTO, banner);
+            }
+
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteBanner(string bannerId)
+        {
+            var banner = _context.Banners.FirstOrDefault(b => b.Id == bannerId);
+            if (banner == null)
+            {
+                return false;
+            }
+
+            _context.Banners.Remove(banner);
+            _context.SaveChanges();
 
             return true;
         }

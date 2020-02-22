@@ -56,5 +56,98 @@ namespace localshop.Areas.Admin.Controllers
             TempData["SaveSpecialFeaturedSuccess"] = "true";
             return RedirectToAction("SpecialFeatured");
         }
+
+        [HttpGet]
+        public ViewResult Banners()
+        {
+            var model = _homePageRepo.Banners.ToList();
+            return View(model);
+        }
+
+        [HttpGet]
+        public ViewResult AddBanner()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddBanner(BannerDTO bannerDTO)
+        {
+            if (!ModelState.IsValid || string.IsNullOrWhiteSpace(bannerDTO.Image))
+            {
+                if (string.IsNullOrWhiteSpace(bannerDTO.Image))
+                {
+                    TempData["ErrorMessage"] = "image";
+                }
+                return View(bannerDTO);
+            }
+
+            var result = _homePageRepo.SaveBanner(bannerDTO);
+            if (!result)
+            {
+                TempData["ErrorMessage"] = "true";
+                return View(bannerDTO);
+            }
+
+            TempData["SaveSuccess"] = "true";
+            return RedirectToAction("banners");
+        }
+
+        [HttpGet]
+        public ViewResult EditBanner(string id)
+        {
+            var banner = _homePageRepo.Banners.FirstOrDefault(b => b.Id == id);
+            if (banner == null)
+            {
+                return View("banners");
+            }
+
+            return View(banner);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditBanner(BannerDTO bannerDTO)
+        {
+            if (!ModelState.IsValid || string.IsNullOrWhiteSpace(bannerDTO.Image))
+            {
+                if (string.IsNullOrWhiteSpace(bannerDTO.Image))
+                {
+                    TempData["ErrorMessage"] = "image";
+                }
+                return View(bannerDTO);
+            }
+
+            var result = _homePageRepo.SaveBanner(bannerDTO);
+            if (!result)
+            {
+                TempData["ErrorMessage"] = "true";
+                return View(bannerDTO);
+            }
+
+            TempData["SaveSuccess"] = "true";
+            return RedirectToAction("banners");
+        }
+
+
+        [HttpPost]
+        public JsonResult DeleteBanner(string bannerId)
+        {
+            var result = _homePageRepo.DeleteBanner(bannerId);
+
+            if (!result)
+            {
+                return Json(new
+                {
+                    success = "failed"
+                });
+            }
+
+            return Json(new
+            {
+                success = "success"
+            });
+        }
     }
 }

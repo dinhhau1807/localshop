@@ -11,7 +11,12 @@ namespace localshop.Domain.Abstractions
     {
         SpecialFeaturedDTO SpecialFeatureds { get; }
 
+        IList<BannerDTO> Banners { get; }
+
         bool SaveSpecialFeatureds(SpecialFeaturedDTO specialFeaturedDTO);
 
+        bool SaveBanner(BannerDTO bannerDTO);
+
+        bool DeleteBanner(string bannerId);
     }
 }

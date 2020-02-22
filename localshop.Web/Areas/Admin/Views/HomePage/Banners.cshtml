@@ -1,0 +1,118 @@
+﻿@using localshop.Core.Common
+@model IEnumerable<localshop.Core.DTO.BannerDTO>
+
+@{
+    ViewBag.Title = "banners";
+}
+
+@section topbar {
+    @Html.Action("topbar", "nav", new { header = NavigationHeader.Banners })
+}
+
+@section thirdPartyCss {
+    <!-- Datatables Css -->
+    <link href="~/Assets/admin/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/admin/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/admin/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/admin/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/admin/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/admin/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+}
+
+@section thirdPartyJs {
+    <!-- Datatables -->
+    <script src="~/Assets/admin/libs/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Assets/admin/libs/datatables/dataTables.bootstrap4.js"></script>
+    <script src="~/Assets/admin/libs/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/Assets/admin/libs/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="~/Assets/admin/libs/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Assets/admin/libs/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="~/Assets/admin/libs/datatables/buttons.html5.min.js"></script>
+    <script src="~/Assets/admin/libs/datatables/buttons.flash.min.js"></script>
+    <script src="~/Assets/admin/libs/datatables/buttons.print.min.js"></script>
+    <script src="~/Assets/admin/libs/datatables/dataTables.keyTable.min.js"></script>
+    <script src="~/Assets/admin/libs/datatables/dataTables.select.min.js"></script>
+    <script src="~/Assets/admin/libs/pdfmake/pdfmake.min.js"></script>
+    <script src="~/Assets/admin/libs/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Assets/admin/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Assets/admin/libs/toastr/toastr.min.js"></script>
+
+    <!-- Datatables init -->
+    <script src="~/Assets/admin/js/pages/datatables.init.js"></script>
+    <script src="~/Assets/admin/js/pages/sweet-alerts.init.js"></script>
+    <script src="~/Assets/admin/js/pages/toastr.init.js"></script>
+
+    <!-- Controller -->
+    <script src="~/Assets/admin/js/controllers/homePage/banners.js"></script>
+
+    <script>
+         $(document).ready(function () {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            if ('@TempData["SaveSuccess"]' == "true") {
+                toastr['success']("Saved!");
+            }
+        });
+    </script>
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-box overflow-auto">
+            <table id="datatable" class="table table-bordered table-striped nowrap">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Link</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var banner in Model)
+                    {
+                        <tr data-banner-id="@banner.Id">
+                            <td>
+                                <img class="mr-1" src="@banner.Image" alt="banner" style="object-fit:scale-down; max-width:500px;">
+                            </td>
+                            <td>
+                                <a href="@banner.Link" title="@banner.Link" target="_blank">@StringHelper.Truncate(banner.Link, 40)</a>
+                            </td>
+                            <td class="text-center">
+                                <a href="@Url.Action("editbanner", "homepage", new { id=banner.Id })" class="btn btn-outline-primary btn-sm"><i class="far fa-edit"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm ls-banner-delete"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                    }
+                    @*<tr>
+                            <td>
+                                <img class="mr-1" src="~/assets/admin/images/big/bg.jpg" alt="" style="object-fit:scale-down; max-width:500px;">
+                            </td>
+                            <td>
+                                <a href="#" title="" target="_blank">content</a>
+                            </td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-outline-primary btn-sm"><i class="far fa-edit"></i></a>
+                                <a href="#" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>*@
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> <!-- end row -->

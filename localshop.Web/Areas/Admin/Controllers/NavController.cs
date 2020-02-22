@@ -14,13 +14,9 @@ namespace localshop.Areas.Admin.Controllers
     {
         private ApplicationUserManager _userManager;
 
-        public NavController()
-        {
-        }
-
         public NavController(ApplicationUserManager userManager)
         {
-            UserManager = userManager;
+            _userManager = userManager;
         }
 
         public ApplicationUserManager UserManager

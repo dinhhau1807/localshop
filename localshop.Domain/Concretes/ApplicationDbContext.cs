@@ -31,6 +31,7 @@ namespace localshop.Domain.Concretes
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<SpecialFeatured> SpecialFeatureds { get; set; }
+        public DbSet<Banner> Banners { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -122,6 +123,12 @@ namespace localshop.Domain.Concretes
             modelBuilder.Entity<SpecialFeatured>().Property(sf => sf.Link).IsRequired();
             modelBuilder.Entity<SpecialFeatured>().Property(sf => sf.BackgroundImage).IsRequired();
             modelBuilder.Entity<SpecialFeatured>().Property(sf => sf.ProductImage).IsRequired();
+
+            //------------------------------------------------------------------------
+            // Banners
+            modelBuilder.Entity<Banner>().HasKey(b => b.Id);
+            modelBuilder.Entity<Banner>().Property(b => b.Image).IsRequired();
+            modelBuilder.Entity<Banner>().Property(b => b.Link).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

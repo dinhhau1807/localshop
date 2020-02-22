@@ -396,6 +396,9 @@
     <Content Include="Assets\admin\js\app.min.js" />
     <Content Include="Assets\admin\js\app.min.js.map" />
     <Content Include="Assets\admin\js\controllers\category\index.js" />
+    <Content Include="Assets\admin\js\controllers\homePage\addBanner.js" />
+    <Content Include="Assets\admin\js\controllers\homePage\banners.js" />
+    <Content Include="Assets\admin\js\controllers\homePage\editBanner.js" />
     <Content Include="Assets\admin\js\controllers\homePage\sepcialFeatured.js" />
     <Content Include="Assets\admin\js\controllers\product\add.js" />
     <Content Include="Assets\admin\js\controllers\product\edit.js" />
@@ -1699,6 +1702,9 @@
     <Content Include="Assets\client\images\slider\hm6-bg-1_346142d1-6106-4615-ab60-229cc0430c5f.jpg" />
     <Content Include="Assets\client\js\plugins\toastr.js.map" />
     <Content Include="Areas\Admin\Views\HomePage\SpecialFeatured.cshtml" />
+    <Content Include="Areas\Admin\Views\HomePage\Banners.cshtml" />
+    <Content Include="Areas\Admin\Views\HomePage\AddBanner.cshtml" />
+    <Content Include="Areas\Admin\Views\HomePage\EditBanner.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

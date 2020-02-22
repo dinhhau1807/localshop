@@ -97,6 +97,7 @@
     <Compile Include="Concretes\StatusRepository.cs" />
     <Compile Include="Entities\ApplicationRole.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Banner.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\Image.cs" />
@@ -176,6 +177,10 @@
     <Compile Include="Migrations\202002201425469_Add_SpecialFeatured.designer.cs">
       <DependentUpon>202002201425469_Add_SpecialFeatured.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002220951108_Add_Banner.cs" />
+    <Compile Include="Migrations\202002220951108_Add_Banner.designer.cs">
+      <DependentUpon>202002220951108_Add_Banner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -241,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002201425469_Add_SpecialFeatured.resx">
       <DependentUpon>202002201425469_Add_SpecialFeatured.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002220951108_Add_Banner.resx">
+      <DependentUpon>202002220951108_Add_Banner.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
