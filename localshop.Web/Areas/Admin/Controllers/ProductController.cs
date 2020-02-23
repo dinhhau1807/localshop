@@ -29,7 +29,7 @@ namespace localshop.Areas.Admin.Controllers
 
         public ViewResult Index()
         {
-            var products = _productRepo.Products.ToList();
+            var products = _productRepo.AllProducts.ToList();
             foreach (var p in products)
             {
                 p.Images = _productRepo.GetImages(p.Id).ToList();
@@ -66,7 +66,10 @@ namespace localshop.Areas.Admin.Controllers
                 {
                     Product = new ProductDTO(),
                     Categories = _categoryRepo.Categories.AsEnumerable(),
-                    Statuses = _statusRepo.Statuses.AsEnumerable()
+                    Statuses = _statusRepo.Statuses.AsEnumerable(),
+                    IsFeatured = productDTO.IsFeatured,
+                    IsActive = productDTO.IsActive
+
                 };
                 return View(model);
             }
@@ -77,7 +80,9 @@ namespace localshop.Areas.Admin.Controllers
                 {
                     Product = _mapper.Map<AddProductDTO, ProductDTO>(productDTO),
                     Categories = _categoryRepo.Categories.AsEnumerable(),
-                    Statuses = _statusRepo.Statuses.AsEnumerable()
+                    Statuses = _statusRepo.Statuses.AsEnumerable(),
+                    IsFeatured = productDTO.IsFeatured,
+                    IsActive = productDTO.IsActive
                 };
                 ModelState.AddModelError("", "SKU is used by another product.");
                 return View(model);
@@ -133,6 +138,7 @@ namespace localshop.Areas.Admin.Controllers
                 var model = new ProductViewModel
                 {
                     Product = product,
+                    IsFeatured = product.IsFeatured,
                     IsActive = product.IsActive,
                     CategoryId = product.CategoryId,
                     Categories = _categoryRepo.Categories.AsEnumerable(),
@@ -160,7 +166,9 @@ namespace localshop.Areas.Admin.Controllers
                 Categories = _categoryRepo.Categories.AsEnumerable(),
                 StatusId = editProductDTO.StatusId,
                 Statuses = _statusRepo.Statuses.AsEnumerable(),
-                Images = editProductDTO.Images
+                Images = editProductDTO.Images,
+                IsFeatured = editProductDTO.IsFeatured,
+                IsActive = editProductDTO.IsActive
             };
 
             if (!ModelState.IsValid)

@@ -24,6 +24,14 @@ namespace localshop.Domain.Concretes
             _mapper = mapper;
         }
 
+        public IEnumerable<ProductDTO> AllProducts
+        {
+            get
+            {
+                return _context.Products.AsEnumerable().Select(p => _mapper.Map<Product, ProductDTO>(p));
+            }
+        }
+
         public IEnumerable<ProductDTO> Products
         {
             get
@@ -37,21 +45,47 @@ namespace localshop.Domain.Concretes
             return _context.Images.Where(i => i.ProductId == id).Select(i => i.Path).ToList();
         }
 
+        public decimal GetRealPrice(ProductDTO product)
+        {
+            if (product.DiscountPrice != null)
+            {
+                if (product.EndDiscountDate != null)
+                {
+                    if (DateTime.Now <= product.EndDiscountDate.Value)
+                    {
+                        return product.DiscountPrice.Value;
+                    }
+                    else
+                    {
+                        return product.Price;
+                    }
+                }
+                else
+                {
+                    return product.DiscountPrice.Value;
+                }
+            }
+            else
+            {
+                return product.Price;
+            }
+        }
+
         public ProductDTO FindById(string id)
         {
-            var product = _context.Products.Where(p => p.IsActive == true).FirstOrDefault(p => p.Id == id);
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
             return _mapper.Map<Product, ProductDTO>(product);
         }
 
         public ProductDTO FindBySku(string sku)
         {
-            var product = _context.Products.Where(p => p.IsActive == true).FirstOrDefault(p => p.Sku == sku);
+            var product = _context.Products.FirstOrDefault(p => p.Sku == sku);
             return _mapper.Map<Product, ProductDTO>(product);
         }
 
         public ProductDTO FindByMetaTitle(string metaTitle)
         {
-            var product = _context.Products.Where(p => p.IsActive == true).FirstOrDefault(p => p.MetaTitle == metaTitle);
+            var product = _context.Products.FirstOrDefault(p => p.MetaTitle == metaTitle);
             return _mapper.Map<Product, ProductDTO>(product);
         }
 

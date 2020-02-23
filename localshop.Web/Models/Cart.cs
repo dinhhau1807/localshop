@@ -1,4 +1,5 @@
 ﻿using localshop.Core.DTO;
+using localshop.Domain.Abstractions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -28,12 +29,38 @@ namespace localshop.Models
 
         public decimal Summary
         {
-            get { return LineCollection.Sum(l => (l.Product.DiscountPrice ?? l.Product.Price) * l.Quantity); }
+            get { return LineCollection.Sum(l => GetRealPrice(l.Product) * l.Quantity); }
         }
 
         public int SummaryQuantity
         {
             get { return LineCollection.Sum(l => l.Quantity); }
+        }
+
+        private decimal GetRealPrice(ProductDTO product)
+        {
+            if (product.DiscountPrice != null)
+            {
+                if (product.EndDiscountDate != null)
+                {
+                    if (DateTime.Now <= product.EndDiscountDate.Value)
+                    {
+                        return product.DiscountPrice.Value;
+                    }
+                    else
+                    {
+                        return product.Price;
+                    }
+                }
+                else
+                {
+                    return product.DiscountPrice.Value;
+                }
+            }
+            else
+            {
+                return product.Price;
+            }
         }
     }
 }

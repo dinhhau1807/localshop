@@ -1,4 +1,5 @@
 ﻿using localshop.Core.Common;
+using localshop.Core.DTO;
 using localshop.Domain.Abstractions;
 using localshop.Models;
 using localshop.ViewModels;
@@ -48,8 +49,8 @@ namespace localshop.Controllers
             // -- Price
             if (products.Count > 0)
             {
-                filter.PriceFilter.MinPrice = Math.Floor(products.Min(p => p.DiscountPrice ?? p.Price));
-                filter.PriceFilter.MaxPrice = Math.Ceiling(products.Max(p => p.DiscountPrice ?? p.Price));
+                filter.PriceFilter.MinPrice = Math.Floor(products.Min(p => _productRepo.GetRealPrice(p)));
+                filter.PriceFilter.MaxPrice = Math.Ceiling(products.Max(p => _productRepo.GetRealPrice(p)));
             }
             else
             {
@@ -58,7 +59,7 @@ namespace localshop.Controllers
             }
             if (filter.MinPrice != null && filter.MaxPrice != null)
             {
-                products = products.Where(p => ((p.DiscountPrice ?? p.Price) >= filter.MinPrice.Value) && ((p.DiscountPrice ?? p.Price) <= filter.MaxPrice.Value)).ToList();
+                products = products.Where(p => (_productRepo.GetRealPrice(p) >= filter.MinPrice.Value) && (_productRepo.GetRealPrice(p) <= filter.MaxPrice.Value)).ToList();
             }
 
             // -- Sort by
@@ -71,10 +72,10 @@ namespace localshop.Controllers
                     products = products.OrderByDescending(p => p.Name).ToList();
                     break;
                 case SortByEnums.PriceLowToHigh:
-                    products = products.OrderBy(p => p.DiscountPrice ?? p.Price).ToList();
+                    products = products.OrderBy(p => _productRepo.GetRealPrice(p)).ToList();
                     break;
                 case SortByEnums.PriceHightToLow:
-                    products = products.OrderByDescending(p => p.DiscountPrice ?? p.Price).ToList();
+                    products = products.OrderByDescending(p => _productRepo.GetRealPrice(p)).ToList();
                     break;
                 case SortByEnums.Default:
                 default:

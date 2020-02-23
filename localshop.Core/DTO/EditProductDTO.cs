@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -26,8 +27,13 @@ namespace localshop.Core.DTO
 
         public decimal? DiscountPrice { get; set; }
 
+        public DateTime? EndDiscountDate { get; set; }
+
         [Required]
         public int Quantity { get; set; }
+
+        [Required]
+        public bool IsFeatured { get; set; }
 
         [Required]
         public bool IsActive { get; set; }

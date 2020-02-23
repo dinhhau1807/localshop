@@ -1,4 +1,5 @@
-﻿using localshop.Models;
+﻿using localshop.Domain.Abstractions;
+using localshop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

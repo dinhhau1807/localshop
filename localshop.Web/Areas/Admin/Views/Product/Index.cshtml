@@ -131,6 +131,18 @@
                                     {
                                         <span class="badge badge-warning">@productStatus.Name</span>
                                     }
+
+                                    if (product.IsFeatured)
+                                    {
+                                        <br />
+                                        <span class="badge badge-light text-warning">Featured <i class="mdi mdi-star"></i></span>
+                                    }
+
+                                    if (!product.IsActive)
+                                    {
+                                        <br />
+                                        <span class="badge badge-secondary">Disabled</span>
+                                    }
                                 }
                             </td>
                             <td>

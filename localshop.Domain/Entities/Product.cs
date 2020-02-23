@@ -17,6 +17,7 @@ namespace localshop.Domain.Entities
 
             Price = 0;
             Quantity = 0;
+            IsFeatured = false;
             IsActive = true;
         }
 
@@ -38,7 +39,11 @@ namespace localshop.Domain.Entities
 
         public decimal? DiscountPrice { get; set; }
 
+        public DateTime? EndDiscountDate { get; set; }
+
         public int Quantity { get; set; }
+
+        public bool IsFeatured { get; set; }
 
         public bool IsActive { get; set; }
 

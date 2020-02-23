@@ -276,6 +276,7 @@
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Checkout\CheckoutViewModel.cs" />
+    <Compile Include="ViewModels\HomePage\HomePageViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductDetailViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductRelatedViewModel.cs" />
     <Compile Include="ViewModels\Shop\ProductViewModel.cs" />

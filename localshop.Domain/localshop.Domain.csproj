@@ -181,6 +181,14 @@
     <Compile Include="Migrations\202002220951108_Add_Banner.designer.cs">
       <DependentUpon>202002220951108_Add_Banner.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002231057148_Update_Product_Add_IsFeatured.cs" />
+    <Compile Include="Migrations\202002231057148_Update_Product_Add_IsFeatured.designer.cs">
+      <DependentUpon>202002231057148_Update_Product_Add_IsFeatured.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002231538509_Update_Product_Add_EndDiscountDate.cs" />
+    <Compile Include="Migrations\202002231538509_Update_Product_Add_EndDiscountDate.designer.cs">
+      <DependentUpon>202002231538509_Update_Product_Add_EndDiscountDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -249,6 +257,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002220951108_Add_Banner.resx">
       <DependentUpon>202002220951108_Add_Banner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002231057148_Update_Product_Add_IsFeatured.resx">
+      <DependentUpon>202002231057148_Update_Product_Add_IsFeatured.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002231538509_Update_Product_Add_EndDiscountDate.resx">
+      <DependentUpon>202002231538509_Update_Product_Add_EndDiscountDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

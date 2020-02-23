@@ -13,6 +13,7 @@ namespace localshop.Core.DTO
             Price = 0;
             Quantity = 0;
             IsActive = true;
+            IsFeatured = false;
         }
 
         public string Id { get; set; }
@@ -39,8 +40,14 @@ namespace localshop.Core.DTO
 
         public decimal? DiscountPrice { get; set; }
 
+        [Display(Name = "End discount date")]
+        public DateTime? EndDiscountDate { get; set; }
+
         [Required]
         public int Quantity { get; set; }
+
+        [Required]
+        public bool IsFeatured { get; set; }
 
         [Required]
         public bool IsActive { get; set; }

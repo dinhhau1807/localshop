@@ -12,8 +12,10 @@ namespace localshop.Areas.Admin.ViewModels
         public ProductViewModel()
         {
             IsActive = true;
+            IsFeatured = false;
         }
 
+        public bool IsFeatured { get; set; }
         public bool IsActive { get; set; }
         public ProductDTO Product { get; set; }
 

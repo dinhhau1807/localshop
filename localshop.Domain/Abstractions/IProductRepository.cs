@@ -10,9 +10,13 @@ namespace localshop.Domain.Abstractions
 {
     public interface IProductRepository : IDisposable
     {
+        IEnumerable<ProductDTO> AllProducts { get; }
+
         IEnumerable<ProductDTO> Products { get; }
 
         IEnumerable<string> GetImages(string id);
+
+        decimal GetRealPrice(ProductDTO product);
 
         ProductDTO FindById(string id);
 

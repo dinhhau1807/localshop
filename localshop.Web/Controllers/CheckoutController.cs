@@ -135,7 +135,7 @@ namespace localshop.Controllers
             {
                 var orderDetail = _mapper.Map<ProductDTO, OrderDetailDTO>(line.Product);
                 var product = _productRepo.FindById(line.Product.Id);
-                orderDetail.Price = product.DiscountPrice ?? product.Price;
+                orderDetail.Price = _productRepo.GetRealPrice(product);
 
                 if (line.Quantity > product.Quantity)
                 {

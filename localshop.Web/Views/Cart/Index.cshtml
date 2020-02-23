@@ -1,4 +1,5 @@
 ﻿@using localshop.Core.Common
+@using localshop.Core.DTO
 @model localshop.Models.Cart
 
 @{
@@ -77,6 +78,34 @@
     </script>
 }
 
+@functions {
+    public decimal GetRealPrice(ProductDTO product)
+    {
+        if (product.DiscountPrice != null)
+        {
+            if (product.EndDiscountDate != null)
+            {
+                if (DateTime.Now <= product.EndDiscountDate.Value)
+                {
+                    return product.DiscountPrice.Value;
+                }
+                else
+                {
+                    return product.Price;
+                }
+            }
+            else
+            {
+                return product.DiscountPrice.Value;
+            }
+        }
+        else
+        {
+            return product.Price;
+        }
+    }
+}
+
 <div class="breadcrumb-area bg-img" style="background-image:url('@ImageLinks.BackgrounBreadcrumb');">
     <div class="container">
         <div class="breadcrumb-content text-center">
@@ -122,13 +151,15 @@
                                         <a href="@Url.Action("detail","product", new { metaTitle=line.Product.MetaTitle })"><img src="@line.Product.Images.FirstOrDefault()" width="82" alt="image"></a>
                                     </td>
                                     <td class="product-name"><a href="@Url.Action("detail","product", new { metaTitle=line.Product.MetaTitle })" title="@line.Product.Name">@line.Product.Name.Truncate(200)</a></td>
-                                    <td class="product-price-cart"><span class="amount">$@(line.Product.DiscountPrice ?? line.Product.Price)</span></td>
+                                    <td class="product-price-cart">
+                                        <span class="amount">$@(GetRealPrice(line.Product))</span>
+                                    </td>
                                     <td class="product-quantity">
                                         <div class="cart-plus-minus">
                                             <input class="cart-plus-minus-box" type="text" name="qtybutton" value="@line.Quantity" data-productId="@line.Product.Id">
                                         </div>
                                     </td>
-                                    <td class="product-subtotal">$@(line.Quantity * (line.Product.DiscountPrice ?? line.Product.Price))</td>
+                                    <td class="product-subtotal">$@(line.Quantity * GetRealPrice(line.Product))</td>
 
                                     <td class="product-remove">
                                         @using (Html.BeginForm("removeProduct", "cart", FormMethod.Post))

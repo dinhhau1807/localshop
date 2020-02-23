@@ -116,16 +116,36 @@
                                                 {
                                                     <span class="new-stock"><span>Stock <br>Out</span></span>
                                                 }
-                                                else if (product.Product.DiscountPrice != null && (100 - (product.Product.DiscountPrice * 100 / product.Product.Price)) >= 15)
+                                                else if (product.Product.DiscountPrice != null)
                                                 {
                                                     var percetage = 100 - (product.Product.DiscountPrice * 100 / product.Product.Price);
-                                                    <span class="price-dec">-@Math.Round(percetage.Value)%</span>
+                                                    if (percetage >= 15)
+                                                    {
+                                                        if (product.Product.EndDiscountDate != null)
+                                                        {
+                                                            if (DateTime.Now <= product.Product.EndDiscountDate.Value)
+                                                            {
+                                                                <span class="price-dec">-@Math.Round(percetage.Value)%</span>
+                                                            }
+                                                            else if ((DateTime.Now - product.Product.DateAdded).TotalDays <= 7)
+                                                            {
+                                                                <span class="price-dec font-dec">NEW</span>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="price-dec">-@Math.Round(percetage.Value)%</span>
+                                                        }
+                                                    }
+                                                    else if ((DateTime.Now - product.Product.DateAdded).TotalDays <= 7)
+                                                    {
+                                                        <span class="price-dec font-dec">NEW</span>
+                                                    }
                                                 }
                                                 else if ((DateTime.Now - product.Product.DateAdded).TotalDays <= 7)
                                                 {
                                                     <span class="price-dec font-dec">NEW</span>
                                                 }
-
                                                 <a href="@Url.Action("detail", "product", new { metaTitle=product.Product.MetaTitle })"><img src="@(product.Product.Images.FirstOrDefault()??ImageLinks.BrokenProductImage)" alt="@product.Product.Name"></a>
                                                 <div class="product-action-2">
                                                     <a title="Compare" href="compare.html"><i class="la la-repeat"></i></a>
@@ -144,8 +164,23 @@
                                                     <div class="product-price">
                                                         @if (product.Product.DiscountPrice != null)
                                                         {
-                                                            <span>$@product.Product.DiscountPrice</span>
-                                                            <span class="old">$@product.Product.Price</span>
+                                                            if (product.Product.EndDiscountDate != null)
+                                                            {
+                                                                if (DateTime.Now <= product.Product.EndDiscountDate.Value)
+                                                                {
+                                                                    <span>$@product.Product.DiscountPrice</span>
+                                                                    <span class="old">$@product.Product.Price</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>$@product.Product.Price</span>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>$@product.Product.DiscountPrice</span>
+                                                                <span class="old">$@product.Product.Price</span>
+                                                            }
                                                         }
                                                         else
                                                         {
@@ -183,8 +218,23 @@
                                                 <div class="pro-list-price">
                                                     @if (product.Product.DiscountPrice != null)
                                                     {
-                                                        <span>$@product.Product.DiscountPrice</span>
-                                                        <span class="old-price">$@product.Product.Price</span>
+                                                        if (product.Product.EndDiscountDate != null)
+                                                        {
+                                                            if (DateTime.Now <= product.Product.EndDiscountDate.Value)
+                                                            {
+                                                                <span>$@product.Product.DiscountPrice</span>
+                                                                <span class="old-price">$@product.Product.Price</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>$@product.Product.Price</span>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>$@product.Product.DiscountPrice</span>
+                                                            <span class="old">$@product.Product.Price</span>
+                                                        }
                                                     }
                                                     else
                                                     {

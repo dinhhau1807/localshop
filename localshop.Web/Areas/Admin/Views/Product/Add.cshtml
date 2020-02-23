@@ -118,6 +118,10 @@
                                 <div class="form-group mb-0">
                                     <div class="d-flex justify-content-end flex-sm-row flex-column align-items-center">
                                         <div class="custom-control custom-switch d-sm-inline-block align-self-center mr-sm-4 mr-0 mb-sm-0 mb-2">
+                                            @Html.CheckBoxFor(m => m.IsFeatured, new { @class = "custom-control-input" })
+                                            <label class="custom-control-label" for="@Html.IdFor(m=>m.IsFeatured)">Featured product ?</label>
+                                        </div>
+                                        <div class="custom-control custom-switch d-sm-inline-block align-self-center mr-sm-4 mr-0 mb-sm-0 mb-2">
                                             @Html.CheckBoxFor(m => m.IsActive, new { @class = "custom-control-input" })
                                             <label class="custom-control-label" for="@Html.IdFor(m=>m.IsActive)">Show product ?</label>
                                         </div>

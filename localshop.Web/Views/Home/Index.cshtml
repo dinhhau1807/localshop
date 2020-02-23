@@ -1,25 +1,25 @@
-﻿@model localshop.Core.DTO.SpecialFeaturedDTO
+﻿@model HomePageViewModel
 
 <!-- Main Slide -->
 @if (Model != null)
 {
-    <div class="slider-area slider-height-6 bg-img" style="background-image:url('@Model.BackgroundImage')">
+    <div class="slider-area slider-height-6 bg-img" style="background-image:url('@Model.SpecialFeatured.BackgroundImage')">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="slider-content-6">
-                        <h1 class="wow fadeInUp">@Model.Title</h1>
-                        <p class="wow fadeInUp">@Model.Description</p>
+                        <h1 class="wow fadeInUp">@Model.SpecialFeatured.Title</h1>
+                        <p class="wow fadeInUp">@Model.SpecialFeatured.Description</p>
                         <div class="slider-btn-6 default-btn btn-hover">
-                            <a class="wow fadeInUp white-color" href="@Model.Link">BUY NOW</a>
+                            <a class="wow fadeInUp white-color" href="@Model.SpecialFeatured.Link">BUY NOW</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-12 tilter">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12 tilter" style="transform-style: preserve-3d;">
                     <div class="slider-sin-img-hm6">
-                        <img src="@Model.ProductImage" alt="@Model.Title">
-                        <div class="slider-price">
-                            <h4>$@Math.Round(Model.Price, 0)</h4>
+                        <img src="@Model.SpecialFeatured.ProductImage" alt="@Model.SpecialFeatured.Title">
+                        <div class="slider-price" style="transform: translateZ(20px);">
+                            <h4>$@Math.Round(Model.SpecialFeatured.Price, 0)</h4>
                         </div>
                     </div>
                 </div>
@@ -29,47 +29,44 @@
 }
 
 <!-- Banner slide -->
-<div class="banner-area pt-50 pb-70">
-    <div class="banner-slider-active-2 owl-carousel">
-        <div class="banner-wrap mb-30">
-            <a href="product-details.html">
-                <img src="/Assets/client/images/banner/banner-17.png" alt="banner">
-            </a>
-        </div>
-        <div class="banner-wrap mb-30">
-            <a href="product-details.html">
-                <img src="/Assets/client/images/banner/banner-18.png" alt="banner">
-            </a>
-        </div>
-        <div class="banner-wrap mb-30">
-            <a href="product-details.html">
-                <img src="/Assets/client/images/banner/banner-19.png" alt="banner">
-            </a>
-        </div>
-        <div class="banner-wrap mb-30">
-            <a href="product-details.html">
-                <img src="/Assets/client/images/banner/banner-18.png" alt="banner">
-            </a>
+@if (Model.Banners.Count() > 0)
+{
+    <div class="banner-area pt-50 pb-70">
+        <div class="banner-slider-active-2 owl-carousel">
+            @foreach (var banner in Model.Banners)
+            {
+                <div class="banner-wrap mb-30" style="max-width:620px; max-height:330px;">
+                    <a href="@banner.Link">
+                        <img src="@banner.Image" alt="@banner.Link">
+                    </a>
+                </div>
+            }
+            @*<div class="banner-wrap mb-30">
+                <a href="product-details.html">
+                    <img src="/Assets/client/images/banner/banner-18.png" alt="banner">
+                </a>
+            </div>*@
         </div>
     </div>
-</div>
+}
+
 
 <!-- Product area -->
 <div class="product-area pb-70">
     <div class="container">
         <div class="product-tab-list-3 nav">
-            <a class="active" href="#product-5" data-toggle="tab">
+            <a class="active" href="#product-featured" data-toggle="tab">
                 <h5>Featured </h5>
             </a>
-            <a href="#product-6" data-toggle="tab">
+            <a href="#product-onsale" data-toggle="tab">
                 <h5>On Sale</h5>
             </a>
-            <a href="#product-7" data-toggle="tab">
+            <a href="#product-toprated" data-toggle="tab">
                 <h5>Top Rated</h5>
             </a>
         </div>
         <div class="tab-content jump">
-            <div id="product-5" class="tab-pane active">
+            <div id="product-featured" class="tab-pane active">
                 <div class="row">
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="product-wrap product-border-3 product-img-zoom mb-30">
@@ -249,7 +246,7 @@
                     </div>
                 </div>
             </div>
-            <div id="product-6" class="tab-pane">
+            <div id="product-onsale" class="tab-pane">
                 <div class="row">
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="product-wrap product-border-3 product-img-zoom mb-30">
@@ -429,7 +426,7 @@
                     </div>
                 </div>
             </div>
-            <div id="product-7" class="tab-pane">
+            <div id="product-toprated" class="tab-pane">
                 <div class="row">
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="product-wrap product-border-3 product-img-zoom mb-30">

@@ -1,4 +1,20 @@
 ﻿$(document).ready(function () {
+    // Set up end discount date
+    if ($('#DiscountPrice').val() == '') {
+        $('#end-discount-date').hide();
+    }
+    $('#DiscountPrice').on('change', function () {
+        if ($(this).val() != '') {
+            $('#end-discount-date').slideDown(500, function () {
+                $(this).find('input').focus();
+            });
+        } else {
+            $('#end-discount-date').slideUp(500, function () {
+                $(this).find('input').val('');
+            });
+        }
+    });
+
     // gt, gte, lt, lte, notequalto extra validators
     var parseRequirement = function (requirement) {
         if (isNaN(+requirement))
@@ -46,7 +62,7 @@
         });
 
     // Setup choose images
-    var listImages = $('#Images').val() === ""? [] : $('#Images').val().split('@');
+    var listImages = $('#Images').val() === "" ? [] : $('#Images').val().split('@');
     $('#productImages').on('click', '.clear-image', function (e) {
         e.preventDefault();
 
@@ -84,7 +100,7 @@
                                     <img src="${newUrl}" />
                                     <a href="javascript:void(0)" class="position-absolute px-1 bg-light clear-image" style="top:0;left:0;"><span class="fas fa-times"></span></a>
                                 </div>`);
-                        }                      
+                        }
                     });
                 });
                 finder.on('file:choose:resizedImage', function (evt) {

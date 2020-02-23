@@ -1005,6 +1005,25 @@ function truncateString(str, num) {
     return str.slice(0, num) + '...';
 }
 
+function getRealPrice(product) {
+    if (product.DiscountPrice != null) {
+        if (product.EndDiscountDate != null) {
+            if (new Date() <= new Date(product.EndDiscountDate.match(/\d+/)[0] * 1)) {
+                return product.DiscountPrice;
+            }
+            else {
+                return product.Price;
+            }
+        }
+        else {
+            return product.DiscountPrice;
+        }
+    }
+    else {
+        return product.Price;
+    }
+}
+
 function custom() {
     $(document).ready(function () {
         $(document).on('stickAdd', function () {
@@ -1056,7 +1075,7 @@ function custom() {
                                             </div>
                                             <div class="shopping-cart-title">
                                                 <h4><a href="/product/detail/${product.MetaTitle}" target="_blank" title="${product.Name}">${truncateString(product.Name, 30)}</a></h4>
-                                                <span>$${product.DiscountPrice || product.Price} <small class="cart-product-quantity" data-productId="${product.Id}">(x${l.Quantity})</small></span>
+                                                <span>$${getRealPrice(product)} <small class="cart-product-quantity" data-productId="${product.Id}">(x${l.Quantity})</small></span>
                                             </div>
                                             <div class="shopping-cart-delete">
                                                 <a href="javscript:void(0)" data-productId="${product.Id}"><i class="la la-trash"></i></a>
@@ -1065,6 +1084,8 @@ function custom() {
                         $('.cart-list').append(item);
                     });
 
+
+                    console.log(response);
                     // Update cart summary
                     $('.shop-total').text(`$${response.summary}`);
                     $('.mini-cart-price-3').text(`$${response.summary}`);
@@ -1121,7 +1142,7 @@ function custom() {
                                                     </div>
                                                     <div class="shopping-cart-title">
                                                         <h4><a href="/product/detail/${product.MetaTitle}" target="_blank" title="${product.Name}">${truncateString(product.Name, 30)}</a></h4>
-                                                        <span>$${product.DiscountPrice || product.Price} <small class="cart-product-quantity" data-productId="${product.Id}">(x${line.Quantity})</small></span>
+                                                        <span>$${getRealPrice(product)} <small class="cart-product-quantity" data-productId="${product.Id}">(x${line.Quantity})</small></span>
                                                     </div>
                                                     <div class="shopping-cart-delete">
                                                         <a href="javscript:void(0)" data-productId="${product.Id}"><i class="la la-trash"></i></a>
