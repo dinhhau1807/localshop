@@ -1084,8 +1084,6 @@ function custom() {
                         $('.cart-list').append(item);
                     });
 
-
-                    console.log(response);
                     // Update cart summary
                     $('.shop-total').text(`$${response.summary}`);
                     $('.mini-cart-price-3').text(`$${response.summary}`);

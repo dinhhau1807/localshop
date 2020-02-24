@@ -25,6 +25,7 @@ namespace localshop.Controllers
 
         public ActionResult Index()
         {
+            // Prepare model
             var model = new HomePageViewModel
             {
                 SpecialFeatured = _homePageRepo.SpecialFeatureds,
@@ -33,7 +34,8 @@ namespace localshop.Controllers
                 OnSales = new List<ProductViewModel>()
             };
 
-            var featureds = _productRepo.Products.Where(p => p.IsFeatured == true).ToList();
+            // Get featureds
+            var featureds = _productRepo.Products.Where(p => p.IsFeatured == true).Take(8).ToList();
             foreach (var p in featureds)
             {
                 p.Images = _productRepo.GetImages(p.Id).ToList();
@@ -46,6 +48,29 @@ namespace localshop.Controllers
                 };
 
                 model.Featureds.Add(product);
+            }
+
+            // Get onSales
+            var onSales = _productRepo.Products.Where(p =>
+            {
+                if (p.DiscountPrice != null)
+                {
+                    return _productRepo.GetRealPrice(p) == p.DiscountPrice.Value;
+                }
+                return false;
+            }).Take(8).ToList();
+            foreach (var p in onSales)
+            {
+                p.Images = _productRepo.GetImages(p.Id).ToList();
+
+                var product = new ProductViewModel
+                {
+                    Product = p,
+                    Status = _statusRepo.GetStatus(p.StatusId),
+                    Category = _categoryRepo.GetCategory(p.CategoryId)
+                };
+
+                model.OnSales.Add(product);
             }
 
             return View(model);

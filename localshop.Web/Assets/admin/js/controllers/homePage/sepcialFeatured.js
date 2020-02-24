@@ -94,9 +94,9 @@
                 finder.on('file:choose:resizedImage', function (evt) {
                     var newUrl = '/ckfinder' + evt.data.resizedUrl.split('ckfinder')[1];
 
-                    backgroundImage.val(newUrl);
+                    productImage.val(newUrl);
 
-                    $('#background-image').empty().append(`
+                    $('#product-image').empty().append(`
                         <div class="position-relative m-2">
                             <img src="${newUrl}" style="max-width:100%"/>
                             <a href="javascript:void(0)" class="position-absolute px-1 bg-light clear-image" style="top:0;left:0;"><span class="fas fa-times"></span></a>
