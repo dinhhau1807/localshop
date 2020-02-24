@@ -11,6 +11,8 @@ namespace localshop.Domain.Abstractions
     {
         OrderDTO FindById(string id);
 
+        IList<OrderDTO> GetOrders(string userId);
+
         IList<OrderDetailDTO> GetOrderDetails(string id);
 
         string GetOrderStatus(string orderStatusId);

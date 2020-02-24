@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using localshop.Core.Common;
+using localshop.Core.DTO;
+using localshop.Domain.Abstractions;
 using localshop.Domain.Entities;
 using localshop.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -19,16 +21,14 @@ namespace localshop.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private IMapper _mapper;
+        private IOrderRepository _orderRepo;
 
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IMapper mapper)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IMapper mapper, IOrderRepository orderRepo)
         {
             UserManager = userManager;
             SignInManager = signInManager;
             _mapper = mapper;
+            _orderRepo = orderRepo;
         }
 
         public ApplicationSignInManager SignInManager
@@ -53,6 +53,100 @@ namespace localshop.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        [HttpGet]
+        public ViewResult Index()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            return View(model: user.FullName);
+        }
+
+        [HttpGet]
+        public ViewResult Orders()
+        {
+            var model = new List<OrderViewModel>();
+
+            var orders = _orderRepo.GetOrders(User.Identity.GetUserId());
+            foreach (var o in orders)
+            {
+                var order = new OrderViewModel
+                {
+                    Order = o,
+                    OrderStatus = _orderRepo.GetOrderStatus(o.OrderStatusId)
+                };
+                model.Add(order);
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ViewResult Info()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            return View(user);
+        }
+
+        [HttpGet]
+        public ViewResult UpdateInfo()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var model = _mapper.Map<ApplicationUser, UpdateProfileDTO>(user);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateInfo(UpdateProfileDTO updateProfileDTO)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            if (!ModelState.IsValid)
+            {
+                return View(updateProfileDTO);
+            }
+
+            var image = user.Image;
+            user = _mapper.Map(updateProfileDTO, user);
+            user.Image = image;
+
+            UserManager.Update(user);
+
+            TempData["SaveSuccess"] = "true";
+            return RedirectToAction("info");
+        }
+
+        [HttpGet]
+        public ViewResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordViewModel changePasswordViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["SaveSuccess"] = "false";
+                TempData["ErrorMessage"] = "Something went wrong!";
+                return View(changePasswordViewModel);
+            }
+
+            var result = UserManager.ChangePassword(User.Identity.GetUserId(),
+                                                    changePasswordViewModel.CurrentPassword,
+                                                    changePasswordViewModel.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                TempData["SaveSuccess"] = "false";
+                TempData["ErrorMessage"] = result.Errors.First().ToString();
+                return View(changePasswordViewModel);
+            }
+
+            TempData["SaveSuccess"] = "true";
+            return RedirectToAction("changepassword");
         }
 
         [HttpGet]
@@ -106,6 +200,7 @@ namespace localshop.Controllers
                 // Not implemented
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
+                    TempData["ErrorMessage"] = "Invalid login attempt.";
                     return View("LoginRegister", model);
             }
         }
@@ -149,7 +244,7 @@ namespace localshop.Controllers
                 // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                 await UserManager.AddToRoleAsync(user.Id, RoleNames.Customer);
-                
+
                 return RedirectToLocal(returnUrl);
             }
 

@@ -22,6 +22,13 @@ namespace localshop.Domain.Concretes
             _context = context;
         }
 
+        public IList<OrderDTO> GetOrders(string userId)
+        {
+            var orders = _context.Orders.Where(o => o.UserId == userId).AsEnumerable()
+                .Select(o => _mapper.Map<Order, OrderDTO>(o)).ToList();
+            return orders;
+        }
+
         public OrderDTO FindById(string id)
         {
             var order = _context.Orders.FirstOrDefault(o => o.Id == id);

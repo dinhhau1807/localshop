@@ -271,7 +271,7 @@
                             <a href="@Url.Action("detail", "product", new { metaTitle = firstFeatured.Product.MetaTitle})">@firstFeatured.Product.Name</a>
 
                         </h2>
-                        <p class="ck-content">@Html.Raw(firstFeatured.Product.ShortDesciption)</p>
+                        <div class="ck-content">@Html.Raw(firstFeatured.Product.ShortDesciption)</div>
                         <div class="timer timer-style-3">
                             <div data-countdown="@firstFeatured.Product.EndDiscountDate.GetValueOrDefault(DateTime.Now).ToString("yyyy/MM/dd")"></div>
                         </div>

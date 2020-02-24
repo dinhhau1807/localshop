@@ -19,7 +19,7 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <a href="wishlist.html">Wishlist</a>
-                                    <a href="my-account.html">My Account</a>
+                                    @Html.ActionLink("My Account", "index", "account")
                                     if (User.IsInRole(RoleNames.Root) ||
                                         User.IsInRole(RoleNames.Administrator) ||
                                         User.IsInRole(RoleNames.Modifier))
@@ -48,7 +48,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-2">
                         <div class="logo">
-                            <a href="@Url.Action("index", "home")"><img src="~/Assets/admin/images/logo-light.png" width="200" alt="logo"></a>
+                            <a href="@Url.Action("index", "home")"><img src="@ImageLinks.LogoLight" width="200" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-9">
