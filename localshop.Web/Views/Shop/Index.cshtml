@@ -148,7 +148,7 @@
                                                 }
                                                 <a href="@Url.Action("detail", "product", new { metaTitle=product.Product.MetaTitle })"><img src="@(product.Product.Images.FirstOrDefault()??ImageLinks.BrokenProductImage)" alt="@product.Product.Name"></a>
                                                 <div class="product-action-2">
-                                                    <a title="Compare" href="compare.html"><i class="la la-repeat"></i></a>
+                                                    <a title="Compare" class="add-to-compare" href="javascript:void(0)" data-productid="@product.Product.Id"><i class="la la-repeat"></i></a>
                                                     <a data-toggle="modal" data-target="#productModal" title="Quick View" href="javascript:void(0)"><i class="la la-search"></i></a>
                                                     <a title="Wishlist" href="wishlist.html"><i class="la la-heart-o"></i></a>
                                                     @if (product.Status != StatusNames.OutOfStock)
@@ -244,7 +244,7 @@
                                                 <div class="ck-content my-2 overflow-hidden">@Html.Raw(product.Product.ShortDesciption)</div>
                                                 <div class="product-list-action">
                                                     <a title="Wishlist" href="#"><i class="la la-heart-o"></i></a>
-                                                    <a title="Compare" href="#"><i class="la la-retweet"></i></a>
+                                                    <a title="Compare" class="add-to-compare" href="javascript:void(0)" data-productid="@product.Product.Id"><i class="la la-retweet"></i></a>
                                                     @if (product.Status != StatusNames.OutOfStock)
                                                     {
                                                         <a title="Add To Cart" href="#"><i class="la la-shopping-cart"></i></a>

@@ -1024,6 +1024,189 @@ function getRealPrice(product) {
     }
 }
 
+function handleCart() {
+    // Get cart
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "/cart/getCart",
+        success: function (response) {
+            if (response.success) {
+                response.cart.LineCollection.forEach(l => {
+                    let product = l.Product;
+                    let item = `<li class="single-shopping-cart">
+                                            <div class="shopping-cart-img">
+                                                <a href="/product/detail/${product.MetaTitle}" title="${product.Name}">
+                                                    <img alt="image" src="${product.Images[0]}">
+                                                </a>
+                                                <div class="item-close">
+                                                    <a href="javscript:void(0)"><i class="sli sli-close"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="/product/detail/${product.MetaTitle}" target="_blank" title="${product.Name}">${truncateString(product.Name, 30)}</a></h4>
+                                                <span>$${getRealPrice(product)} <small class="cart-product-quantity" data-productId="${product.Id}">(x${l.Quantity})</small></span>
+                                            </div>
+                                            <div class="shopping-cart-delete">
+                                                <a href="javscript:void(0)" data-productId="${product.Id}"><i class="la la-trash"></i></a>
+                                            </div>
+                                        </li>`;
+                    $('.cart-list').append(item);
+                });
+
+                // Update cart summary
+                $('.shop-total').text(`$${response.summary}`);
+                $('.mini-cart-price-3').text(`$${response.summary}`);
+                $('.mini-cart-price').text(`$${response.summary}`);
+
+                // Update cart count
+                $('.count-style-3').text(response.summaryQuantity > 99 ? ":D" : response.summaryQuantity);
+                $('.count-style').text(`${response.summaryQuantity} Items`);
+            } else {
+                toastr["error"]("Something went wrong!");
+            }
+        },
+        error: function () {
+            toastr["error"]("Something went wrong!");
+        }
+    });
+
+    // Add to cart
+    $('.add-to-cart').on('click', function (e) {
+        e.preventDefault();
+
+        var productId = $(this).data('productid');
+        var quantityInput = $('#product-detail').find('input[name="Quantity"]');
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/cart/addToCart",
+            data: {
+                productId,
+                quantity: quantityInput.val()
+            },
+            success: function (response) {
+                if (response.success) {
+                    if (response.warningMessage) {
+                        toastr["warning"]("Some product is out of stock, so you can only set max quantity we have in stock!");
+                    } else {
+                        toastr["success"]("Added product to cart!");
+                    }
+
+                    quantityInput.val(1);
+                    var line = response.cart.LineCollection.find(p => p.Product.Id == productId);
+                    var product = line ? line.Product : null;
+
+                    if (response.addNew) {
+                        var newItem = `<li class="single-shopping-cart">
+                                                    <div class="shopping-cart-img">
+                                                        <a href="/product/detail/${product.MetaTitle}" title="${product.Name}">
+                                                            <img alt="image" src="${product.Images[0]}">
+                                                        </a>
+                                                        <div class="item-close">
+                                                            <a href="javscript:void(0)"><i class="sli sli-close"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="shopping-cart-title">
+                                                        <h4><a href="/product/detail/${product.MetaTitle}" target="_blank" title="${product.Name}">${truncateString(product.Name, 30)}</a></h4>
+                                                        <span>$${getRealPrice(product)} <small class="cart-product-quantity" data-productId="${product.Id}">(x${line.Quantity})</small></span>
+                                                    </div>
+                                                    <div class="shopping-cart-delete">
+                                                        <a href="javscript:void(0)" data-productId="${product.Id}"><i class="la la-trash"></i></a>
+                                                    </div>
+                                                </li>`;
+
+                        $('.cart-list').append(newItem);
+                    }
+
+                    // Update cart summary
+                    $('.shop-total').text(`$${response.summary}`);
+                    $('.mini-cart-price-3').text(`$${response.summary}`);
+                    $('.mini-cart-price').text(`$${response.summary}`);
+
+                    // Update cart count
+                    $('.count-style-3').text(response.summaryQuantity > 99 ? ":D" : response.summaryQuantity);
+                    $('.count-style').text(`${response.summaryQuantity} Items`);
+
+                    // Update line quantity
+                    if (product) {
+                        $('.cart-product-quantity').parent().find(`[data-productId="${product.Id}"]`).text(`(x${line.Quantity})`);
+                    };
+                } else {
+                    toastr["error"]("Something went wrong!");
+                }
+            },
+            error: function () {
+                toastr["error"]("Something went wrong!");
+            }
+        })
+    });
+
+    // Remove from cart
+    $('.cart-list').on('click', '.shopping-cart-delete a', function (e) {
+        e.preventDefault();
+
+        var productId = $(this).data('productid');
+        var lines = $('.cart-list').find(`[data-productId="${productId}"]`).closest('li');
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/cart/removeFromCart",
+            data: { productId },
+            success: function (response) {
+                if (response.success) {
+                    // Update cart summary
+                    $('.shop-total').text(`$${response.summary}`);
+                    $('.mini-cart-price-3').text(`$${response.summary}`);
+                    $('.mini-cart-price').text(`$${response.summary}`);
+
+                    // Update cart count
+                    $('.count-style-3').text(response.summaryQuantity > 99 ? ":D" : response.summaryQuantity);
+                    $('.count-style').text(`${response.summaryQuantity} Items`);
+
+                    // Remove item
+                    lines.remove();
+                } else {
+                    toastr["error"]("Something went wrong!");
+                }
+            },
+            error: function () {
+                toastr["error"]("Something went wrong!");
+            }
+        });
+    });
+}
+
+function handleCompare() {
+    // Add to compare
+    $('.add-to-compare').on('click', function (e) {
+        e.preventDefault();
+
+        var productId = $(this).data('productid');
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/compare/addToCompare",
+            data: {
+                productId,
+            },
+            success: function (response) {
+                if (response.success) {
+                    toastr["success"]("Added product to compare!");
+                } else {
+                    toastr["error"]("Something went wrong!");
+                }
+            },
+            error: function () {
+                toastr["error"]("Something went wrong!");
+            }
+        })
+    });
+}
+
 function custom() {
     $(document).ready(function () {
         $(document).on('stickAdd', function () {
@@ -1055,157 +1238,7 @@ function custom() {
             "hideMethod": "fadeOut"
         };
 
-        // Get cart
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "/cart/getCart",
-            success: function (response) {
-                if (response.success) {
-                    response.cart.LineCollection.forEach(l => {
-                        let product = l.Product;
-                        let item = `<li class="single-shopping-cart">
-                                            <div class="shopping-cart-img">
-                                                <a href="/product/detail/${product.MetaTitle}" title="${product.Name}">
-                                                    <img alt="image" src="${product.Images[0]}">
-                                                </a>
-                                                <div class="item-close">
-                                                    <a href="javscript:void(0)"><i class="sli sli-close"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="/product/detail/${product.MetaTitle}" target="_blank" title="${product.Name}">${truncateString(product.Name, 30)}</a></h4>
-                                                <span>$${getRealPrice(product)} <small class="cart-product-quantity" data-productId="${product.Id}">(x${l.Quantity})</small></span>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="javscript:void(0)" data-productId="${product.Id}"><i class="la la-trash"></i></a>
-                                            </div>
-                                        </li>`;
-                        $('.cart-list').append(item);
-                    });
-
-                    // Update cart summary
-                    $('.shop-total').text(`$${response.summary}`);
-                    $('.mini-cart-price-3').text(`$${response.summary}`);
-                    $('.mini-cart-price').text(`$${response.summary}`);
-
-                    // Update cart count
-                    $('.count-style-3').text(response.summaryQuantity > 99 ? ":D" : response.summaryQuantity);
-                    $('.count-style').text(`${response.summaryQuantity} Items`);
-                } else {
-                    toastr["error"]("Something went wrong!");
-                }
-            },
-            error: function () {
-                toastr["error"]("Something went wrong!");
-            }
-        });
-
-        // Add to cart
-        $('.add-to-cart').on('click', function (e) {
-            e.preventDefault();
-
-            var productId = $(this).data('productid');
-            var quantityInput = $('#product-detail').find('input[name="Quantity"]');
-
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                url: "/cart/addToCart",
-                data: {
-                    productId,
-                    quantity: quantityInput.val()
-                },
-                success: function (response) {
-                    if (response.success) {
-                        if (response.warningMessage) {
-                            toastr["warning"]("Some product is out of stock, so you can only set max quantity we have in stock!");
-                        } else {
-                            toastr["success"]("Added product to cart!");
-                        }
-
-                        quantityInput.val(1);
-                        var line = response.cart.LineCollection.find(p => p.Product.Id == productId);
-                        var product = line ? line.Product : null;
-
-                        if (response.addNew) {
-                            var newItem = `<li class="single-shopping-cart">
-                                                    <div class="shopping-cart-img">
-                                                        <a href="/product/detail/${product.MetaTitle}" title="${product.Name}">
-                                                            <img alt="image" src="${product.Images[0]}">
-                                                        </a>
-                                                        <div class="item-close">
-                                                            <a href="javscript:void(0)"><i class="sli sli-close"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="shopping-cart-title">
-                                                        <h4><a href="/product/detail/${product.MetaTitle}" target="_blank" title="${product.Name}">${truncateString(product.Name, 30)}</a></h4>
-                                                        <span>$${getRealPrice(product)} <small class="cart-product-quantity" data-productId="${product.Id}">(x${line.Quantity})</small></span>
-                                                    </div>
-                                                    <div class="shopping-cart-delete">
-                                                        <a href="javscript:void(0)" data-productId="${product.Id}"><i class="la la-trash"></i></a>
-                                                    </div>
-                                                </li>`;
-
-                            $('.cart-list').append(newItem);
-                        }
-
-                        // Update cart summary
-                        $('.shop-total').text(`$${response.summary}`);
-                        $('.mini-cart-price-3').text(`$${response.summary}`);
-                        $('.mini-cart-price').text(`$${response.summary}`);
-
-                        // Update cart count
-                        $('.count-style-3').text(response.summaryQuantity > 99 ? ":D" : response.summaryQuantity);
-                        $('.count-style').text(`${response.summaryQuantity} Items`);
-
-                        // Update line quantity
-                        if (product) {
-                            $('.cart-product-quantity').parent().find(`[data-productId="${product.Id}"]`).text(`(x${line.Quantity})`);
-                        };
-                    } else {
-                        toastr["error"]("Something went wrong!");
-                    }
-                },
-                error: function () {
-                    toastr["error"]("Something went wrong!");
-                }
-            })
-        });
-
-        // Remove from cart
-        $('.cart-list').on('click', '.shopping-cart-delete a', function (e) {
-            e.preventDefault();
-
-            var productId = $(this).data('productid');
-            var lines = $('.cart-list').find(`[data-productId="${productId}"]`).closest('li');
-
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                url: "/cart/removeFromCart",
-                data: { productId },
-                success: function (response) {
-                    if (response.success) {
-                        // Update cart summary
-                        $('.shop-total').text(`$${response.summary}`);
-                        $('.mini-cart-price-3').text(`$${response.summary}`);
-                        $('.mini-cart-price').text(`$${response.summary}`);
-
-                        // Update cart count
-                        $('.count-style-3').text(response.summaryQuantity > 99 ? ":D" : response.summaryQuantity);
-                        $('.count-style').text(`${response.summaryQuantity} Items`);
-
-                        // Remove item
-                        lines.remove();
-                    } else {
-                        toastr["error"]("Something went wrong!");
-                    }
-                },
-                error: function () {
-                    toastr["error"]("Something went wrong!");
-                }
-            });
-        });
+        handleCart();
+        handleCompare();
     });
 }

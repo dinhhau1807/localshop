@@ -1,4 +1,5 @@
-﻿using localshop.Domain.Abstractions;
+﻿using localshop.Core.Common;
+using localshop.Domain.Abstractions;
 using localshop.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -34,8 +35,10 @@ namespace localshop.Controllers
                 OnSales = new List<ProductViewModel>()
             };
 
+            var products = _productRepo.Products.ToList().Where(p => _statusRepo.GetStatus(p.StatusId) != StatusNames.OutOfStock);
+
             // Get featureds
-            var featureds = _productRepo.Products.Where(p => p.IsFeatured == true).Take(8).ToList();
+            var featureds = products.Where(p => p.IsFeatured == true).Take(8).ToList();
             foreach (var p in featureds)
             {
                 p.Images = _productRepo.GetImages(p.Id).ToList();
@@ -51,7 +54,7 @@ namespace localshop.Controllers
             }
 
             // Get onSales
-            var onSales = _productRepo.Products.Where(p =>
+            var onSales = products.Where(p =>
             {
                 if (p.DiscountPrice != null)
                 {

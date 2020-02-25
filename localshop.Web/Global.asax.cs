@@ -20,6 +20,7 @@ namespace localshop
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
+            ModelBinders.Binders.Add(typeof(Compare), new CompareModelBinder());
         }
     }
 }

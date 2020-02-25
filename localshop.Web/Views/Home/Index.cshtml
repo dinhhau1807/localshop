@@ -79,7 +79,7 @@
                                     </a>
                                     <div class="product-action-4">
                                         <div class="product-action-4-style">
-                                            <a data-tooltip="Compare" href="javascript:void(0)"><i class="la la-random"></i></a>
+                                            <a data-tooltip="Compare" href="javascript:void(0)" class="add-to-compare" data-productid="@p.Product.Id"><i class="la la-random"></i></a>
                                             <a data-tooltip="Wishlist" href="javascript:void(0)"><i class="la la-heart-o"></i></a>
                                             <a data-tooltip="Add To Cart" href="javascript:void(0)" data-productid="@p.Product.Id" class="add-to-cart"><i class="la la-cart-plus"></i></a>
                                         </div>
@@ -159,7 +159,7 @@
                                     </a>
                                     <div class="product-action-4">
                                         <div class="product-action-4-style">
-                                            <a data-tooltip="Compare" href="javascript:void(0)"><i class="la la-random"></i></a>
+                                            <a data-tooltip="Compare" href="javascript:void(0)" class="add-to-compare" data-productid="@p.Product.Id"><i class="la la-random"></i></a>
                                             <a data-tooltip="Wishlist" href="javascript:void(0)"><i class="la la-heart-o"></i></a>
                                             <a data-tooltip="Add To Cart" href="javascript:void(0)" data-productid="@p.Product.Id" class="add-to-cart"><i class="la la-cart-plus"></i></a>
                                         </div>
@@ -258,22 +258,21 @@
 </div>
 
 
-@if (Model.Featureds.Count > 0)
+@if (Model.OnSales.Count > 0)
 {
     <!-- Hot deal area -->
-    var firstFeatured = Model.Featureds.First();
-    <div class="deal-area pb-90 pt-50 bg-img section-margin-2 res-white-overly-xs deal-hm6" style="background-image:url('@(firstFeatured.Product.Images.FirstOrDefault()??ImageLinks.BrokenProductImage)');">
+    var firstOnSale = Model.OnSales.First();
+    <div class="deal-area pb-90 pt-50 bg-img section-margin-2 res-white-overly-xs deal-hm6" style="background-image:url('@(firstOnSale.Product.Images.FirstOrDefault()??ImageLinks.BrokenProductImage)');">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="deal-content-2">
-                        <h2>
-                            <a href="@Url.Action("detail", "product", new { metaTitle = firstFeatured.Product.MetaTitle})">@firstFeatured.Product.Name</a>
-
+                        <h2 class="mb-2">
+                            <a href="@Url.Action("detail", "product", new { metaTitle = firstOnSale.Product.MetaTitle})">@firstOnSale.Product.Name</a>
                         </h2>
-                        <div class="ck-content">@Html.Raw(firstFeatured.Product.ShortDesciption)</div>
+                        <div class="ck-content">@Html.Raw(firstOnSale.Product.ShortDesciption)</div>
                         <div class="timer timer-style-3">
-                            <div data-countdown="@firstFeatured.Product.EndDiscountDate.GetValueOrDefault(DateTime.Now).ToString("yyyy/MM/dd")"></div>
+                            <div data-countdown="@firstOnSale.Product.EndDiscountDate.GetValueOrDefault(DateTime.Now).ToString("yyyy/MM/dd")"></div>
                         </div>
                     </div>
                 </div>
@@ -286,13 +285,13 @@
         <div class="container">
             <div class="row">
                 @{var count = 1;}
-                @for (int i = 1; i < Model.Featureds.Count; i++)
+                @for (int i = 1; i < Model.OnSales.Count; i++)
                 {
                     if (count == 5)
                     {
                         break;
                     }
-                    var p = Model.Featureds[i];
+                    var p = Model.OnSales[i];
                     if (p.Product.EndDiscountDate != null && DateTime.Now <= p.Product.EndDiscountDate.Value)
                     {
                         count++;
@@ -304,7 +303,7 @@
                                     </a>
                                     <div class="product-action-4">
                                         <div class="product-action-4-style">
-                                            <a data-tooltip="Compare" href="javascript:void(0)"><i class="la la-random"></i></a>
+                                            <a data-tooltip="Compare" href="javascript:void(0)" data-productid="@p.Product.Id" class="add-to-compare"><i class="la la-random"></i></a>
                                             <a data-tooltip="Wishlist" href="javascript:void(0)"><i class="la la-heart-o"></i></a>
                                             <a data-tooltip="Add To Cart" href="javascript:void(0)" data-productid="@p.Product.Id" class="add-to-cart"><i class="la la-cart-plus"></i></a>
                                         </div>

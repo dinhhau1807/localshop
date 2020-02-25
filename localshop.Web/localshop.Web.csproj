@@ -252,6 +252,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
@@ -263,10 +264,12 @@
     </Compile>
     <Compile Include="Infrastructures\Attributes\AdminAuthorizeAttribute.cs" />
     <Compile Include="Infrastructures\Binders\CartModelBinder.cs" />
+    <Compile Include="Infrastructures\Binders\CompareModelBinder.cs" />
     <Compile Include="Infrastructures\CKFinderAuthenticator.cs" />
     <Compile Include="Infrastructures\ListRouteConstraint.cs" />
     <Compile Include="Infrastructures\MappingProfile.cs" />
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\Compare.cs" />
     <Compile Include="Models\PriceFilter.cs" />
     <Compile Include="Models\ProductFilter.cs" />
     <Compile Include="Models\Enums.cs" />
@@ -1729,6 +1732,7 @@
     <Content Include="Views\Account\Info.cshtml" />
     <Content Include="Views\Account\UpdateInfo.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Compare\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\localshop.Core\localshop.Core.csproj">
