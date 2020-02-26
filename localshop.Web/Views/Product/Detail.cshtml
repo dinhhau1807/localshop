@@ -123,7 +123,7 @@
                             <a title="Add To Compare" href="javascript:void(0)" class="add-to-compare" data-productid="@Model.Product.Id"><i class="la la-retweet"></i> Compare</a>
                         </div>
                         <div class="pro-details-wishlist">
-                            <a title="Add To Wishlist" href="#"><i class="la la-heart-o"></i> Add to wish list</a>
+                            <a title="Add To Wishlist" href="javascript:void(0)" class="add-to-wishlist" data-productid="@Model.Product.Id"><i class="la la-heart-o"></i> Add to wish list</a>
                         </div>
                     </div>
                     @if (Model.Status != StatusNames.OutOfStock)
@@ -317,7 +317,7 @@
                     <div class="product-img mb-15">
                         <a href="@Url.Action("detail", "product", new { metaTitle = p.Product.MetaTitle })"><img src="@(p.Product.Images.FirstOrDefault()??ImageLinks.BrokenProductImage)" alt="product"></a>
                         <div class="product-action">
-                            <a title="Wishlist" href="#"><i class="la la-heart-o"></i></a>
+                            <a title="Wishlist" href="javascript:void(0)" class="add-to-wishlist" data-productid="@p.Product.Id"><i class="la la-heart-o"></i></a>
                             <a title="Compare" href="javascript:void(0)" class="add-to-compare" data-productid="@p.Product.Id"><i class="la la-retweet"></i></a>
                         </div>
                     </div>

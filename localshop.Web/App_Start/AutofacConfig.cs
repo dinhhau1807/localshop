@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using AutoMapper;
+using localshop.Domain;
 using localshop.Domain.Abstractions;
 using localshop.Domain.Concretes;
 using localshop.Domain.Entities;
@@ -79,6 +80,7 @@ namespace localshop
             builder.RegisterType<OrderRepository>().As<IOrderRepository>().AsSelf().InstancePerRequest();
             builder.RegisterType<ContactRepository>().As<IContactRepository>().AsSelf().InstancePerRequest();
             builder.RegisterType<HomePageRepository>().As<IHomePageRepository>().AsSelf().InstancePerRequest();
+            builder.RegisterType<WishlistRepository>().As<IWislistRepository>().AsSelf().InstancePerRequest();
         }
     }
 }

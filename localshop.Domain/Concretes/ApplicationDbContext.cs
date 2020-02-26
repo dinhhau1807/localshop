@@ -32,6 +32,7 @@ namespace localshop.Domain.Concretes
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<SpecialFeatured> SpecialFeatureds { get; set; }
         public DbSet<Banner> Banners { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -129,6 +130,10 @@ namespace localshop.Domain.Concretes
             modelBuilder.Entity<Banner>().HasKey(b => b.Id);
             modelBuilder.Entity<Banner>().Property(b => b.Image).IsRequired();
             modelBuilder.Entity<Banner>().Property(b => b.Link).IsRequired();
+
+            //------------------------------------------------------------------------
+            // Whishlists
+            modelBuilder.Entity<Wishlist>().HasKey(w => new { w.UserId, w.ProductId });
 
             base.OnModelCreating(modelBuilder);
         }

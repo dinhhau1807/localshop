@@ -1207,6 +1207,106 @@ function handleCompare() {
     });
 }
 
+function handleWishlist() {
+    // Load icon
+    if (userAuthorized) {
+        $('.add-to-wishlist').each(function () {
+            var productId = $(this).data('productid');
+            var $icon = $(this).find('i');
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/wishlist/checkExist",
+                data: {
+                    productId,
+                },
+                success: function (response) {
+                    if (response.exist) {
+                        $icon.removeClass('la-heart-o').addClass('la-heart');
+                    } else {
+                        $icon.removeClass('la-heart').addClass('la-heart-o');
+                    }
+                },
+                error: function () {
+                    toastr["error"]("Something went wrong!");
+                }
+            });
+        });
+    }
+
+
+    $('.add-to-wishlist').on('click', function (e) {
+        e.preventDefault();
+        var productId = $(this).data('productid');
+        var $icon = $(this).find('i');
+
+        if (userAuthorized) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/wishlist/checkExist",
+                data: {
+                    productId,
+                },
+                success: function (response) {
+                    if (response.exist) {
+                        // Remove if exist
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: "/wishlist/removeFromWishlist",
+                            data: {
+                                productId,
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    toastr["success"]("Removed from wishlist!");
+                                    $icon.removeClass('la-heart').addClass('la-heart-o');
+                                } else {
+                                    toastr["error"]("Something went wrong!");
+                                }
+                            },
+                            error: function () {
+                                toastr["error"]("Something went wrong!");
+                            }
+                        });
+
+                    } else {
+                        // Add if not exist
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: "/wishlist/addToWishlist",
+                            data: {
+                                productId,
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    toastr["success"]("Added to wishlist!");
+                                    $icon.removeClass('la-heart-o').addClass('la-heart');
+                                } else {
+                                    toastr["error"]("Something went wrong!");
+                                }
+                            },
+                            error: function () {
+                                toastr["error"]("Something went wrong!");
+                            }
+                        });
+
+                    }
+                },
+                error: function () {
+                    toastr["error"]("Something went wrong!");
+                }
+            });
+        }
+        else {
+            toastr["warning"]("You need to login to perform this action!");
+        }
+    });
+}
+
 function custom() {
     $(document).ready(function () {
         $(document).on('stickAdd', function () {
@@ -1240,5 +1340,6 @@ function custom() {
 
         handleCart();
         handleCompare();
+        handleWishlist();
     });
 }

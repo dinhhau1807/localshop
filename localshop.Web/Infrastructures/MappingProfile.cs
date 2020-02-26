@@ -53,6 +53,7 @@ namespace localshop.Infrastructures
                 .ForMember(o => o.UserId, opt => opt.MapFrom(u => u.Id));
             CreateMap<Order, OrderDTO>();
             CreateMap<OrderDetail, OrderDetailDTO>();
+            CreateMap<Wishlist, WishlistDTO>();
             #endregion
 
 
@@ -60,6 +61,7 @@ namespace localshop.Infrastructures
             CreateMap<OrderDTO, Order>();
             CreateMap<OrderDetailDTO, OrderDetail>();
             CreateMap<ContactDTO, Contact>();
+            CreateMap<WishlistDTO, Wishlist>();
             #endregion
 
 

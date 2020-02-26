@@ -78,6 +78,9 @@
     @RenderSection("thirdPartyJs", false)
 
     <!-- Main JS -->
+    <script>
+        var userAuthorized = @User.Identity.IsAuthenticated.ToString().ToLower();
+    </script>
     <script src="~/Assets/client/js/main.js"></script>
 </body>
 

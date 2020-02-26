@@ -88,6 +88,7 @@
     <Compile Include="Abstractions\IOrderRepository.cs" />
     <Compile Include="Abstractions\IProductRepository.cs" />
     <Compile Include="Abstractions\IStatusRepository.cs" />
+    <Compile Include="Abstractions\IWislistRepository.cs" />
     <Compile Include="Concretes\ApplicationDbContext.cs" />
     <Compile Include="Concretes\CategoryRepository.cs" />
     <Compile Include="Concretes\ContactRepository.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Concretes\OrderRepository.cs" />
     <Compile Include="Concretes\ProductRepository.cs" />
     <Compile Include="Concretes\StatusRepository.cs" />
+    <Compile Include="Concretes\WishlistRepository.cs" />
     <Compile Include="Entities\ApplicationRole.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Banner.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Entities\SpecialFeatured.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\Tag.cs" />
+    <Compile Include="Entities\Wishlist.cs" />
     <Compile Include="Migrations\202001221649359_Add_ApplicationUserProperties.cs" />
     <Compile Include="Migrations\202001221649359_Add_ApplicationUserProperties.designer.cs">
       <DependentUpon>202001221649359_Add_ApplicationUserProperties.cs</DependentUpon>
@@ -189,6 +192,18 @@
     <Compile Include="Migrations\202002231538509_Update_Product_Add_EndDiscountDate.designer.cs">
       <DependentUpon>202002231538509_Update_Product_Add_EndDiscountDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002260655566_Add_Whishlist.cs" />
+    <Compile Include="Migrations\202002260655566_Add_Whishlist.designer.cs">
+      <DependentUpon>202002260655566_Add_Whishlist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002260743499_Edit_Wishlist_RenameTable.cs" />
+    <Compile Include="Migrations\202002260743499_Edit_Wishlist_RenameTable.designer.cs">
+      <DependentUpon>202002260743499_Edit_Wishlist_RenameTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002260754583_Edit_Wishlist_RemoveId.cs" />
+    <Compile Include="Migrations\202002260754583_Edit_Wishlist_RemoveId.designer.cs">
+      <DependentUpon>202002260754583_Edit_Wishlist_RemoveId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -263,6 +278,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002231538509_Update_Product_Add_EndDiscountDate.resx">
       <DependentUpon>202002231538509_Update_Product_Add_EndDiscountDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002260655566_Add_Whishlist.resx">
+      <DependentUpon>202002260655566_Add_Whishlist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002260743499_Edit_Wishlist_RenameTable.resx">
+      <DependentUpon>202002260743499_Edit_Wishlist_RenameTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002260754583_Edit_Wishlist_RemoveId.resx">
+      <DependentUpon>202002260754583_Edit_Wishlist_RemoveId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

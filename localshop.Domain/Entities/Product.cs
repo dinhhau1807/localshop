@@ -72,6 +72,9 @@ namespace localshop.Domain.Entities
         // Product orders
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
+        // Product whishlists
+        public virtual ICollection<Wishlist> Whishlists { get; set; }
+
         // FK_Brand
 
         // Backlog, Backorder,...

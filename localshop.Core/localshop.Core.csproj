@@ -87,6 +87,7 @@
     <Compile Include="DTO\StatusDTO.cs" />
     <Compile Include="DTO\TagDTO.cs" />
     <Compile Include="DTO\UpdateProfileDTO.cs" />
+    <Compile Include="DTO\WishlistDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
