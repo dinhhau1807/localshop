@@ -21,6 +21,14 @@ namespace localshop.Domain.Concretes
             _context = context;
         }
 
+        public IEnumerable<ContactDTO> Contacts
+        {
+            get
+            {
+                return _context.Contacts.AsEnumerable().Select(c => _mapper.Map<Contact, ContactDTO>(c)).ToList();
+            }
+        }
+
         public ContactDTO Save(ContactDTO contactDTO)
         {
             var contact = _mapper.Map<ContactDTO, Contact>(contactDTO);
@@ -37,6 +45,13 @@ namespace localshop.Domain.Concretes
             {
                 return null;
             }
+        }
+
+        public void SetRead(int contactId)
+        {
+            var contact = _context.Contacts.First(c => c.Id == contactId);
+            contact.IsRead = true;
+            _context.SaveChanges();
         }
     }
 }

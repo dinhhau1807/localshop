@@ -443,7 +443,7 @@
             <div class="contact-from contact-shadow">
                 @using (Html.BeginForm("sendmessage", "contact", FormMethod.Post, new { data_parsley_validate = "", no_validate = "" }))
                 {
-                    Html.AntiForgeryToken();
+                    @Html.AntiForgeryToken()
                     <div class="row">
                         <div class="col-lg-6">
                             @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", required = "" })

@@ -9,6 +9,10 @@ namespace localshop.Domain.Abstractions
 {
     public interface IContactRepository
     {
+        IEnumerable<ContactDTO> Contacts { get; }
+
         ContactDTO Save(ContactDTO contactDTO);
+
+        void SetRead(int contactId);
     }
 }

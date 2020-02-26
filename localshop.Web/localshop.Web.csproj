@@ -234,6 +234,7 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContactController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomePageController.cs" />
     <Compile Include="Areas\Admin\Controllers\NavController.cs" />
@@ -403,6 +404,7 @@
     <Content Include="Assets\admin\js\app.min.js" />
     <Content Include="Assets\admin\js\app.min.js.map" />
     <Content Include="Assets\admin\js\controllers\category\index.js" />
+    <Content Include="Assets\admin\js\controllers\contact\index.js" />
     <Content Include="Assets\admin\js\controllers\homePage\addBanner.js" />
     <Content Include="Assets\admin\js\controllers\homePage\banners.js" />
     <Content Include="Assets\admin\js\controllers\homePage\editBanner.js" />
@@ -1712,6 +1714,7 @@
     <Content Include="Areas\Admin\Views\HomePage\Banners.cshtml" />
     <Content Include="Areas\Admin\Views\HomePage\AddBanner.cshtml" />
     <Content Include="Areas\Admin\Views\HomePage\EditBanner.cshtml" />
+    <Content Include="Areas\Admin\Views\Contact\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

@@ -27,6 +27,7 @@ namespace localshop.Infrastructures
             CreateMap<Tag, TagDTO>();
             CreateMap<SpecialFeatured, SpecialFeaturedDTO>();
             CreateMap<Banner, BannerDTO>();
+            CreateMap<Contact, ContactDTO>();
             #endregion
 
 
