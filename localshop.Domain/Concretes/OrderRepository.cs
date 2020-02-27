@@ -22,6 +22,14 @@ namespace localshop.Domain.Concretes
             _context = context;
         }
 
+        public IList<OrderDTO> Orders
+        {
+            get
+            {
+                return _context.Orders.AsEnumerable().Select(o => _mapper.Map<Order, OrderDTO>(o)).ToList();
+            }
+        }
+
         public IList<OrderDTO> GetOrders(string userId)
         {
             var orders = _context.Orders.Where(o => o.UserId == userId).AsEnumerable()
@@ -89,6 +97,46 @@ namespace localshop.Domain.Concretes
             }
 
             orderDTO.OrderStatusId = status.Id;
+            return status.Id;
+        }
+
+        public string AddPaymentMethod(string orderId, string paymentMethod)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
+            if (order == null)
+            {
+                return null;
+            }
+
+            var method = _context.PaymentMethods.FirstOrDefault(pm => pm.Name == paymentMethod);
+            if (paymentMethod == null)
+            {
+                return null;
+            }
+
+             order.PaymentMethodId = method.Id;
+            _context.SaveChanges();
+
+            return method.Id;
+        }
+
+        public string UpdateStatus(string orderId, string statusName)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
+            if (order == null)
+            {
+                return null;
+            }
+
+            var status = _context.OrderStatuses.FirstOrDefault(os => os.Name == statusName);
+            if (status == null)
+            {
+                return null;
+            }
+
+            order.OrderStatusId = status.Id;
+            _context.SaveChanges();
+
             return status.Id;
         }
 

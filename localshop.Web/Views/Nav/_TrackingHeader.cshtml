@@ -17,10 +17,11 @@
                     <div class="col-lg-8">
                         <div class="setting-wrap-2">
                             <div class="setting-content2-right">
+                                @Html.ActionLink("Compare", "index", "compare")
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <a href="wishlist.html">Wishlist</a>
-                                    <a href="my-account.html">My Account</a>
+                                    @Html.ActionLink("Wishlist", "index", "wishlist")
+                                    @Html.ActionLink("My Account", "index", "account")
                                     if (User.IsInRole(RoleNames.Root) ||
                                         User.IsInRole(RoleNames.Administrator) ||
                                         User.IsInRole(RoleNames.Modifier))
@@ -78,7 +79,7 @@
             <div class="row justify-content-center text-center">
                 <div class="col-12 mb-4">
                     <div class="mobile-logo">
-                        <a href="index.html">
+                        <a href="@Url.Action("index","home")">
                             <img alt="" src="@ImageLinks.LogoDark" width="180">
                         </a>
                     </div>

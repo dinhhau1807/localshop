@@ -54,7 +54,7 @@
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <strong>Thank you!</strong> @:Your order has been placed. You can access your order details anytime in your <a href="#" class="text-primary">orders section in profile</a>.
+                                <strong>Thank you!</strong> @:Your order has been placed. You can access your order details anytime in your <a href="@Url.Action("orders", "account")" class="text-primary">orders section in profile</a>.
                             }
                             else
                             {
@@ -87,7 +87,12 @@
                                                 {
                                                     case OrderStatusNames.Pending:
                                                         {
-                                                            <p><span class="badge badge-info">@Model.OrderStatus</span></p>
+                                                            <p><span class="badge badge-warning">@Model.OrderStatus</span></p>
+                                                            break;
+                                                        }
+                                                    case OrderStatusNames.Approved:
+                                                        {
+                                                            <p><span class="badge badge-primary">@Model.OrderStatus</span></p>
                                                             break;
                                                         }
                                                     case OrderStatusNames.Delivered:
@@ -102,7 +107,7 @@
                                                         }
                                                     default:
                                                         {
-                                                            <p><span class="badge badge-warning">@Model.OrderStatus</span></p>
+                                                            <p><span class="badge badge-secondary">@Model.OrderStatus</span></p>
                                                             break;
                                                         }
                                                 }

@@ -9,6 +9,7 @@ namespace localshop.Core.Common
     public static class OrderStatusNames
     {
         public const string Pending = "Pending";
+        public const string Approved = "Approved";
         public const string Delivered = "Delivered";
         public const string Cancelled = "Cancelled";
     }

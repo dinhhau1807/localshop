@@ -238,11 +238,13 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomePageController.cs" />
     <Compile Include="Areas\Admin\Controllers\NavController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\NavigationHeader.cs" />
     <Compile Include="Areas\Admin\ViewModels\Category\ListAddCategoryViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Category\ListCategoryViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Order\OrderViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Product\ListProductViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Product\ProductViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\User\ListUserWithRolesViewModel.cs" />
@@ -409,6 +411,7 @@
     <Content Include="Assets\admin\js\controllers\homePage\banners.js" />
     <Content Include="Assets\admin\js\controllers\homePage\editBanner.js" />
     <Content Include="Assets\admin\js\controllers\homePage\sepcialFeatured.js" />
+    <Content Include="Assets\admin\js\controllers\order\index.js" />
     <Content Include="Assets\admin\js\controllers\product\add.js" />
     <Content Include="Assets\admin\js\controllers\product\edit.js" />
     <Content Include="Assets\admin\js\controllers\product\index.js" />
@@ -1715,6 +1718,7 @@
     <Content Include="Areas\Admin\Views\HomePage\AddBanner.cshtml" />
     <Content Include="Areas\Admin\Views\HomePage\EditBanner.cshtml" />
     <Content Include="Areas\Admin\Views\Contact\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

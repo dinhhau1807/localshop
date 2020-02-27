@@ -9,6 +9,8 @@ namespace localshop.Domain.Abstractions
 {
     public interface IOrderRepository
     {
+        IList<OrderDTO> Orders { get; }
+
         OrderDTO FindById(string id);
 
         IList<OrderDTO> GetOrders(string userId);
@@ -22,6 +24,10 @@ namespace localshop.Domain.Abstractions
         string AddPaymentMethod(OrderDTO orderDTO, string paymentMethod);
 
         string UpdateStatus(OrderDTO orderDTO, string statusName);
+        
+        string AddPaymentMethod(string orderId, string paymentMethod);
+
+        string UpdateStatus(string orderId, string statusName);
 
         OrderDTO Save(OrderDTO order, IList<OrderDetailDTO> orderDetails);
     }

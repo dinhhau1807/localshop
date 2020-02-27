@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace localshop.Areas.Admin.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : BaseController
     {
         private IContactRepository _contactRepo;
 

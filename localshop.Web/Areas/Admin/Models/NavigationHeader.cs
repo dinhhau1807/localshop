@@ -25,5 +25,7 @@ namespace localshop.Areas.Admin.Models
         public const string EditBanner = "Edit banner";
 
         public const string Contact = "Contact";
+
+        public const string Order = "Order";
     }
 }

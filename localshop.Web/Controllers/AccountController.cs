@@ -67,7 +67,7 @@ namespace localshop.Controllers
         {
             var model = new List<OrderViewModel>();
 
-            var orders = _orderRepo.GetOrders(User.Identity.GetUserId());
+            var orders = _orderRepo.GetOrders(User.Identity.GetUserId()).OrderByDescending(o => o.OrderDate).ToList();
             foreach (var o in orders)
             {
                 var order = new OrderViewModel
