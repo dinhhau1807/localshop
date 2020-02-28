@@ -1,0 +1,14 @@
+﻿<appSettings>
+    <add key="webpages:Version" value="3.0.0.0" />
+    <add key="webpages:Enabled" value="false" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <!-- Email Config -->
+    <add key="FromEmailAddress" value="serverEmailHere" />
+    <add key="FromEmailDisplayName" value="NewMail" />
+    <add key="FromEmailPassword" value="passWordMailServerHere" />
+    <add key="SMTPHost" value="smtp.gmail.com" />
+    <add key="SMTPPort" value="587" />
+    <add key="EnableSSL" value="true" />
+    <add key="ToEmailAddress" value="adminMailHere" />
+  </appSettings>

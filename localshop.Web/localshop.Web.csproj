@@ -1719,6 +1719,8 @@
     <Content Include="Areas\Admin\Views\HomePage\EditBanner.cshtml" />
     <Content Include="Areas\Admin\Views\Contact\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="AppSettings.config" />
+    <None Include="AppSettings.config.sample" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
