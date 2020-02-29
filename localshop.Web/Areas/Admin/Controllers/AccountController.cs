@@ -117,6 +117,7 @@ namespace localshop.Areas.Admin.Controllers
             {
                 return RedirectToLocal(returnUrl);
             }
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -129,6 +130,12 @@ namespace localshop.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            var user = UserManager.FindByEmail(model.Email);
+            if (user != null && !UserManager.IsEmailConfirmed(user.Id))
+            {
+                return RedirectToAction("login", "account", new { area="", returnUrl = returnUrl });
             }
 
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);

@@ -62,14 +62,12 @@ namespace localshop
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
+
             builder.Register(c => new UserStore<ApplicationUser>(c.Resolve<DbContext>())).AsImplementedInterfaces().InstancePerRequest();
             builder.Register(c => new RoleStore<ApplicationRole>(c.Resolve<DbContext>())).AsImplementedInterfaces().InstancePerRequest();
             builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
+
             builder.Register(c => new IdentityFactoryOptions<ApplicationUserManager>
-            {
-                DataProtectionProvider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("Application​"),
-            });
-            builder.Register(c => new IdentityFactoryOptions<ApplicationRoleManager>
             {
                 DataProtectionProvider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("Application​"),
             });

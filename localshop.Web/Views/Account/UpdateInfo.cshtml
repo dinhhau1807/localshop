@@ -44,6 +44,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
+                @if (TempData["UpdateInfo"] as string == "true")
+                {
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        Let's <strong>update your information</strong> to get the best experience on our shop!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+
                 <!-- My Account Page Start -->
                 <div class="myaccount-page-wrapper">
                     <!-- My Account Tab Menu Start -->

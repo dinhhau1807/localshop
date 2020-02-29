@@ -82,7 +82,8 @@
                     FirstName = "Hau",
                     LastName = "Nguyen Dinh",
                     UserName = email,
-                    Email = email
+                    Email = email,
+                    EmailConfirmed = true
                 }, password);
 
                 userTemp = userManager.FindByName(email);

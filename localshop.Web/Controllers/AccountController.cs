@@ -16,6 +16,7 @@ using System.Web.Mvc;
 
 namespace localshop.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -59,7 +60,9 @@ namespace localshop.Controllers
         public ViewResult Index()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            return View(model: user.FullName);
+
+            var name = string.IsNullOrWhiteSpace(user.FullName) ? User.Identity.Name : user.FullName;
+            return View(model: name);
         }
 
         [HttpGet]
@@ -185,6 +188,12 @@ namespace localshop.Controllers
                 return View("LoginRegister", model);
             }
 
+            var user = UserManager.FindByEmail(loginViewModel.Email);
+            if (user != null && !UserManager.IsEmailConfirmed(user.Id))
+            {
+                return View("SendMail", model: user.Id);
+            }
+
             var result = await SignInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, loginViewModel.RememberMe, shouldLockout: false);
             switch (result)
             {
@@ -235,21 +244,79 @@ namespace localshop.Controllers
             var result = await UserManager.CreateAsync(user, registerViewModel.RegisterPassword);
             if (result.Succeeded)
             {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                await UserManager.AddToRoleAsync(user.Id, RoleNames.Customer);
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
+                UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                var callbackUrl = Url.Action("confirmEmail", "account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                var body = MailHelper.CreateConfirmEmailBody(ControllerContext, callbackUrl);
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", body);
 
-                await UserManager.AddToRoleAsync(user.Id, RoleNames.Customer);
-
-                return RedirectToLocal(returnUrl);
+                return View("SendMail", model: user.Id);
             }
 
             AddErrors(result);
             return View("LoginRegister", model);
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return RedirectToAction("index");
+            }
+
+            var user = UserManager.FindById(userId);
+            if (user == null)
+            {
+                return View("Error");
+            }
+
+            var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
+            UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+           
+            if (result.Succeeded)
+            {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                TempData["UpdateInfo"] = "true";
+                return RedirectToAction("updateinfo");
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> ResendConfirmMail(string userId)
+        {
+            if (userId == null)
+            {
+                return RedirectToAction("index");
+            }
+
+            var user = UserManager.FindById(userId);
+            if (user == null)
+            {
+                return View("Error");
+            }
+
+            var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
+            UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var callbackUrl = Url.Action("confirmEmail", "account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            var body = MailHelper.CreateConfirmEmailBody(ControllerContext, callbackUrl);
+            await UserManager.SendEmailAsync(user.Id, "Confirm your account", body);
+
+            return View("SendMail", model: user.Id);
         }
 
         [HttpPost]
@@ -260,7 +327,6 @@ namespace localshop.Controllers
             authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("index", "home");
         }
-
 
 
         #region Helpers
