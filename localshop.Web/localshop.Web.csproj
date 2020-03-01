@@ -280,10 +280,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\Account\ForgotPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginRegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\OrderViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Checkout\CheckoutViewModel.cs" />
     <Compile Include="ViewModels\HomePage\HomePageViewModel.cs" />
     <Compile Include="ViewModels\Product\ProductDetailViewModel.cs" />
@@ -1583,6 +1585,7 @@
     <Content Include="Assets\plugins\CKFinderScripts\skins\neko\skin.js" />
     <Content Include="Assets\plugins\modernizr-2.8.3.js" />
     <Content Include="Content\ConfirmEmailTemplate.html" />
+    <Content Include="Content\ResetPasswordConfirmEmailTemplate.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -1747,6 +1750,10 @@
     <Content Include="Views\Wishlist\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Account\SendMail.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\localshop.Core\localshop.Core.csproj">

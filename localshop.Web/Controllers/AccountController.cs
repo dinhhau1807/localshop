@@ -56,6 +56,7 @@ namespace localshop.Controllers
             }
         }
 
+        #region Account
         [HttpGet]
         public ViewResult Index()
         {
@@ -151,7 +152,9 @@ namespace localshop.Controllers
             TempData["SaveSuccess"] = "true";
             return RedirectToAction("changepassword");
         }
+        #endregion
 
+        #region Login - Register
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl = "")
@@ -279,7 +282,7 @@ namespace localshop.Controllers
             var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
             UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-           
+
             if (result.Succeeded)
             {
                 if (!User.Identity.IsAuthenticated)
@@ -318,6 +321,88 @@ namespace localshop.Controllers
 
             return View("SendMail", model: user.Id);
         }
+        #endregion
+
+        #region Reset password
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return View("ForgotPasswordConfirmation");
+                }
+
+                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+
+                var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
+                UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("ResetPasswordConfirmation"));
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("resetpassword", "account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                var body = MailHelper.CreateResetPasswordConfirmEmailBody(ControllerContext, callbackUrl);
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", body);
+
+                return View("ForgotPasswordConfirmation");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string code)
+        {
+            if (code == null)
+            {
+                return RedirectToAction("forgotPassword");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return View("ResetPasswordConfirmation");
+            }
+
+            var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
+            UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("ResetPasswordConfirmation"));
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return View("ResetPasswordConfirmation");
+            }
+
+            AddErrors(result);
+            TempData["ErrorMessage"] = result.Errors.First().ToString();
+
+            return View();
+        }
+        #endregion
 
         [HttpPost]
         [ValidateAntiForgeryToken]

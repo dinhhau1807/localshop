@@ -22,5 +22,19 @@ namespace localshop.Core.Common
 
             return body;
         }
+
+        public static string CreateResetPasswordConfirmEmailBody(ControllerContext controllerContext, string callbackUrl)
+        {
+            string body;
+            using (System.IO.StreamReader reader = new System.IO.StreamReader(controllerContext.HttpContext.Server.MapPath("~/Content/ResetPasswordConfirmEmailTemplate.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{logo-link}", $"{controllerContext.HttpContext.Request.Url.Scheme}://{controllerContext.HttpContext.Request.Url.Authority}");
+            body = body.Replace("{confirm-link}", callbackUrl);
+
+            return body;
+        }
     }
 }

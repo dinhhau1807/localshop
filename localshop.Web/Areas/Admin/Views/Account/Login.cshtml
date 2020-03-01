@@ -49,7 +49,7 @@
 
                             @using (Html.BeginForm())
                             {
-                                @Html.ValidationSummary(true, "", new { @class="alert alert-danger"})
+                                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
                                 @Html.AntiForgeryToken()
                                 @Html.Hidden("returnUrl", (object)ViewBag.ReturnUrl)
 
@@ -79,7 +79,7 @@
 
                     <div class="row mt-3">
                         <div class="col-12 text-center">
-                            <p> <a href="~/admin/forgot-pasword" class="text-muted ml-1"><i class="fa fa-lock mr-1"></i>Forgot your password?</a></p>
+                            <p> <a href="@Url.Action("forgotpassword", "account", new { area="" })" class="text-muted ml-1"><i class="fa fa-lock mr-1"></i>Forgot your password?</a></p>
                         </div> <!-- end col -->
                     </div>
                     <!-- end row -->
