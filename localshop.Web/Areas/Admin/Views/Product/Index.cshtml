@@ -109,9 +109,25 @@
                             <td>
                                 @if (product.DiscountPrice != null)
                                 {
-                                    <strong class="text-danger">$@product.DiscountPrice</strong>
-                                    <br />
-                                    <del class="text-muted">$@product.Price</del>
+                                    if (product.EndDiscountDate != null)
+                                    {
+                                        if (DateTime.Now <= product.EndDiscountDate.Value)
+                                        {
+                                            <strong class="text-danger">$@product.DiscountPrice</strong>
+                                            <br />
+                                            <del class="text-muted">$@product.Price</del>
+                                        }
+                                        else
+                                        {
+                                            <strong>$@product.Price</strong>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <strong class="text-danger">$@product.DiscountPrice</strong>
+                                        <br />
+                                        <del class="text-muted">$@product.Price</del>
+                                    }
                                 }
                                 else
                                 {
