@@ -79,6 +79,7 @@ namespace localshop
             builder.RegisterType<ContactRepository>().As<IContactRepository>().AsSelf().InstancePerRequest();
             builder.RegisterType<HomePageRepository>().As<IHomePageRepository>().AsSelf().InstancePerRequest();
             builder.RegisterType<WishlistRepository>().As<IWislistRepository>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ReviewRepository>().As<IReviewRepository>().AsSelf().InstancePerRequest();
         }
     }
 }

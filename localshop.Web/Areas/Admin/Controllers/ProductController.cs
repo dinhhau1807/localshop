@@ -3,6 +3,7 @@ using localshop.Areas.Admin.ViewModels;
 using localshop.Core.DTO;
 using localshop.Domain.Abstractions;
 using localshop.Domain.Entities;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,7 +20,10 @@ namespace localshop.Areas.Admin.Controllers
         private ICategoryRepository _categoryRepo;
         private IStatusRepository _statusRepo;
 
-        public ProductController(IMapper mapper, IProductRepository productRepo, ICategoryRepository categoryRepo, IStatusRepository statusRepo)
+        public ProductController(IMapper mapper,
+                                IProductRepository productRepo,
+                                ICategoryRepository categoryRepo,
+                                IStatusRepository statusRepo)
         {
             _mapper = mapper;
             _productRepo = productRepo;

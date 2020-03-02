@@ -267,12 +267,13 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="deal-content-2">
-                        <h2 class="mb-2">
-                            <a href="@Url.Action("detail", "product", new { metaTitle = firstOnSale.Product.MetaTitle})">@firstOnSale.Product.Name</a>
-                        </h2>
+                        <h2 class="mb-2">@firstOnSale.Product.Name</h2>
                         <div class="ck-content">@Html.Raw(firstOnSale.Product.ShortDesciption)</div>
                         <div class="timer timer-style-3">
                             <div data-countdown="@firstOnSale.Product.EndDiscountDate.GetValueOrDefault(DateTime.Now).ToString("yyyy/MM/dd")"></div>
+                        </div>
+                        <div class="deal-5-btn btn-hover hover-border-none">
+                            <a class="black-color" href="@Url.Action("detail", "product", new { metaTitle = firstOnSale.Product.MetaTitle})" style="background-color: #ff5151;">Buy Now</a>
                         </div>
                     </div>
                 </div>

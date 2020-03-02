@@ -1,4 +1,5 @@
-﻿@using localshop.Core.Common
+﻿@using Microsoft.AspNet.Identity;
+@using localshop.Core.Common
 @model ProductDetailViewModel
 
 @{
@@ -7,6 +8,86 @@
 
 @section thirdPartyCss {
     <link href="~/Assets/plugins/ckeditor5-build-classic-16.0.0/content-styles/content-styles.css" rel="stylesheet" />
+    <style>
+        .parsley-errors-list {
+            color: lightcoral;
+            margin-bottom: 20px;
+        }
+
+        .parsley-success {
+            border: solid 1px lightgreen !important;
+        }
+
+        .parsley-error {
+            border: solid 1px lightcoral !important;
+        }
+    </style>
+}
+
+@section thirdPartyJs {
+    <script src="~/Assets/client/js/plugins/parsley.js"></script>
+
+    <script>
+        $(function () {
+             toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+            if ('@TempData["SaveSuccess"]' == 'false') {
+                toastr["error"]("Something went wrong!");
+            }
+
+            if ('@TempData["ActivePanel"]' == 'description') {
+                $('#des1').tab('show');
+            }
+            if ('@TempData["ActivePanel"]' == 'specification') {
+                $('#des2').tab('show');
+            }
+            if ('@TempData["ActivePanel"]' == 'review') {
+                $('#des3').tab('show');
+            }
+
+            $('#des3').tab('show');
+
+            $('.ls-delete-review').on('click', function (e) {
+                e.preventDefault();
+                var $review = $(this).closest('.dec-review-wrap');
+                 $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "/review/delete",
+                        data: {
+                            productId : $(this).data('productid'),
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                $review.remove();
+                                $('#review-box').removeClass('d-none');
+                            } else {
+                                toastr["error"]("Something went wrong!");
+                            }
+                        },
+                        error: function () {
+                            toastr["error"]("Something went wrong!");
+                        }
+                    });
+            });
+        });
+    </script>
 }
 
 <div class="breadcrumb-area bg-img" style="background-image:url(@ImageLinks.BackgrounBreadcrumb);">
@@ -138,15 +219,15 @@
     </div>
 </div>
 
-<!-- Reviews -->
+<!-- Description / Detail / Reviews -->
 <div class="description-review-wrapper pb-90">
     <div class="container">
         <div class="row">
             <div class="ml-auto mr-auto col-lg-10">
                 <div class="dec-review-topbar nav mb-40">
-                    <a data-toggle="tab" href="#des-details1">Description</a>
-                    <a class="active" data-toggle="tab" href="#des-details2">Specification</a>
-                    <a data-toggle="tab" href="#des-details3">Reviews</a>
+                    <a id="des1" data-toggle="tab" href="#des-details1">Description</a>
+                    <a id="des2" class="active" data-toggle="tab" href="#des-details2">Specification</a>
+                    <a id="des3" data-toggle="tab" href="#des-details3">Reviews</a>
                 </div>
                 <div class="tab-content dec-review-bottom">
                     <div id="des-details1" class="tab-pane">
@@ -195,108 +276,145 @@
                         </div>
                     </div>
                     <div id="des-details3" class="tab-pane">
-                        <div class="dec-review-wrap mb-50">
-                            <div class="row">
-                                <div class="col-xl-3 col-lg-4 col-md-5">
-                                    <div class="dec-review-img-wrap">
-                                        <div class="dec-review-img">
-                                            <img src="/Assets/client/images/product-details/review-1.png" alt="review">
+                        @* Get user review *@
+                        @{
+                            bool closeReview = false;
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            var userId = User.Identity.GetUserId();
+                            var currentReview = Model.Reviews.FirstOrDefault(r => r.Review.UserId == userId);
+                            if (currentReview != null)
+                            {
+                                closeReview = true;
+                                <div class="dec-review-wrap mb-50" @Html.Raw(currentReview.Review.IsApproved ? "" : "style='opacity:0.7'")>
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-4 col-md-5">
+                                            <div class="dec-review-img-wrap">
+                                                <div class="dec-client-name">
+                                                    <h4>@Html.Raw(string.IsNullOrWhiteSpace(currentReview.Name) ? "<span class='text-secondary'>(no name)</span>" : currentReview.Name)</h4>
+                                                    <div class="dec-client-rating">
+                                                        @for (int i = 0; i < currentReview.Review.Rating; i++)
+                                                        {
+                                                            <i class="la la-star"></i>
+                                                        }
+                                                        @for (int i = currentReview.Review.Rating; i < 5; i++)
+                                                        {
+                                                            <i class="la la-star-o"></i>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="dec-client-name">
-                                            <h4>Jonathon Doe</h4>
-                                            <div class="dec-client-rating">
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star-half-o"></i>
+                                        <div class="col-xl-9 col-lg-8 col-md-7">
+                                            <div class="dec-review-content">
+                                                <p>@currentReview.Review.Body</p>
+                                                <div class="review-content-bottom">
+                                                    <div class="review-date align-self-center">
+                                                        <span>@currentReview.Review.DateAdded.ToShortDateString()</span>
+                                                    </div>
+                                                    <div>
+                                                        @if (!currentReview.Review.IsApproved)
+                                                        {
+                                                            <abbr title="Your review is waiting for the acceptant from admin!">Pending...</abbr>
+                                                        }
+                                                        <a href="javascript:void(0)" class="text-danger ml-20 ls-delete-review" data-productid="@Model.Product.Id">Delete</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-9 col-lg-8 col-md-7">
-                                    <div class="dec-review-content">
-                                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
-                                        <div class="review-content-bottom">
-                                            <div class="review-like">
-                                                <span><i class="la la-heart-o"></i> 24 Likes</span>
-                                            </div>
-                                            <div class="review-date">
-                                                <span>25 Jun 2019</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dec-review-wrap mb-50">
-                            <div class="row">
-                                <div class="col-xl-3 col-lg-4 col-md-5">
-                                    <div class="dec-review-img-wrap">
-                                        <div class="dec-review-img">
-                                            <img src="/Assets/client/images/product-details/review-2.png" alt="review">
-                                        </div>
-                                        <div class="dec-client-name">
-                                            <h4>Jonathon Doe</h4>
-                                            <div class="dec-client-rating">
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star-half-o"></i>
+
+                                Model.Reviews.Remove(currentReview);
+                            }
+                        }
+
+                        @* Get other user reviews *@
+                        @foreach (var r in Model.Reviews)
+                        {
+                            if (!r.Review.IsApproved)
+                            {
+                                continue;
+                            }
+                            <div class="dec-review-wrap mb-50">
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-4 col-md-5">
+                                        <div class="dec-review-img-wrap">
+                                            <div class="dec-client-name">
+                                                <h4>@Html.Raw(string.IsNullOrWhiteSpace(r.Name) ? "<span class='text-secondary'>(no name)</span>" : r.Name)</h4>
+                                                <div class="dec-client-rating">
+                                                    @for (int i = 0; i < r.Review.Rating; i++)
+                                                    {
+                                                        <i class="la la-star"></i>
+                                                    }
+                                                    @for (int i = r.Review.Rating; i < 5; i++)
+                                                    {
+                                                        <i class="la la-star-o"></i>
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-9 col-lg-8 col-md-7">
-                                    <div class="dec-review-content">
-                                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
-                                        <div class="review-content-bottom">
-                                            <div class="review-like">
-                                                <span><i class="la la-heart-o"></i> 24 Likes</span>
-                                            </div>
-                                            <div class="review-date">
-                                                <span>25 Jun 2019</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dec-review-wrap">
-                            <div class="row">
-                                <div class="col-xl-3 col-lg-4 col-md-5">
-                                    <div class="dec-review-img-wrap">
-                                        <div class="dec-review-img">
-                                            <img src="/Assets/client/images/product-details/review-3.png" alt="review">
-                                        </div>
-                                        <div class="dec-client-name">
-                                            <h4>Jonathon Doe</h4>
-                                            <div class="dec-client-rating">
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star-half-o"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-9 col-lg-8 col-md-7">
-                                    <div class="dec-review-content">
-                                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
-                                        <div class="review-content-bottom">
-                                            <div class="review-like">
-                                                <span><i class="la la-heart-o"></i> 24 Likes</span>
-                                            </div>
-                                            <div class="review-date">
-                                                <span>25 Jun 2019</span>
+                                    <div class="col-xl-9 col-lg-8 col-md-7">
+                                        <div class="dec-review-content">
+                                            <p>@r.Review.Body</p>
+                                            <div class="review-content-bottom">
+                                                <div class="review-date align-self-center">
+                                                    <span>@r.Review.DateAdded.ToShortDateString()</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
+
+                        @*<div class="dec-review-wrap mb-50">
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-4 col-md-5">
+                                        <div class="dec-review-img-wrap">
+                                            <div class="dec-review-img">
+                                                <img src="/Assets/client/images/product-details/review-2.png" alt="review">
+                                            </div>
+                                            <div class="dec-client-name">
+                                                <h4>Jonathon Doe</h4>
+                                                <div class="dec-client-rating">
+                                                    <i class="la la-star"></i>
+                                                    <i class="la la-star"></i>
+                                                    <i class="la la-star"></i>
+                                                    <i class="la la-star"></i>
+                                                    <i class="la la-star-half-o"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-9 col-lg-8 col-md-7">
+                                        <div class="dec-review-content">
+                                            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
+                                            <div class="review-content-bottom">
+                                                <div class="review-like">
+                                                    <span><i class="la la-heart-o"></i> 24 Likes</span>
+                                                </div>
+                                                <div class="review-date">
+                                                    <span>25 Jun 2019</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div id="review-box" class="dec-review-wrap @(closeReview?"d-none":"")">
+                                <div class="border p-4">
+                                    <h3>Write a review</h3>
+                                    <hr />
+                                    @{Html.RenderPartial("_AddReview", new localshop.Core.DTO.ReviewDTO() { ProductId = Model.Product.Id });}
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

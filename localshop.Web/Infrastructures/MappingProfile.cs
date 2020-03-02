@@ -12,8 +12,20 @@ namespace localshop.Infrastructures
     {
         public MappingProfile()
         {
+            General();
             AdminProfile();
             ClientProfile();
+        }
+
+        public void General()
+        {
+            #region Domain to DTO
+            CreateMap<Review, ReviewDTO>();
+            #endregion
+
+            #region DTO to Domain
+            CreateMap<ReviewDTO, Review>();
+            #endregion
         }
 
         public void AdminProfile()

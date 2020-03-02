@@ -87,6 +87,7 @@
     <Compile Include="Abstractions\IHomePageRepository.cs" />
     <Compile Include="Abstractions\IOrderRepository.cs" />
     <Compile Include="Abstractions\IProductRepository.cs" />
+    <Compile Include="Abstractions\IReviewRepository.cs" />
     <Compile Include="Abstractions\IStatusRepository.cs" />
     <Compile Include="Abstractions\IWislistRepository.cs" />
     <Compile Include="Concretes\ApplicationDbContext.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Concretes\HomePageRepository.cs" />
     <Compile Include="Concretes\OrderRepository.cs" />
     <Compile Include="Concretes\ProductRepository.cs" />
+    <Compile Include="Concretes\ReviewRepository.cs" />
     <Compile Include="Concretes\StatusRepository.cs" />
     <Compile Include="Concretes\WishlistRepository.cs" />
     <Compile Include="Entities\ApplicationRole.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Entities\OrderStatus.cs" />
     <Compile Include="Entities\PaymentMethod.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Review.cs" />
     <Compile Include="Entities\SpecialFeatured.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\Tag.cs" />
@@ -204,6 +207,14 @@
     <Compile Include="Migrations\202002260754583_Edit_Wishlist_RemoveId.designer.cs">
       <DependentUpon>202002260754583_Edit_Wishlist_RemoveId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003011109586_Add_Review.cs" />
+    <Compile Include="Migrations\202003011109586_Add_Review.designer.cs">
+      <DependentUpon>202003011109586_Add_Review.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003011339020_Update_Review_Add_DateAdded.cs" />
+    <Compile Include="Migrations\202003011339020_Update_Review_Add_DateAdded.designer.cs">
+      <DependentUpon>202003011339020_Update_Review_Add_DateAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -287,6 +298,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002260754583_Edit_Wishlist_RemoveId.resx">
       <DependentUpon>202002260754583_Edit_Wishlist_RemoveId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011109586_Add_Review.resx">
+      <DependentUpon>202003011109586_Add_Review.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011339020_Update_Review_Add_DateAdded.resx">
+      <DependentUpon>202003011339020_Update_Review_Add_DateAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

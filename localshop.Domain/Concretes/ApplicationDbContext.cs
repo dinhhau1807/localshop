@@ -33,6 +33,7 @@ namespace localshop.Domain.Concretes
         public DbSet<SpecialFeatured> SpecialFeatureds { get; set; }
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         #endregion
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -134,6 +135,12 @@ namespace localshop.Domain.Concretes
             //------------------------------------------------------------------------
             // Whishlists
             modelBuilder.Entity<Wishlist>().HasKey(w => new { w.UserId, w.ProductId });
+
+            //------------------------------------------------------------------------
+            // Reviews
+            modelBuilder.Entity<Review>().HasKey(r => new { r.UserId, r.ProductId });
+            modelBuilder.Entity<Review>().Property(r => r.Body).IsRequired();
+            modelBuilder.Entity<Review>().Property(r => r.Rating).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }
