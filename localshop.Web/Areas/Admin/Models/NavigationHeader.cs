@@ -27,5 +27,8 @@ namespace localshop.Areas.Admin.Models
         public const string Contact = "Contact";
 
         public const string Order = "Order";
+
+        public const string ReviewList = "Review list";
+        public const string WaitingList = "Waiting list";
     }
 }

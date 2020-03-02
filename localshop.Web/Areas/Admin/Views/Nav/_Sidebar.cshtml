@@ -58,7 +58,19 @@
                 </li>
 
                 <li>
-                    <a href="@Url.Action("index", "order")"> 
+                    <a href="javascript: void(0);">
+                        <i class="mdi mdi-comment-check"></i>
+                        <span> Reviews </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="@Url.Action("index", "review")">Review list</a></li>
+                        <li><a href="@Url.Action("waiting", "review")">Waiting list</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("index", "order")">
                         <i class="mdi mdi-square-inc-cash"></i>
                         <span> Order </span>
                     </a>

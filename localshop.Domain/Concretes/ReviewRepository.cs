@@ -51,6 +51,26 @@ namespace localshop.Domain.Concretes
             }
         }
 
+        public bool Approve(string userId, string productId)
+        {
+            var review = _context.Reviews.FirstOrDefault(r => r.UserId == userId && r.ProductId == productId);
+            if (review == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                review.IsApproved = true;
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public bool Delete(string userId, string productId)
         {
             var review = _context.Reviews.FirstOrDefault(r => r.UserId == userId && r.ProductId == productId);

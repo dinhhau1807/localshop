@@ -15,6 +15,8 @@ namespace localshop.Domain.Abstractions
 
         bool Add(ReviewDTO reviewDTO);
 
+        bool Approve(string userId, string productId);
+
         bool Delete(string userId, string productId);
     }
 }

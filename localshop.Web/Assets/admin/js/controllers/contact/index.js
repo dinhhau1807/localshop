@@ -18,7 +18,7 @@
     }
 
     var table = $('#datatable').DataTable({
-        "order": []    
+        "order": []
     });
 
     table.on('click', 'tbody tr', function () {
