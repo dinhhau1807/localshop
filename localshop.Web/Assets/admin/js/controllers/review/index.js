@@ -29,6 +29,32 @@
         return `${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`;
     }
 
+    // Approve
+    // Delete
+    table.on('click', '.ls-review-approve', function () {
+        var $tr = $(this).closest('tr');
+        var userId = $(this).data('userid');
+        var productId = $(this).data('productid');
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/admin/review/approve",
+            data: { userId, productId },
+            success: function (response) {
+                if (response.success) {
+                    toastr["success"]("Review approved!");
+                    table.row($tr).remove().draw();
+                } else {
+                    toastr["error"]("Something went wrong!");
+                }
+            },
+            error: function () {
+                toastr["error"]("Something went wrong!");
+            }
+        });
+    });
+
     // View
     table.on('click', '.ls-review-detail', function () {
         var userId = $(this).data('userid');

@@ -1732,6 +1732,7 @@
     <Content Include="AppSettings.config" />
     <None Include="AppSettings.config.sample" />
     <Content Include="Areas\Admin\Views\Review\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Review\Waiting.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

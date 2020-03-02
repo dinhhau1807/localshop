@@ -113,7 +113,7 @@ namespace localshop.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Approve(string userId, string productId)
         {
-            var result = _reviewRepo.Delete(userId, productId);
+            var result = _reviewRepo.Approve(userId, productId);
 
             return Json(new
             {
