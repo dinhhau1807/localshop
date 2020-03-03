@@ -21,10 +21,12 @@ namespace localshop.Infrastructures
         {
             #region Domain to DTO
             CreateMap<Review, ReviewDTO>();
+            CreateMap<ProductSpecification, ProductSpecificationDTO>();
             #endregion
 
             #region DTO to Domain
             CreateMap<ReviewDTO, Review>();
+            CreateMap<ProductSpecificationDTO, ProductSpecification>();
             #endregion
         }
 

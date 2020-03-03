@@ -16,8 +16,12 @@ namespace localshop.Areas.Admin.ViewModels
         }
 
         public bool IsFeatured { get; set; }
+
         public bool IsActive { get; set; }
+
         public ProductDTO Product { get; set; }
+
+        public ProductSpecificationDTO ProductSpecification { get; set; }
 
         public string Images { get; set; }
 

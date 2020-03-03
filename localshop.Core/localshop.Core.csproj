@@ -84,6 +84,7 @@
     <Compile Include="DTO\OrderStatusDTO.cs" />
     <Compile Include="DTO\PaymentMethodDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
+    <Compile Include="DTO\ProductSpecificationDTO.cs" />
     <Compile Include="DTO\ReviewDTO.cs" />
     <Compile Include="DTO\SpecialFeaturedDTO.cs" />
     <Compile Include="DTO\StatusDTO.cs" />

@@ -24,7 +24,9 @@ namespace localshop.Domain.Abstractions
 
         ProductDTO FindByMetaTitle(string metaTitle);
 
-        void Save(ProductDTO product);
+        ProductSpecificationDTO GetProductSpecification(string productId);
+
+        void Save(ProductDTO product, ProductSpecificationDTO productSpecificationDTO);
 
         ProductDTO Delete(string id);
     }

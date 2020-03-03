@@ -54,9 +54,11 @@ namespace localshop.Areas.Admin.Controllers
             var model = new ProductViewModel
             {
                 Product = new ProductDTO(),
+                ProductSpecification = new ProductSpecificationDTO(),
                 Categories = _categoryRepo.Categories.AsEnumerable(),
                 Statuses = _statusRepo.Statuses.AsEnumerable()
             };
+
             return View(model);
         }
 
@@ -69,11 +71,11 @@ namespace localshop.Areas.Admin.Controllers
                 var model = new ProductViewModel
                 {
                     Product = new ProductDTO(),
+                    ProductSpecification = new ProductSpecificationDTO(),
                     Categories = _categoryRepo.Categories.AsEnumerable(),
                     Statuses = _statusRepo.Statuses.AsEnumerable(),
                     IsFeatured = productDTO.IsFeatured,
                     IsActive = productDTO.IsActive
-
                 };
                 return View(model);
             }
@@ -83,6 +85,7 @@ namespace localshop.Areas.Admin.Controllers
                 var model = new ProductViewModel
                 {
                     Product = _mapper.Map<AddProductDTO, ProductDTO>(productDTO),
+                    ProductSpecification = productDTO.ProductSpecification,
                     Categories = _categoryRepo.Categories.AsEnumerable(),
                     Statuses = _statusRepo.Statuses.AsEnumerable(),
                     IsFeatured = productDTO.IsFeatured,
@@ -104,7 +107,7 @@ namespace localshop.Areas.Admin.Controllers
             var product = _mapper.Map<AddProductDTO, ProductDTO>(productDTO);
             product.Images = images;
 
-            _productRepo.Save(product);
+            _productRepo.Save(product, productDTO.ProductSpecification);
 
             TempData["Success"] = "Success";
             return RedirectToAction("add");
@@ -142,6 +145,7 @@ namespace localshop.Areas.Admin.Controllers
                 var model = new ProductViewModel
                 {
                     Product = product,
+                    ProductSpecification = _productRepo.GetProductSpecification(product.Id),
                     IsFeatured = product.IsFeatured,
                     IsActive = product.IsActive,
                     CategoryId = product.CategoryId,
@@ -166,6 +170,7 @@ namespace localshop.Areas.Admin.Controllers
             var errorModel = new ProductViewModel
             {
                 Product = product ?? _mapper.Map<EditProductDTO, ProductDTO>(editProductDTO),
+                ProductSpecification = editProductDTO.ProductSpecification,
                 CategoryId = editProductDTO.CategoryId,
                 Categories = _categoryRepo.Categories.AsEnumerable(),
                 StatusId = editProductDTO.StatusId,
@@ -200,7 +205,7 @@ namespace localshop.Areas.Admin.Controllers
                     }
                 }
 
-                _productRepo.Save(productEdited);
+                _productRepo.Save(productEdited, editProductDTO.ProductSpecification);
 
                 TempData["SaveSuccess"] = "Success";
                 return RedirectToAction("index");

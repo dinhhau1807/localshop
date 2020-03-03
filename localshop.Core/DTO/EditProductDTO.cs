@@ -44,6 +44,8 @@ namespace localshop.Core.DTO
 
         public string CategoryId { get; set; }
 
+        public ProductSpecificationDTO ProductSpecification { get; set; }
+
         public IEnumerable<string> Tags { get; set; }
     }
 }

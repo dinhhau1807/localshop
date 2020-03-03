@@ -41,6 +41,8 @@ namespace localshop.Core.DTO
 
         public string Images { get; set; }
 
+        public ProductSpecificationDTO ProductSpecification { get; set; }
+
         public IEnumerable<string> Tags { get; set; }
     }
 }

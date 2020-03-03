@@ -45,6 +45,12 @@ namespace localshop.Domain.Concretes
             return _context.Images.Where(i => i.ProductId == id).Select(i => i.Path).ToList();
         }
 
+        public ProductSpecificationDTO GetProductSpecification(string productId)
+        {
+            var productSpecification = _context.ProductSpecifications.First(ps => ps.ProductId == productId);
+            return _mapper.Map<ProductSpecification, ProductSpecificationDTO>(productSpecification);
+        }
+
         public decimal GetRealPrice(ProductDTO product)
         {
             if (product.DiscountPrice != null)
@@ -105,7 +111,7 @@ namespace localshop.Domain.Concretes
             return _mapper.Map<Product, ProductDTO>(product);
         }
 
-        public void Save(ProductDTO productDTO)
+        public void Save(ProductDTO productDTO, ProductSpecificationDTO productSpecificationDTO)
         {
             if (string.IsNullOrWhiteSpace(productDTO.Id))
             {
@@ -135,21 +141,25 @@ namespace localshop.Domain.Concretes
 
                 var product = _mapper.Map<ProductDTO, Product>(productDTO);
 
+                productSpecificationDTO.ProductId = productDTO.Id;
+                var productSepcification = _mapper.Map<ProductSpecificationDTO, ProductSpecification>(productSpecificationDTO);
+
                 _context.Products.Add(product);
                 _context.Images.AddRange(productImages);
+                _context.ProductSpecifications.Add(productSepcification);
             }
             else
             {
-                var dbEntry = _context.Products.First(p => p.Id == productDTO.Id);
+                var product = _context.Products.First(p => p.Id == productDTO.Id);
 
                 var dbEntryImages = GetImages(productDTO.Id);
                 var newImages = productDTO.Images.ToList();
 
                 // Update metatitle
-                if (dbEntry.Name != productDTO.Name)
+                if (product.Name != productDTO.Name)
                 {
                     var metaTitle = productDTO.Name.GenerateSlug();
-                    if (_context.Products.Any(p => (p.MetaTitle != dbEntry.MetaTitle) && (p.MetaTitle == metaTitle)))
+                    if (_context.Products.Any(p => (p.MetaTitle != product.MetaTitle) && (p.MetaTitle == metaTitle)))
                     {
                         metaTitle += "-" + NewId.Next().ToString().Split('-').Last();
                     }
@@ -173,13 +183,17 @@ namespace localshop.Domain.Concretes
                 {
                     if (!dbEntryImages.Any(path => path == newImg))
                     {
-                        var image = new Image { ProductId = dbEntry.Id, Path = newImg };
+                        var image = new Image { ProductId = product.Id, Path = newImg };
                         _context.Images.Add(image);
                     }
                 }
 
-                dbEntry = _mapper.Map(productDTO, dbEntry);
-                dbEntry.DateModified = DateTime.Now;
+                // Update specification
+                var productSpecification = _context.ProductSpecifications.First(ps => ps.ProductId == product.Id);
+
+                productSpecification = _mapper.Map(productSpecificationDTO, productSpecification);
+                product = _mapper.Map(productDTO, product);
+                product.DateModified = DateTime.Now;
             }
             _context.SaveChanges();
         }

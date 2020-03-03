@@ -52,7 +52,7 @@ namespace localshop.Domain.Entities
         public DateTime? DateModified { get; set; }
 
         // Product specifications (Detail)
-
+        public virtual ProductSpecification ProductSpecification { get; set; }
 
         // Product images
         public ICollection<Image> Images { get; set; }
