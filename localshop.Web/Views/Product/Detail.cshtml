@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNet.Identity;
+﻿@using Microsoft.AspNet.Identity
+@using System.Reflection
 @using localshop.Core.Common
 @model ProductDetailViewModel
 
@@ -237,38 +238,31 @@
                         <div class="specification-wrap table-responsive">
                             <table>
                                 <tbody>
-                                    <tr>
-                                        <td class="width1">Name / Model</td>
-                                        <td>LaaVista Depro, FX 829 v1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Type</td>
-                                        <td>Categories</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="width1">Models</td>
-                                        <td>FX 829 v1</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="width1">Categories</td>
-                                        <td>Product Type</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="width1">Size</td>
-                                        <td>60’’ x 40’’</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="width1">Display Port</td>
-                                        <td>Multi</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="width1">Media</td>
-                                        <td>Brightside</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="width1">Color</td>
-                                        <td>Black, White</td>
-                                    </tr>
+                                    @{
+                                        var propSpecification = ViewData.ModelMetadata.Properties.First(p => p.PropertyName == "ProductSpecification");
+                                    }
+
+                                    @foreach (var prop in propSpecification.Properties)
+                                    {
+                                        if (prop.PropertyName == "ProductId")
+                                        {
+                                            continue;
+                                        }
+                                        if (prop.Model != null)
+                                        {
+                                            <tr>
+                                                <td class="width1">@prop.GetDisplayName()</td>
+                                                @if (prop.ModelType == typeof(bool?))
+                                                {
+                                                    <td>@((bool)prop.Model == true ? "Yes" : "No")</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@prop.Model</td>
+                                                }
+                                            </tr>
+                                        }
+                                    }
                                 </tbody>
                             </table>
                         </div>

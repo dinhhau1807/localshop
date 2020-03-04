@@ -51,6 +51,7 @@ namespace localshop.Controllers
                 Product = product,
                 Status = _statusRepo.GetStatus(product.StatusId),
                 Category = _categoryRepo.GetCategory(product.CategoryId),
+                ProductSpecification = _productRepo.GetProductSpecification(product.Id),
                 Reviews = new List<ReviewViewModel>(),
                 Related = new List<ProductRelatedViewModel>()
             };

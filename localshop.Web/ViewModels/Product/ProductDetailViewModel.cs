@@ -13,6 +13,8 @@ namespace localshop.ViewModels
         public string Category { get; set; }
         public string Status { get; set; }
 
+        public ProductSpecificationDTO ProductSpecification { get; set; }
+
         public IList<ReviewViewModel> Reviews { get; set; }
 
         public IList<ProductRelatedViewModel> Related { get; set; }
