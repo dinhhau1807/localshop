@@ -82,6 +82,9 @@ namespace localshop.Controllers
                     break;
             }
 
+            // -- View mode
+            filter.ViewMode = filter.ViewMode.GetValueOrDefault(ViewMode.Default) == ViewMode.Default ? null : filter.ViewMode;
+
             // Get result
             filter.FilteredResult = products.Count;
 

@@ -23,6 +23,7 @@ namespace localshop.Models
         public int? Page { get; set; }
         public int? View { get; set; }
         public SortByEnums? SortBy { get; set; }
+        public ViewMode? ViewMode { get; set; }
 
 
         // Left filter bar

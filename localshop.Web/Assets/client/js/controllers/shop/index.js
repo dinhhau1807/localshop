@@ -19,6 +19,16 @@
     });
     $('#sortBy').on('change', function () {
         redirect();
-    })
+    });
 
+    $('#shop1').on('click', function (e) {
+        e.preventDefault();
+        $(this).siblings('input').val('Default');
+        $(this).closest('form').submit();
+    });
+    $('#shop2').on('click', function (e) {
+        e.preventDefault();
+        $(this).siblings('input').val('List');
+        $(this).closest('form').submit();
+    });
 });

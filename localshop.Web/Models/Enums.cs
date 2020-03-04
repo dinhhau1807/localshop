@@ -13,4 +13,10 @@ namespace localshop.Models
         PriceLowToHigh,
         PriceHightToLow
     }
+
+    public enum ViewMode
+    {
+        Default,
+        List
+    }
 }

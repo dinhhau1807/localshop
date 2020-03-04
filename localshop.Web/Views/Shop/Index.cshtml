@@ -37,6 +37,12 @@
                 minPrice.val(sliderrange.slider("values", 0));
                 maxPrice.val(sliderrange.slider("values", 1));
             });
+
+            if ('@Model.Filter.ViewMode'=='@ViewMode.List') {
+                $('#shop2').tab('show');
+            } else {
+                $('#shop1').tab('show');
+            }
         });
     </script>
 }
@@ -47,7 +53,7 @@
             <h2>Account</h2>
             <ul>
                 <li>
-                    <a href="/">Home</a>
+                    <a href="@Url.Action("index", "home")">Home</a>
                 </li>
                 <li class="active">@ViewBag.Title</li>
             </ul>
@@ -65,8 +71,30 @@
                 <div class="shop-topbar-wrapper">
                     <div class="shop-topbar-left">
                         <div class="view-mode nav">
-                            <a class="active" href="#shop-1" data-toggle="tab"><i class="la la-th"></i></a>
-                            <a href="#shop-2" data-toggle="tab"><i class="la la-list-ul"></i></a>
+                            @using (Html.BeginForm("index", "shop", null, FormMethod.Get))
+                            {
+                                if (Model.Filter.View != null)
+                                {
+                                    <input type="hidden" name="view" value="@Html.ValueFor(m => m.Filter.View)" />
+                                }
+                                if (Model.Filter.SortBy != null)
+                                {
+                                    <input type="hidden" name="sortBy" value="@Html.ValueFor(m => m.Filter.SortBy)" />
+                                }
+                                if (Model.Filter.Category != null)
+                                {
+                                    <input type="hidden" name="category" value="@Html.ValueFor(m => m.Filter.Category)" />
+                                }
+                                if (Model.Filter.MinPrice != null && Model.Filter.MaxPrice != null)
+                                {
+                                    <input type="hidden" name="minPrice" value="@Html.ValueFor(m => m.Filter.MinPrice)" />
+                                    <input type="hidden" name="maxPrice" value="@Html.ValueFor(m => m.Filter.MaxPrice)" />
+                                }
+
+                                <input type="hidden" name="viewMode" value="@Html.ValueFor(m => m.Filter.ViewMode)" />
+                                <a id="shop1" href="#shop-1" data-toggle="tab"><i class="la la-th"></i></a>
+                                <a id="shop2" href="#shop-2" data-toggle="tab"><i class="la la-list-ul"></i></a>
+                            }
                         </div>
                         @if (Model.Products.Count > 0)
                         {
@@ -203,18 +231,18 @@
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6">
                                             <div class="product-list-img">
-                                                <a href="#">
+                                                <a href="@Url.Action("detail", "product", new { metaTitle=product.Product.MetaTitle })">
                                                     <img src="@(product.Product.Images.FirstOrDefault()??ImageLinks.BrokenProductImage)" alt="Product Style">
                                                 </a>
-                                                <div class="product-list-quickview">
-                                                    <a data-toggle="modal" data-target="#productModal" title="Quick View" href="javascript:void(0)"><i class="la la-plus"></i></a>
-                                                </div>
+                                                @*<div class="product-list-quickview">
+                                                        <a data-toggle="modal" data-target="#productModal" title="Quick View" href="javascript:void(0)"><i class="la la-plus"></i></a>
+                                                    </div>*@
                                             </div>
                                         </div>
                                         <div class="col-xl-8 col-lg-7 col-md-6 col-sm-6">
                                             <div class="shop-list-content">
                                                 <span>@product.Category</span>
-                                                <h4 class="overflow-hidden"><a href="product-details.html">@product.Product.Name</a></h4>
+                                                <h4 class="overflow-hidden"><a href="@Url.Action("detail", "product", new { metaTitle=product.Product.MetaTitle })">@product.Product.Name</a></h4>
                                                 <div class="pro-list-price">
                                                     @if (product.Product.DiscountPrice != null)
                                                     {
@@ -276,7 +304,8 @@
                                       search = Model.Filter.Search,
                                       category = Model.Filter.Category,
                                       minPrice = Model.Filter.MinPrice,
-                                      maxPrice = Model.Filter.MaxPrice
+                                      maxPrice = Model.Filter.MaxPrice,
+                                      viewMode = Model.Filter.ViewMode
                                      }))
                             </div>
                         }
@@ -316,6 +345,10 @@
                                     <input type="hidden" name="minPrice" value="@Html.ValueFor(m => m.Filter.MinPrice)" />
                                     <input type="hidden" name="maxPrice" value="@Html.ValueFor(m => m.Filter.MaxPrice)" />
                                 }
+                                if (Model.Filter.ViewMode != null)
+                                {
+                                    <input type="hidden" name="viewMode" value="@Html.ValueFor(m => m.Filter.ViewMode)" />
+                                }
 
                                 <input type="text" name="search" value="@Html.ValueFor(m => m.Filter.Search)" placeholder="Search name..." />
                                 <button>
@@ -348,6 +381,10 @@
                                     <input type="hidden" name="minPrice" value="@Html.ValueFor(m => m.Filter.MinPrice)" />
                                     <input type="hidden" name="maxPrice" value="@Html.ValueFor(m => m.Filter.MaxPrice)" />
                                 }
+                                if (Model.Filter.ViewMode != null)
+                                {
+                                    <input type="hidden" name="viewMode" value="@Html.ValueFor(m => m.Filter.ViewMode)" />
+                                }
 
                                 <a href="javascript:void(0)" onclick="$(this).parent().submit()">All</a>
                             }
@@ -374,6 +411,10 @@
                                             {
                                                 <input type="hidden" name="minPrice" value="@Html.ValueFor(m => m.Filter.MinPrice)" />
                                                 <input type="hidden" name="maxPrice" value="@Html.ValueFor(m => m.Filter.MaxPrice)" />
+                                            }
+                                            if (Model.Filter.ViewMode != null)
+                                            {
+                                                <input type="hidden" name="viewMode" value="@Html.ValueFor(m => m.Filter.ViewMode)" />
                                             }
 
                                             <input type="hidden" name="category" value="@category.Name" />
@@ -413,6 +454,10 @@
                                     if (Model.Filter.Category != null)
                                     {
                                         <input type="hidden" name="category" value="@Html.ValueFor(m => m.Filter.Category)" />
+                                    }
+                                    if (Model.Filter.ViewMode != null)
+                                    {
+                                        <input type="hidden" name="viewMode" value="@Html.ValueFor(m => m.Filter.ViewMode)" />
                                     }
 
                                     <input id="minPrice" type="hidden" name="minPrice" />
