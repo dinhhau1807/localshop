@@ -59,6 +59,7 @@ namespace localshop.Controllers
             var line = new CompareLine
             {
                 Product = product,
+                ProductSpecification = _productRepo.GetProductSpecification(product.Id),
                 Category = _categoryRepo.GetCategory(product.CategoryId),
                 Status = _statusRepo.GetStatus(product.StatusId)
             };

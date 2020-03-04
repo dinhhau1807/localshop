@@ -9,6 +9,7 @@ namespace localshop.Models
     public class CompareLine
     {
         public ProductDTO Product { get; set; }
+        public ProductSpecificationDTO ProductSpecification { get; set; }
         public string Category { get; set; }
         public string Status { get; set; }
     }

@@ -87,10 +87,12 @@
                                         @foreach (var l in Model.LineCollection)
                                         {
                                             <td class="pro-stock">@l.Status</td>
-
                                         }
                                         @*<td class="pro-stock">Stock Out</td>*@
                                     </tr>
+                                    
+                                    @{Html.RenderPartial("_Specification", Model.LineCollection);}
+
                                     <tr>
                                         <td class="first-column">Add to cart</td>
                                         @foreach (var l in Model.LineCollection)
