@@ -8688,6 +8688,24 @@ button, input, optgroup, select, textarea {
         }
 }
 
+@media screen and (min-width: 767px) {
+    .res-white-gradient-overly-xs {
+        position: relative;
+    }
+
+        .res-white-gradient-overly-xs:before {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            content: "";
+            background: rgb(255,255,255);
+            background: linear-gradient(90deg, rgba(255,255,255,.5) 30%, rgba(0,0,0,0) 70%);
+            z-index: 1;
+        }
+}
+
 .banner-pattern-wrap {
     position: relative;
 }

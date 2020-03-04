@@ -15,29 +15,24 @@
     }
 
     // Check if all item not have value of this property => not show
-    var check = true;
+    var countNull = 0;
     foreach (var l in Model)
     {
         var propSpecification = l.ProductSpecification;
-        var count = 0;
         foreach (var propSpec in propSpecification.GetType().GetProperties())
         {
             if (propSpec.Name == prop.Name)
             {
                 if (propSpec.GetValue(propSpecification) == null)
                 {
-                    count++;
+                    countNull++;
                 }
                 break;
             }
         }
-        if (count == countItems)
-        {
-            check = false;
-        }
     }
 
-    if (!check)
+    if (countNull == countItems)
     {
         continue;
     }
