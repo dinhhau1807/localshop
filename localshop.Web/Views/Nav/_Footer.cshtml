@@ -1,4 +1,5 @@
 ﻿@using localshop.Core.Common
+@using System.Configuration
 
 <footer class="footer-area bg-black-3 pt-100 section-padding-4">
     <div class="container-fluid">
@@ -10,18 +11,18 @@
                         <div class="footer-contact-content-2">
                             <div class="footer-info-hm5">
                                 <span>Phone</span>
-                                <p>+84 123 456 789</p>
+                                <p>@ConfigurationManager.AppSettings["Phone"]</p>
                             </div>
                             <div class="footer-info-hm5">
                                 <span>Mail</span>
-                                <p><a href="mailto:localshop@example.com">localshop@example.com</a></p>
+                                <p><a href="mailto:@ConfigurationManager.AppSettings["Mail"]">@ConfigurationManager.AppSettings["Mail"]</a></p>
                             </div>
                             <div class="footer-social-hm5">
                                 <span>Follow us</span>
                                 <ul>
-                                    <li><a href="https://facebook.com/nguyendinhhau1807" target="_blank">Facebok</a></li>
-                                    <li><a href="https://twitter.com/dinhhau1807" target="_blank">Twitter</a></li>
-                                    <li><a href="https://github.com/dinhhau1807" target="_blank">Github</a></li>
+                                    <li><a href="@ConfigurationManager.AppSettings["Facebook"]" target="_blank">Facebook</a></li>
+                                    <li><a href="@ConfigurationManager.AppSettings["Twitter"]" target="_blank">Twitter</a></li>
+                                    <li><a href="@ConfigurationManager.AppSettings["Github"]" target="_blank">Github</a></li>
                                 </ul>
                             </div>
                         </div>
