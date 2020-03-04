@@ -234,6 +234,7 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ConfigurationController.cs" />
     <Compile Include="Areas\Admin\Controllers\ContactController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomePageController.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReviewController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Models\Configuration.cs" />
     <Compile Include="Areas\Admin\Models\NavigationHeader.cs" />
     <Compile Include="Areas\Admin\ViewModels\Category\ListAddCategoryViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Category\ListCategoryViewModel.cs" />
@@ -1733,6 +1735,7 @@
     <None Include="AppSettings.config.sample" />
     <Content Include="Areas\Admin\Views\Review\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Review\Waiting.cshtml" />
+    <Content Include="Areas\Admin\Views\Configuration\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

@@ -1,14 +1,23 @@
 ﻿<appSettings>
-    <add key="webpages:Version" value="3.0.0.0" />
-    <add key="webpages:Enabled" value="false" />
-    <add key="ClientValidationEnabled" value="true" />
-    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
-    <!-- Email Config -->
-    <add key="FromEmailDisplayName" value="localshop" />
-    <add key="FromEmailAddress" value="serverEmailHere" />
-    <add key="FromEmailPassword" value="passWordMailServerHere" />
-    <add key="SMTPHost" value="smtp.gmail.com" />
-    <add key="SMTPPort" value="25" />
-    <add key="EnableSSL" value="true" />
-    <add key="ToEmailAddress" value="adminMailHere" />
-  </appSettings>
+  <add key="webpages:Version" value="3.0.0.0" />
+  <add key="webpages:Enabled" value="false" />
+  <add key="ClientValidationEnabled" value="true" />
+  <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+  <!-- Email config -->
+  <add key="FromEmailDisplayName" value="localshop" />
+  <add key="FromEmailAddress" value="1760056.hcmus@gmail.com" />
+  <add key="FromEmailPassword" value="1760056hau@fit" />
+  <add key="SMTPHost" value="smtp.gmail.com" />
+  <add key="SMTPPort" value="587" />
+  <add key="EnableSSL" value="true" />
+  <add key="ToEmailAddress" value="msp24@gmail.com" />
+  <!-- App info -->
+  <add key="Mail" value="localshop@example.com" />
+  <add key="Phone" value="+84 123 456 789" />
+  <add key="Facebook" value="https://facebook.com/nguyendinhhau1807" />
+  <add key="Twitter" value="https://twitter.com/dinhhau1807" />
+  <add key="Github" value="https://github.com/dinhhau1807" />
+  <add key="Instagram" value="#" />
+  <add key="Address" value="Binh Chanh, TP.HCM" />
+  <add key="OpeningTime" value="Monday - Friday. 9:00am - 5:00pm" />
+</appSettings>

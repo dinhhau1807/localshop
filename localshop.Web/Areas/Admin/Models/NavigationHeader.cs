@@ -30,5 +30,7 @@ namespace localshop.Areas.Admin.Models
 
         public const string ReviewList = "Review list";
         public const string WaitingList = "Waiting list";
+
+        public const string Configuration = "Configuration";
     }
 }
