@@ -11,7 +11,11 @@ namespace localshop.Domain.Abstractions
     {
         IEnumerable<ContactDTO> Contacts { get; }
 
+        ContactDTO FindById(int contactId);
+
         ContactDTO Save(ContactDTO contactDTO);
+
+        bool Delete(int contactId);
 
         void SetRead(int contactId);
     }

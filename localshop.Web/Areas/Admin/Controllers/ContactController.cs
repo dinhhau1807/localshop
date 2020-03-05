@@ -25,8 +25,8 @@ namespace localshop.Areas.Admin.Controllers
         [HttpGet]
         public JsonResult GetContact(int contactId)
         {
-            var contact = _contactRepo.Contacts.FirstOrDefault(c => c.Id == contactId);
-            if (contact==null)
+            var contact = _contactRepo.FindById(contactId);
+            if (contact == null)
             {
                 return Json(new
                 {
@@ -41,6 +41,33 @@ namespace localshop.Areas.Admin.Controllers
                 success = true,
                 contact = contact
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int contactId)
+        {
+            var contact = _contactRepo.FindById(contactId);
+            if (contact == null)
+            {
+                return Json(new
+                {
+                    success = false
+                });
+            }
+
+            var result = _contactRepo.Delete(contactId);
+            if (!result)
+            {
+                return Json(new
+                {
+                    success = false
+                });
+            }
+
+            return Json(new
+            {
+                success = true
+            });
         }
     }
 }

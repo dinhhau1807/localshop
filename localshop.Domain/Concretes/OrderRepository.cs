@@ -16,7 +16,6 @@ namespace localshop.Domain.Concretes
     {
         private IMapper _mapper;
         private ApplicationDbContext _context;
-        private IProductRepository _productRepo;
 
         public OrderRepository(IMapper mapper, ApplicationDbContext context)
         {

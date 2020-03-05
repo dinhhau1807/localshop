@@ -21,6 +21,7 @@
         "order": []
     });
 
+    // Read
     table.on('click', 'tbody tr', function () {
         var $tr = $(this);
         var contactId = $(this).data('contactid');
@@ -40,6 +41,43 @@
             },
             error: function () {
                 toastr["error"]("Something went wrong!");
+            }
+        });
+    });
+
+    // Delete
+    table.on('click', '.ls-contact-delete', function (e) {
+        e.stopPropagation();
+        var $tr = $(this).closest('tr');
+        var contactId = $tr.data('contactid');
+
+        Swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/admin/contact/delete",
+                    data: { contactId },
+                    success: function (response) {
+                        if (response.success) {
+                            toastr["success"]("Message deleted!");
+                            table.row($tr).remove().draw();
+                        } else {
+                            toastr["error"]("Something went wrong!");
+                        }
+                    },
+                    error: function () {
+                        toastr["error"]("Something went wrong!");
+                    },
+                });
             }
         });
     });

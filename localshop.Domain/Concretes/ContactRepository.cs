@@ -29,6 +29,17 @@ namespace localshop.Domain.Concretes
             }
         }
 
+        public ContactDTO FindById(int contactId)
+        {
+            var contact = _context.Contacts.FirstOrDefault(c => c.Id == contactId);
+            if (contact == null)
+            {
+                return null;
+            }
+
+            return _mapper.Map<Contact, ContactDTO>(contact);
+        }
+
         public ContactDTO Save(ContactDTO contactDTO)
         {
             var contact = _mapper.Map<ContactDTO, Contact>(contactDTO);
@@ -44,6 +55,26 @@ namespace localshop.Domain.Concretes
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        public bool Delete(int contactId)
+        {
+            var contact = _context.Contacts.FirstOrDefault(c => c.Id == contactId);
+            if (contact == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                _context.Contacts.Remove(contact);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 
