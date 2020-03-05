@@ -55,8 +55,11 @@ namespace localshop.Controllers
                 Reviews = new List<ReviewViewModel>(),
                 Related = new List<ProductRelatedViewModel>()
             };
+
+            // Get images
             product.Images = _productRepo.GetImages(product.Id).ToList();
 
+            // Get reviews
             var reviews = _reviewRepo.GetReviews(product.Id).OrderByDescending(r => r.DateAdded).ToList();
             var users = UserManager.Users.AsEnumerable().Where(u => reviews.Any(r => r.UserId == u.Id)).ToList();
             foreach (var review in reviews)
@@ -70,6 +73,7 @@ namespace localshop.Controllers
                 model.Reviews.Add(reviewViewModel);
             }
 
+            // Get related
             var relatedProduct = _productRepo.Products.Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).ToList();
             foreach (var p in relatedProduct)
             {

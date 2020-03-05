@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNet.Identity
-@using System.Reflection
 @using localshop.Core.Common
 @model ProductDetailViewModel
 
@@ -107,6 +106,11 @@
 </div>
 
 <!-- Product detail -->
+@{
+    var countReviews = Model.Reviews.Count();
+    var totalReviews = Model.Reviews.Where(r => r.Review.IsApproved).Sum(r => r.Review.Rating);
+    var calculateRating = countReviews > 0 ? (int)Math.Round(totalReviews / (double)countReviews, 0) : 0;
+}
 <div class="product-details-area pt-90 pb-90">
     <div class="container">
         <div class="row">
@@ -134,14 +138,17 @@
                     <h2>@Model.Product.Name</h2>
                     <div class="product-ratting-review">
                         <div class="product-ratting">
-                            <i class="la la-star"></i>
-                            <i class="la la-star"></i>
-                            <i class="la la-star"></i>
-                            <i class="la la-star"></i>
-                            <i class="la la-star-half-o"></i>
+                            @for (int i = 0; i < calculateRating; i++)
+                            {
+                                <i class="la la-star"></i>
+                            }
+                            @for (int i = calculateRating; i < 5; i++)
+                            {
+                                <i class="la la-star-o"></i>
+                            }
                         </div>
                         <div class="product-review">
-                            <span>40+ Reviews</span>
+                            <span>@countReviews Reviews</span>
                         </div>
                     </div>
                     <div class="pro-details-price-wrap">
