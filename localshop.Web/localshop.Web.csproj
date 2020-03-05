@@ -272,6 +272,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructures\Attributes\AdminAuthorizeAttribute.cs" />
+    <Compile Include="Infrastructures\Attributes\ManageAuthorizeAttribute.cs" />
     <Compile Include="Infrastructures\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructures\Binders\CompareModelBinder.cs" />
     <Compile Include="Infrastructures\CKFinderAuthenticator.cs" />
@@ -1736,6 +1737,7 @@
     <Content Include="Areas\Admin\Views\Review\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Review\Waiting.cshtml" />
     <Content Include="Areas\Admin\Views\Configuration\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\AccessDenied.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

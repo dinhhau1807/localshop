@@ -1,4 +1,5 @@
-﻿using System;
+﻿using localshop.Infrastructures.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -9,6 +10,7 @@ using Configuration = localshop.Areas.Admin.Models.Configuration;
 
 namespace localshop.Areas.Admin.Controllers
 {
+    [ManageAuthorize]
     public class ConfigurationController : Controller
     {
         public ActionResult Index()

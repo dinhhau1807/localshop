@@ -33,7 +33,7 @@ namespace localshop.Areas.Admin.Controllers
 
         public ViewResult Index()
         {
-            var products = _productRepo.AllProducts.ToList();
+            var products = _productRepo.AllProducts.OrderByDescending(p => p.DateAdded).ToList();
             foreach (var p in products)
             {
                 p.Images = _productRepo.GetImages(p.Id).ToList();

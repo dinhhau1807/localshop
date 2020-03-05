@@ -12,6 +12,5 @@ namespace localshop.Areas.Admin.Controllers
     [AdminAuthorize]
     public class BaseController : Controller
     {
-       
     }
 }

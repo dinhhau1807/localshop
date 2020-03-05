@@ -1,5 +1,6 @@
 ﻿using localshop.Areas.Admin.ViewModels;
 using localshop.Core.Common;
+using localshop.Infrastructures.Attributes;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -12,6 +13,7 @@ using System.Web.Mvc;
 
 namespace localshop.Areas.Admin.Controllers
 {
+    [ManageAuthorize]
     public class UserController : BaseController
     {
         private ApplicationUserManager _userManager;
