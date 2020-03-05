@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using localshop.Core.Common;
 using localshop.Core.DTO;
 using localshop.Domain.Abstractions;
 using localshop.Domain.Entities;
@@ -15,6 +16,7 @@ namespace localshop.Domain.Concretes
     {
         private IMapper _mapper;
         private ApplicationDbContext _context;
+        private IProductRepository _productRepo;
 
         public OrderRepository(IMapper mapper, ApplicationDbContext context)
         {
@@ -76,6 +78,7 @@ namespace localshop.Domain.Concretes
             return paymentMethod.Name;
         }
 
+        // For DTO
         public string AddPaymentMethod(OrderDTO orderDTO, string paymentMethod)
         {
             var method = _context.PaymentMethods.FirstOrDefault(pm => pm.Name == paymentMethod);
@@ -88,6 +91,7 @@ namespace localshop.Domain.Concretes
             return method.Id;
         }
 
+        // For DTO
         public string UpdateStatus(OrderDTO orderDTO, string statusName)
         {
             var status = _context.OrderStatuses.FirstOrDefault(os => os.Name == statusName);
@@ -114,7 +118,7 @@ namespace localshop.Domain.Concretes
                 return null;
             }
 
-             order.PaymentMethodId = method.Id;
+            order.PaymentMethodId = method.Id;
             _context.SaveChanges();
 
             return method.Id;
@@ -132,6 +136,35 @@ namespace localshop.Domain.Concretes
             if (status == null)
             {
                 return null;
+            }
+
+            var currentOrderStatus = _context.OrderStatuses.First(o => o.Id == order.OrderStatusId);
+            var orderDetails = _context.OrderDetails.Where(od => od.OrderId == order.Id).ToList();
+
+            // Restore quantity of product if order is cancelled
+            if (status.Name == OrderStatusNames.Cancelled && currentOrderStatus.Name != OrderStatusNames.Cancelled)
+            {
+                foreach (var od in orderDetails)
+                {
+                    var product = _context.Products.FirstOrDefault(p => p.Id == od.ProductId);
+                    if (product != null)
+                    {
+                        product.Quantity += od.Quantity;
+                    }
+                }
+            }
+
+            // Minus quantity of product if order from cancelled to another status
+            if (status.Name != OrderStatusNames.Cancelled && currentOrderStatus.Name == OrderStatusNames.Cancelled)
+            {
+                foreach (var od in orderDetails)
+                {
+                    var product = _context.Products.FirstOrDefault(p => p.Id == od.ProductId);
+                    if (product != null)
+                    {
+                        product.Quantity -= od.Quantity;
+                    }
+                }
             }
 
             order.OrderStatusId = status.Id;
@@ -152,6 +185,13 @@ namespace localshop.Domain.Concretes
                 var orderDetail = _mapper.Map<OrderDetailDTO, OrderDetail>(orderDetailDTO);
                 orderDetail.OrderId = order.Id;
                 orderDetails.Add(orderDetail);
+            }
+
+            // Update quantity
+            foreach (var od in orderDetails)
+            {
+                var product = _context.Products.First(p => p.Id == od.ProductId);
+                product.Quantity -= od.Quantity;
             }
 
             try
