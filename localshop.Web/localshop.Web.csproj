@@ -1624,6 +1624,7 @@
     <Content Include="Assets\plugins\modernizr-2.8.3.js" />
     <Content Include="Content\ConfirmEmailTemplate.html" />
     <Content Include="Content\ResetPasswordConfirmEmailTemplate.html" />
+    <Content Include="Content\SuccessPlacingOrderEmailTemplate.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Admin\Views\web.config" />

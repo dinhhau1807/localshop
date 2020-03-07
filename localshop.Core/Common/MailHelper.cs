@@ -36,5 +36,20 @@ namespace localshop.Core.Common
 
             return body;
         }
+
+        public static string CreateSuccessPlacingOrderEmailBody(ControllerContext controllerContext, string callbackUrl, string orderId)
+        {
+            string body;
+            using (System.IO.StreamReader reader = new System.IO.StreamReader(controllerContext.HttpContext.Server.MapPath("~/Content/SuccessPlacingOrderEmailTemplate.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{logo-link}", $"{controllerContext.HttpContext.Request.Url.Scheme}://{controllerContext.HttpContext.Request.Url.Authority}");
+            body = body.Replace("{confirm-link}", callbackUrl);
+            body = body.Replace("{order-id}", orderId);
+
+            return body;
+        }
     }
 }

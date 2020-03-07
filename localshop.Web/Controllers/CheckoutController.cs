@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -75,7 +76,7 @@ namespace localshop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PlaceOrder(Cart cart, OrderDTO order, string paymentMethod)
+        public async Task<ActionResult> PlaceOrder(Cart cart, OrderDTO order, string paymentMethod)
         {
             if (cart.LineCollection.Count == 0)
             {
@@ -120,6 +121,18 @@ namespace localshop.Controllers
                 TempData["OrderSuccess"] = "false";
                 return RedirectToAction("index", "cart");
             }
+
+            // Send mail
+            var callbackUrl = Url.Action("index", "tracking", new { id = result.Id }, protocol: Request.Url.Scheme);
+            var body  =MailHelper.CreateSuccessPlacingOrderEmailBody(ControllerContext, callbackUrl, result.Id);
+            var message = new IdentityMessage
+            {
+                Subject = $"Order {result.Id}",
+                Destination = result.Email,
+                Body = body
+            };
+            var emailService = new EmailService();
+            await emailService.SendAsync(message);
 
             TempData["OrderSuccess"] = "true";
             cart.LineCollection.Clear();
