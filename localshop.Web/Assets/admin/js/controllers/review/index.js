@@ -17,6 +17,11 @@
         "hideMethod": "fadeOut"
     }
 
+    var saveSuccess = $('#saveSuccess').val();
+    if (saveSuccess == "Success") {
+        toastr['success']("Saved!");
+    }
+
     var table = $('#datatable').DataTable({
         "order": []
     });
@@ -29,8 +34,7 @@
         return `${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`;
     }
 
-    // Approve
-    // Delete
+    // Approve in waiting
     table.on('click', '.ls-review-approve', function () {
         var $tr = $(this).closest('tr');
         var userId = $(this).data('userid');

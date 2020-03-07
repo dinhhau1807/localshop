@@ -436,6 +436,7 @@
     <Content Include="Assets\admin\js\app.min.js" />
     <Content Include="Assets\admin\js\app.min.js.map" />
     <Content Include="Assets\admin\js\controllers\category\index.js" />
+    <Content Include="Assets\admin\js\controllers\configuration\index.js" />
     <Content Include="Assets\admin\js\controllers\contact\index.js" />
     <Content Include="Assets\admin\js\controllers\homePage\addBanner.js" />
     <Content Include="Assets\admin\js\controllers\homePage\banners.js" />

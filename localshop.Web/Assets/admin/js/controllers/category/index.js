@@ -16,6 +16,13 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
+    
+    var addSuccess = $('#addSuccess').val();
+    if (addSuccess == "Success") {
+        toastr['success']("Added!");
+    } else if (addSuccess == "Failed") {
+        toastr['error']("Something went wrong, check if category is existed!");
+    }
 
     var table = $('#datatable').DataTable();
 

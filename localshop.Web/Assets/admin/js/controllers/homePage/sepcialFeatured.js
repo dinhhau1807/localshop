@@ -1,4 +1,37 @@
 ﻿$(function () {
+    // Notification for added
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    var saveSuccess = $('#saveSuccess').val();
+    var errorMessge = $('#errorMessage').val();
+    if (saveSuccess == "true") {
+        toastr['success']("Success!");
+    }
+    if (saveSuccess == "false") {
+        if (errorMessge != '') {
+            toastr['error'](errorMessge);
+        }
+        else {
+            toastr['error']('Something went wrong!');
+        }
+    }
+
     // Add validator parsley
     window.Parsley.addValidator('decimal', {
         validateString: function (value) {

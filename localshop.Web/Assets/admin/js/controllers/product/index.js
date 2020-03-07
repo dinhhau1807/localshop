@@ -17,7 +17,14 @@
         "hideMethod": "fadeOut"
     }
 
-    var table = $('#datatable').DataTable();
+    var saveSuccess = $('#saveSuccess').val();
+    if (saveSuccess == "Success") {
+        toastr['success']("Saved!");
+    }
+
+    var table = $('#datatable').DataTable({
+        "order": []
+    });
 
     // Delete product
     table.on('click', '.ls-product-delete', function (e) {

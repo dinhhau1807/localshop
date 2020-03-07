@@ -109,7 +109,7 @@ namespace localshop.Areas.Admin.Controllers
 
             _productRepo.Save(product, productDTO.ProductSpecification);
 
-            TempData["Success"] = "Success";
+            TempData["SaveSuccess"] = "Success";
             return RedirectToAction("add");
         }
 

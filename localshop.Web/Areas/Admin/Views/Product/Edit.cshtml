@@ -10,11 +10,7 @@
 }
 
 @section thirdPartyCss {
-    <!-- dropify -->
-    <link href="~/Assets/admin/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- Notification css (Toastr) -->
-    <link href="~/Assets/admin/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/content/admin/css/dropify", "~/content/admin/css/toastr")
 
     <style>
         .ck-editor__editable_inline {
@@ -30,30 +26,16 @@
 }
 
 @section thirdPartyJs {
-    <!-- Validation js (Parsleyjs) -->
-    <script src="~/Assets/admin/libs/parsleyjs/parsley.min.js"></script>
-
-    <!-- validation init -->
-    <script src="~/Assets/admin/js/pages/form-validation.init.js"></script>
-
-    <!-- dropify js -->
-    <script src="~/Assets/admin/libs/dropify/dropify.min.js"></script>
-
-    <!-- form-upload init -->
-    <script src="~/Assets/admin/js/pages/form-fileupload.init.js"></script>
-
-    <!-- Toastr js -->
-    <script src="~/Assets/admin/libs/toastr/toastr.min.js"></script>
-    <script src="~/Assets/admin/js/pages/toastr.init.js"></script>
+    @Scripts.Render("~/content/admin/js/validation", "~/content/admin/js/toastr")
 
     <!-- CKFinder -->
-    <script src="~/Assets/plugins/CKFinderScripts/ckfinder.js" type="text/javascript"></script>
+    <script src="~/Assets/plugins/CKFinderScripts/ckfinder.js"></script>
 
     <!-- CKEditor -->
-    <script src="~/Assets/plugins/ckeditor5-build-classic-16.0.0/ckeditor.js" type="text/javascript"></script>
+    <script src="~/Assets/plugins/ckeditor5-build-classic-16.0.0/ckeditor.js"></script>
 
     <!-- Controller -->
-    <script src="~/Assets/admin/js/controllers/product/edit.js"></script>
+    @Scripts.Render("~/content/admin/js/product/edit")
 }
 
 <div class="row">

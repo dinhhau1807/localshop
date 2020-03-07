@@ -10,11 +10,7 @@
 }
 
 @section thirdPartyCss {
-    <!-- dropify -->
-    <link href="~/Assets/admin/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- Notification css (Toastr) -->
-    <link href="~/Assets/admin/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/content/admin/css/toastr")
 
     <style>
         .ck-editor__editable_inline {
@@ -30,53 +26,18 @@
 }
 
 @section thirdPartyJs {
-    <!-- Validation js (Parsleyjs) -->
-    <script src="~/Assets/admin/libs/parsleyjs/parsley.min.js"></script>
-
-    <!-- validation init -->
-    <script src="~/Assets/admin/js/pages/form-validation.init.js"></script>
-
-    <!-- dropify js -->
-    <script src="~/Assets/admin/libs/dropify/dropify.min.js"></script>
-
-    <!-- form-upload init -->
-    <script src="~/Assets/admin/js/pages/form-fileupload.init.js"></script>
-
-    <!-- Toastr js -->
-    <script src="~/Assets/admin/libs/toastr/toastr.min.js"></script>
-    <script src="~/Assets/admin/js/pages/toastr.init.js"></script>
+    @Scripts.Render("~/content/admin/js/validation", "~/content/admin/js/toastr")
 
     <!-- CKFinder -->
-    <script src="~/Assets/plugins/CKFinderScripts/ckfinder.js" type="text/javascript"></script>
+    <script src="~/Assets/plugins/CKFinderScripts/ckfinder.js"></script>
 
     <!-- CKEditor -->
-    <script src="~/Assets/plugins/ckeditor5-build-classic-16.0.0/ckeditor.js" type="text/javascript"></script>
+    <script src="~/Assets/plugins/ckeditor5-build-classic-16.0.0/ckeditor.js"></script>
 
-    <script src="~/Assets/admin/js/controllers/product/add.js" type="text/javascript"></script>
-    <script>
-         // Notification for added
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-bottom-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "2000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-        if ('@TempData["success"]' == "Success") {
-            toastr['success']("Success!");
-        }
-    </script>
+    @Scripts.Render("~/content/admin/js/product/add")
 }
+
+@Html.Hidden("saveSuccess", TempData["SaveSuccess"])
 
 <div class="row">
     <div class="col-12">

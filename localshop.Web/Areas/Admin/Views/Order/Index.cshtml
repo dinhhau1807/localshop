@@ -10,37 +10,14 @@
 }
 
 @section thirdPartyCss {
-    <!-- Datatables Css -->
-    <link href="~/Assets/admin/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-    <link href="~/Assets/admin/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-    <link href="~/Assets/admin/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-    <link href="~/Assets/admin/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
-    <link href="~/Assets/admin/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/content/admin/css/datatables_sweetalert", "~/content/admin/css/toastr")
 }
 
 @section thirdPartyJs {
-    <!-- Datatables -->
-    <script src="~/Assets/admin/libs/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/dataTables.bootstrap4.js"></script>
-    <script src="~/Assets/admin/libs/datatables/dataTables.responsive.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/responsive.bootstrap4.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/dataTables.buttons.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/buttons.bootstrap4.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/buttons.html5.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/buttons.flash.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/buttons.print.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/dataTables.keyTable.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/dataTables.select.min.js"></script>
-    <script src="~/Assets/admin/libs/toastr/toastr.min.js"></script>
-
-    <!-- Datatables init -->
-    <script src="~/Assets/admin/js/pages/toastr.init.js"></script>
-    <script>
-        var orderStatusNames = ["@OrderStatusNames.Pending", "@OrderStatusNames.Approved", "@OrderStatusNames.Delivered", "@OrderStatusNames.Cancelled"];
-    </script>
+    @Scripts.Render("~/content/admin/js/datatables_sweetalert", "~/content/admin/js/toastr")
 
     <!-- Controller -->
-    <script src="~/Assets/admin/js/controllers/order/index.js"></script>
+    @Scripts.Render("~/content/admin/js/order/index");
 }
 
 <div class="row">

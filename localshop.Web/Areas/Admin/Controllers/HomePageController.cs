@@ -40,8 +40,8 @@ namespace localshop.Areas.Admin.Controllers
                 string.IsNullOrWhiteSpace(specialFeaturedDTO.BackgroundImage) ||
                 string.IsNullOrWhiteSpace(specialFeaturedDTO.ProductImage))
             {
-                TempData["SaveSpecialFeaturedSuccess"] = "false";
-                TempData["SaveSpecialFeaturedSuccessMessage"] = "Something went wrong, you have to add background image and product image!";
+                TempData["SaveSuccess"] = "false";
+                TempData["ErrorMessage"] = "Something went wrong, you have to add background image and product image!";
                 return View(specialFeaturedDTO);
             }
 
@@ -49,11 +49,11 @@ namespace localshop.Areas.Admin.Controllers
 
             if (!result)
             {
-                TempData["SaveSpecialFeaturedSuccess"] = "false";
+                TempData["SaveSuccess"] = "false";
                 return View(specialFeaturedDTO);
             }
 
-            TempData["SaveSpecialFeaturedSuccess"] = "true";
+            TempData["SaveSuccess"] = "true";
             return RedirectToAction("SpecialFeatured");
         }
 

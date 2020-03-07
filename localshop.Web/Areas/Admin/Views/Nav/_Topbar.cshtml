@@ -1,4 +1,5 @@
-﻿@model TopbarViewModel
+﻿@using localshop.Core.Common
+@model TopbarViewModel
 
 <div class="navbar-custom">
     <ul class="list-unstyled topnav-menu float-right mb-0">
@@ -160,12 +161,12 @@
     <div class="logo-box">
         <a href="/admin" class="logo text-center">
             <span class="logo-lg">
-                <img src="~/Assets/admin/images/logo-dark.png" alt="" height="16">
+                <img src="@ImageLinks.LogoDark" alt="" height="16">
                 <!-- <span class="logo-lg-text-light">Xeria</span> -->
             </span>
             <span class="logo-sm">
                 <!-- <span class="logo-sm-text-dark">X</span> -->
-                <img src="~/Assets/admin/images/logo-sm.png" alt="" height="24">
+                <img src="@ImageLinks.LogoIcon" alt="" height="24">
             </span>
         </a>
     </div>

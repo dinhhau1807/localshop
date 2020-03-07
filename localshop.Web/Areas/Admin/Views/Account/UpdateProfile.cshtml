@@ -9,22 +9,11 @@
 }
 
 @section thirdPartyCss {
-    <!-- dropify -->
-    <link href="~/Assets/admin/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/content/admin/css/dropify")
 }
 
 @section thirdPartyJs {
-    <!-- Validation js (Parsleyjs) -->
-    <script src="~/Assets/admin/libs/parsleyjs/parsley.min.js"></script>
-
-    <!-- validation init -->
-    <script src="~/Assets/admin/js/pages/form-validation.init.js"></script>
-
-    <!-- dropify js -->
-    <script src="~/Assets/admin/libs/dropify/dropify.min.js"></script>
-
-    <!-- form-upload init -->
-    <script src="~/Assets/admin/js/pages/form-fileupload.init.js"></script>
+    @Scripts.Render("~/content/admin/js/validation", "~/content/admin/js/dropify")
 }
 
 <div class="row">

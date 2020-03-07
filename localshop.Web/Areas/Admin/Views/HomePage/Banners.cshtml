@@ -10,67 +10,17 @@
 }
 
 @section thirdPartyCss {
-    <!-- Datatables Css -->
-    <link href="~/Assets/admin/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
-    <link href="~/Assets/admin/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
-    <link href="~/Assets/admin/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-    <link href="~/Assets/admin/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
-    <link href="~/Assets/admin/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Assets/admin/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/content/admin/css/datatables_sweetalert", "~/content/admin/css/toastr")
 }
 
 @section thirdPartyJs {
-    <!-- Datatables -->
-    <script src="~/Assets/admin/libs/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/dataTables.bootstrap4.js"></script>
-    <script src="~/Assets/admin/libs/datatables/dataTables.responsive.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/responsive.bootstrap4.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/dataTables.buttons.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/buttons.bootstrap4.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/buttons.html5.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/buttons.flash.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/buttons.print.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/dataTables.keyTable.min.js"></script>
-    <script src="~/Assets/admin/libs/datatables/dataTables.select.min.js"></script>
-    <script src="~/Assets/admin/libs/pdfmake/pdfmake.min.js"></script>
-    <script src="~/Assets/admin/libs/pdfmake/vfs_fonts.js"></script>
-    <script src="~/Assets/admin/libs/sweetalert2/sweetalert2.min.js"></script>
-    <script src="~/Assets/admin/libs/toastr/toastr.min.js"></script>
-
-    <!-- Datatables init -->
-    <script src="~/Assets/admin/js/pages/datatables.init.js"></script>
-    <script src="~/Assets/admin/js/pages/sweet-alerts.init.js"></script>
-    <script src="~/Assets/admin/js/pages/toastr.init.js"></script>
+    @Scripts.Render("~/content/admin/js/datatables_sweetalert", "~/content/admin/js/toastr")
 
     <!-- Controller -->
-    <script src="~/Assets/admin/js/controllers/homePage/banners.js"></script>
-
-    <script>
-         $(document).ready(function () {
-            toastr.options = {
-                "closeButton": false,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": false,
-                "positionClass": "toast-bottom-right",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "2000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            }
-
-            if ('@TempData["SaveSuccess"]' == "true") {
-                toastr['success']("Saved!");
-            }
-        });
-    </script>
+    @Scripts.Render("~/Assets/admin/js/controllers/homePage/banners.js")
 }
+
+@Html.Hidden("saveSuccess", TempData["SaveSuccess"])
 
 <div class="row">
     <div class="col-12">
@@ -91,7 +41,7 @@
                                 <img class="mr-1" src="@banner.Image" alt="banner" style="object-fit:scale-down; max-width:500px;">
                             </td>
                             <td>
-                                <a href="@banner.Link" title="@banner.Link" target="_blank">@StringHelper.Truncate(banner.Link, 40)</a>
+                                <a href="@banner.Link" title="@banner.Link" target="_blank">@StringHelper.Truncate(banner.Link, 50)</a>
                             </td>
                             <td class="text-center">
                                 <a href="@Url.Action("editbanner", "homepage", new { id=banner.Id })" class="btn btn-outline-primary btn-sm"><i class="far fa-edit"></i></a>

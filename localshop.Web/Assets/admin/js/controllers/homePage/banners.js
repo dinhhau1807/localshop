@@ -17,7 +17,12 @@
         "hideMethod": "fadeOut"
     }
 
-     var table = $('#datatable').DataTable();
+    var saveSuccess = $('#saveSuccess').val();
+    if (saveSuccess == "true") {
+        toastr['success']("Saved!");
+    }
+
+    var table = $('#datatable').DataTable();
 
     // Delete banner
     table.on('click', '.ls-banner-delete', function (e) {
