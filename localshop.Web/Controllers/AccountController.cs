@@ -221,7 +221,7 @@ namespace localshop.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            TempData["ActiveRegister"] = "active";
+            TempData["ActivePanel"] = "register";
             return RedirectToAction("login");
         }
 
@@ -236,7 +236,7 @@ namespace localshop.Controllers
                 Register = registerViewModel
             };
             ViewBag.ReturnUrl = returnUrl;
-            TempData["ActiveRegister"] = "active";
+            TempData["ActivePanel"] = "register";
 
             if (!ModelState.IsValid)
             {
@@ -262,6 +262,7 @@ namespace localshop.Controllers
             }
 
             AddErrors(result);
+            TempData["ErrorMessage"] = result.Errors.First().ToString();
             return View("LoginRegister", model);
         }
 

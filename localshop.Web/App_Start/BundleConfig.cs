@@ -13,8 +13,10 @@ namespace localshop
             RegisterAdminStyles(bundles);
             RegisterAdminScripts(bundles);
 
-            bundles.Add(new ScriptBundle("~/content/modernizr").Include(
-              "~/Assets/plugins/modernizr-2.8.3.js"));
+            RegisterClientStyles(bundles);
+            RegisterClientScripts(bundles);
+
+            bundles.Add(new ScriptBundle("~/content/modernizr").Include("~/Assets/plugins/modernizr-2.8.3.js"));
         }
 
         private static void RegisterAdminStyles(BundleCollection bundles)
@@ -73,6 +75,79 @@ namespace localshop
             bundles.Add(new ScriptBundle("~/content/admin/js/product/index").Include("~/Assets/admin/js/controllers/product/index.js"));
             bundles.Add(new ScriptBundle("~/content/admin/js/review/index").Include("~/Assets/admin/js/controllers/review/index.js"));
             bundles.Add(new ScriptBundle("~/content/admin/js/user/index").Include("~/Assets/admin/js/controllers/user/index.js"));
+        }
+
+        public static void RegisterClientStyles(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/content/client/css/vendor").Include("~/Assets/client/css/vendor/bootstrap.min.css"));
+
+            bundles.Add(new StyleBundle("~/content/client/css/app").Include("~/Assets/client/css/style.css"));
+
+            bundles.Add(new StyleBundle("~/content/client/css/vendor/plugins").Include(
+               "~/Assets/client/css/plugins/animate.css",
+               "~/Assets/client/css/plugins/owl-carousel.css",
+               "~/Assets/client/css/plugins/slick.css",
+               "~/Assets/client/css/plugins/magnific-popup.css",
+               "~/Assets/client/css/plugins/jquery-ui.css",
+               "~/Assets/client/css/plugins/toastr.min.css"));
+
+            bundles.Add(new StyleBundle("~/content/client/css/content-style").Include(
+               "~/Assets/plugins/ckeditor5-build-classic-16.0.0/content-styles/content-styles.css"));
+
+            bundles.Add(new StyleBundle("~/content/client/css/tracking").Include(
+                "~/Assets/client/css/plugins/animate.css",
+                "~/Assets/client/css/plugins/jquery-ui.css",
+                "~/Assets/client/css/plugins/toastr.min.css",
+                "~/Assets/client/css/plugins/print.min.css"));
+        }
+
+        public static void RegisterClientScripts(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/content/client/js/vendor").Include(
+                "~/Assets/client/js/vendor/modernizr-3.6.0.min.js",
+                "~/Assets/client/js/vendor/jquery-3.3.1.min.js",
+                "~/Assets/client/js/vendor/popper.js",
+                "~/Assets/client/js/vendor/bootstrap.min.js"));
+
+            bundles.Add(new ScriptBundle("~/content/client/js/vendor/plugins").Include(
+                "~/Assets/client/js/plugins/countdown.js",
+                "~/Assets/client/js/plugins/images-loaded.js",
+                "~/Assets/client/js/plugins/isotope.js",
+                "~/Assets/client/js/plugins/instafeed.js",
+                "~/Assets/client/js/plugins/jquery-ui.js",
+                "~/Assets/client/js/plugins/jquery-ui-touch-punch.js",
+                "~/Assets/client/js/plugins/magnific-popup.js",
+                "~/Assets/client/js/plugins/owl-carousel.js",
+                "~/Assets/client/js/plugins/scrollup.js",
+                "~/Assets/client/js/plugins/waypoints.js",
+                "~/Assets/client/js/plugins/slick.js",
+                "~/Assets/client/js/plugins/wow.js",
+                "~/Assets/client/js/plugins/textillate.js",
+                "~/Assets/client/js/plugins/elevatezoom.js",
+                "~/Assets/client/js/plugins/sticky-sidebar.js",
+                "~/Assets/client/js/plugins/smoothscroll.js",
+                "~/Assets/client/js/plugins/toastr.min.js"));
+
+            bundles.Add(new ScriptBundle("~/content/client/js/validation").Include("~/Assets/client/js/plugins/parsley.js"));
+
+            bundles.Add(new ScriptBundle("~/content/client/js/app").Include("~/Assets/client/js/main.js"));
+
+            bundles.Add(new ScriptBundle("~/content/client/js/tracking").Include(
+                "~/Assets/client/js/plugins/smoothscroll.js",
+                "~/Assets/client/js/plugins/toastr.min.js",
+                "~/Assets/client/js/plugins/print.min.js"));
+
+            // Controller
+            bundles.Add(new ScriptBundle("~/content/client/js/account/changePassword").Include("~/Assets/client/js/controllers/account/changePassword.js"));
+            bundles.Add(new ScriptBundle("~/content/client/js/account/forgotPassword").Include("~/Assets/client/js/controllers/account/forgotPassword.js"));
+            bundles.Add(new ScriptBundle("~/content/client/js/account/info").Include("~/Assets/client/js/controllers/account/info.js"));
+            bundles.Add(new ScriptBundle("~/content/client/js/account/loginRegister").Include("~/Assets/client/js/controllers/account/loginRegister.js"));
+            bundles.Add(new ScriptBundle("~/content/client/js/account/resetPassword").Include("~/Assets/client/js/controllers/account/resetPassword.js"));
+            bundles.Add(new ScriptBundle("~/content/client/js/cart/index").Include("~/Assets/client/js/controllers/cart/index.js"));
+            bundles.Add(new ScriptBundle("~/content/client/js/contact/index").Include("~/Assets/client/js/controllers/contact/index.js"));
+            bundles.Add(new ScriptBundle("~/content/client/js/checkout/index").Include("~/Assets/client/js/controllers/checkout/index.js"));
+            bundles.Add(new ScriptBundle("~/content/client/js/product/detail").Include("~/Assets/client/js/controllers/product/detail.js"));
+            bundles.Add(new ScriptBundle("~/content/client/js/shop/index").Include("~/Assets/client/js/controllers/shop/index.js"));
         }
     }
 }

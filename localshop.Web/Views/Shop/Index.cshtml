@@ -10,11 +10,13 @@
 }
 
 @section thirdPartyCss {
-    <link href="~/Assets/plugins/ckeditor5-build-classic-16.0.0/content-styles/content-styles.css" rel="stylesheet" />
+    @Styles.Render("~/content/client/css/content-style")
 }
 
 @section thirdPartyJs {
-    <script src="~/Assets/client/js/controllers/shop/index.js"></script>
+    <!-- Controller -->
+    @Scripts.Render("~/content/client/js/shop/index")
+
     <script>
         $(document).ready(function () {
             var sliderrange = $('#slider-range');
@@ -37,15 +39,11 @@
                 minPrice.val(sliderrange.slider("values", 0));
                 maxPrice.val(sliderrange.slider("values", 1));
             });
-
-            if ('@Model.Filter.ViewMode'=='@ViewMode.List') {
-                $('#shop2').tab('show');
-            } else {
-                $('#shop1').tab('show');
-            }
         });
     </script>
 }
+
+@Html.Hidden("filterViewMode", Model.Filter.ViewMode)
 
 <div class="breadcrumb-area bg-img" style="background-image:url(@ImageLinks.BackgrounBreadcrumb);">
     <div class="container">

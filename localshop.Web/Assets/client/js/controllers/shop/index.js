@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    var filterViewMode = $('#filterViewMode').val();
+
+    // Sort right bar
     function redirect() {
         var view = $('#viewSort').children('option:selected').val();
         var sortBy = $('#sortBy').children('option:selected').val();
@@ -12,6 +15,12 @@
         } else {
             window.location.href = `/shop?view=${view}&sortBy=${sortBy}`;
         }
+    }
+
+    if (filterViewMode == 'List') {
+        $('#shop2').tab('show');
+    } else {
+        $('#shop1').tab('show');
     }
 
     $('#viewSort').on('change', function () {

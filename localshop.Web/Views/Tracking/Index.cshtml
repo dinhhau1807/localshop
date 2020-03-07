@@ -19,20 +19,17 @@
     <!-- CSS
     ============================================ -->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="~/Assets/client/css/vendor/bootstrap.min.css">
+    @Styles.Render("~/content/client/css/vendor")
 
     <!-- Icon Font CSS -->
     <link rel="stylesheet" href="~/Assets/client/css/vendor/line-awesome.css">
     <link rel="stylesheet" href="~/Assets/client/css/vendor/themify.css">
 
     <!-- Plugins CSS -->
-    <link rel="stylesheet" href="~/Assets/client/css/plugins/animate.css">
-    <link rel="stylesheet" href="~/Assets/client/css/plugins/jquery-ui.css">
-    <link rel="stylesheet" href="~/Assets/client/css/plugins/toastr.min.css">
-    <link rel="stylesheet" href="~/Assets/client/css/plugins/print.min.css">
+    @Styles.Render("~/content/client/css/tracking")
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="~/Assets/client/css/style.css">
+    @Styles.Render("~/content/client/css/app")
 </head>
 <body>
     <div class="main-wrapper">
@@ -243,15 +240,10 @@
     <!-- JS
     ============================================ -->
     <!-- Core JS -->
-    <script src="~/Assets/client/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="~/Assets/client/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="~/Assets/client/js/vendor/popper.js"></script>
-    <script src="~/Assets/client/js/vendor/bootstrap.min.js"></script>
+    @Scripts.Render("~/content/client/js/vendor")
 
     <!-- Plugins JS -->
-    <script src="~/Assets/client/js/plugins/smoothscroll.js"></script>
-    <script src="~/Assets/client/js/plugins/toastr.min.js"></script>
-    <script src="~/Assets/client/js/plugins/print.min.js"></script>
+    @Scripts.Render("~/content/client/js/tracking")
 
     <script>
         $('#btn-print').on('click', function () {

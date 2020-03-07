@@ -12,27 +12,23 @@
     <!-- CSS
     ============================================ -->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="~/Assets/client/css/vendor/bootstrap.min.css">
+    @Styles.Render("~/content/client/css/vendor")
 
     <!-- Icon Font CSS -->
     <link rel="stylesheet" href="~/Assets/client/css/vendor/line-awesome.css">
     <link rel="stylesheet" href="~/Assets/client/css/vendor/themify.css">
 
     <!-- Plugins CSS -->
-    <link rel="stylesheet" href="~/Assets/client/css/plugins/animate.css">
-    <link rel="stylesheet" href="~/Assets/client/css/plugins/owl-carousel.css">
-    <link rel="stylesheet" href="~/Assets/client/css/plugins/slick.css">
-    <link rel="stylesheet" href="~/Assets/client/css/plugins/magnific-popup.css">
-    <link rel="stylesheet" href="~/Assets/client/css/plugins/jquery-ui.css">
-    <link rel="stylesheet" href="~/Assets/client/css/plugins/toastr.min.css">
+    @Styles.Render("~/content/client/css/vendor/plugins")
+
     @RenderSection("thirdPartyCss", false)
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="~/Assets/client/css/style.css">
-
+    @Styles.Render("~/content/client/css/app")
 </head>
 
 <body>
+    @Html.Hidden("userAuthorized", User.Identity.IsAuthenticated.ToString().ToLower())
     <div class="main-wrapper">
         <!-- Header -->
         @Html.Action("header", "nav")
@@ -51,37 +47,15 @@
     <!-- JS
     ============================================ -->
     <!-- Core JS -->
-    <script src="~/Assets/client/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="~/Assets/client/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="~/Assets/client/js/vendor/popper.js"></script>
-    <script src="~/Assets/client/js/vendor/bootstrap.min.js"></script>
+    @Scripts.Render("~/content/client/js/vendor")
 
     <!-- Plugins JS -->
-    <script src="~/Assets/client/js/plugins/countdown.js"></script>
-    <script src="~/Assets/client/js/plugins/counterup.js"></script>
-    <script src="~/Assets/client/js/plugins/images-loaded.js"></script>
-    <script src="~/Assets/client/js/plugins/isotope.js"></script>
-    <script src="~/Assets/client/js/plugins/instafeed.js"></script>
-    <script src="~/Assets/client/js/plugins/jquery-ui.js"></script>
-    <script src="~/Assets/client/js/plugins/jquery-ui-touch-punch.js"></script>
-    <script src="~/Assets/client/js/plugins/magnific-popup.js"></script>
-    <script src="~/Assets/client/js/plugins/owl-carousel.js"></script>
-    <script src="~/Assets/client/js/plugins/scrollup.js"></script>
-    <script src="~/Assets/client/js/plugins/waypoints.js"></script>
-    <script src="~/Assets/client/js/plugins/slick.js"></script>
-    <script src="~/Assets/client/js/plugins/wow.js"></script>
-    <script src="~/Assets/client/js/plugins/textillate.js"></script>
-    <script src="~/Assets/client/js/plugins/elevatezoom.js"></script>
-    <script src="~/Assets/client/js/plugins/sticky-sidebar.js"></script>
-    <script src="~/Assets/client/js/plugins/smoothscroll.js"></script>
-    <script src="~/Assets/client/js/plugins/toastr.min.js"></script>
+    @Scripts.Render("~/content/client/js/vendor/plugins")
+
     @RenderSection("thirdPartyJs", false)
 
     <!-- Main JS -->
-    <script>
-        var userAuthorized = @User.Identity.IsAuthenticated.ToString().ToLower();
-    </script>
-    <script src="~/Assets/client/js/main.js"></script>
+    @Scripts.Render("~/content/client/js/app")
 </body>
 
 </html>

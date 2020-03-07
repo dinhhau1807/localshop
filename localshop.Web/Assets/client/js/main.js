@@ -1208,8 +1208,10 @@ function handleCompare() {
 }
 
 function handleWishlist() {
+    var userAuthorized = $('#userAuthorized').val();
+
     // Load icon
-    if (userAuthorized) {
+    if (userAuthorized == 'true') {
         $('.add-to-wishlist').each(function () {
             var productId = $(this).data('productid');
             var $icon = $(this).find('i');

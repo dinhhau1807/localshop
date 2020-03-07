@@ -8,75 +8,13 @@
 
 @section thirdPartyJs
 {
-    <script>
-        toastr.options = {
-          "closeButton": false,
-          "debug": false,
-          "newestOnTop": false,
-          "progressBar": false,
-          "positionClass": "toast-bottom-right",
-          "preventDuplicates": false,
-          "onclick": null,
-          "showDuration": "300",
-          "hideDuration": "1000",
-          "timeOut": "2000",
-          "extendedTimeOut": "1000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-        };
-
-        $(document).ready(function () {
-            if ("@TempData["OutOfStock"]" == "true") {
-                toastr["warning"]("Some product is out of stock, so you can only set max quantity we have in stock!");
-            }
-
-            if ("@TempData["EmptyMessage"]" == "true") {
-                toastr["info"]("Your cart is empty!");
-            }
-
-            if ("@TempData["OrderSuccess"]" == "false") {
-                toastr["error"]("Something wrong! Your order isn't placed!");
-            }
-
-            $('#cart-btn-update').off('click').on('click', function () {
-                var $trs = $('.cart-table-content tbody').children();
-
-                var model = [];
-                for (let el of $trs) {
-                    let $qty = $(el).find('.cart-plus-minus-box');
-
-                    let product = {
-                        id: $qty.data('productid'),
-                        quantity: $qty.val()
-                    }
-
-                    model.push(product);
-                }
-
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: "/cart/updateCart",
-                    data: {
-                        model: JSON.stringify(model)
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            window.location.href="@Url.Action("index", "cart")";
-                        } else {
-                            toastr["error"]("Something went wrong!");
-                        }
-                    },
-                    error: function () {
-                        toastr["error"]("Something went wrong!");
-                    }
-                })
-            });
-        });
-    </script>
+    <!-- Controller -->
+    @Scripts.Render("~/content/client/js/cart/index")
 }
+
+@Html.Hidden("outOfStock", TempData["OutOfStock"])
+@Html.Hidden("emptyMessage", TempData["EmptyMessage"])
+@Html.Hidden("orderSuccess", TempData["OrderSuccess"])
 
 @functions {
     public decimal GetRealPrice(ProductDTO product)

@@ -594,7 +594,6 @@
     <Content Include="Assets\client\css\plugins\toastr.css" />
     <Content Include="Assets\client\css\plugins\toastr.min.css" />
     <Content Include="Assets\client\css\style.css" />
-    <Content Include="Assets\client\css\style.min.css" />
     <Content Include="Assets\client\css\vendor\bootstrap.min.css" />
     <Content Include="Assets\client\css\vendor\line-awesome.css" />
     <Content Include="Assets\client\css\vendor\themify.css" />
@@ -867,6 +866,15 @@
     <Content Include="Assets\client\images\testimonial\client-1.png" />
     <Content Include="Assets\client\images\testimonial\client-2.png" />
     <Content Include="Assets\client\images\testimonial\client-3.png" />
+    <Content Include="Assets\client\js\controllers\account\changePassword.js" />
+    <Content Include="Assets\client\js\controllers\account\forgotPassword.js" />
+    <Content Include="Assets\client\js\controllers\account\info.js" />
+    <Content Include="Assets\client\js\controllers\account\loginRegister.js" />
+    <Content Include="Assets\client\js\controllers\account\resetPassword.js" />
+    <Content Include="Assets\client\js\controllers\cart\index.js" />
+    <Content Include="Assets\client\js\controllers\checkout\index.js" />
+    <Content Include="Assets\client\js\controllers\contact\index.js" />
+    <Content Include="Assets\client\js\controllers\product\detail.js" />
     <Content Include="Assets\client\js\controllers\shop\index.js" />
     <Content Include="Assets\client\js\main.js" />
     <Content Include="Assets\client\js\plugins\countdown.js" />

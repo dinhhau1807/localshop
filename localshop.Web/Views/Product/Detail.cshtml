@@ -7,86 +7,23 @@
 }
 
 @section thirdPartyCss {
-    <link href="~/Assets/plugins/ckeditor5-build-classic-16.0.0/content-styles/content-styles.css" rel="stylesheet" />
+    @Styles.Render("~/content/client/css/content-style")
     <style>
         .parsley-errors-list {
-            color: lightcoral;
             margin-bottom: 20px;
-        }
-
-        .parsley-success {
-            border: solid 1px lightgreen !important;
-        }
-
-        .parsley-error {
-            border: solid 1px lightcoral !important;
         }
     </style>
 }
 
 @section thirdPartyJs {
-    <script src="~/Assets/client/js/plugins/parsley.js"></script>
+    @Scripts.Render("~/content/client/js/validation")
 
-    <script>
-        $(function () {
-             toastr.options = {
-                "closeButton": false,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": false,
-                "positionClass": "toast-bottom-right",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "3000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            };
-
-            if ('@TempData["SaveSuccess"]' == 'false') {
-                toastr["error"]("Something went wrong!");
-            }
-
-            if ('@TempData["ActivePanel"]' == 'description') {
-                $('#des1').tab('show');
-            }
-            if ('@TempData["ActivePanel"]' == 'specification') {
-                $('#des2').tab('show');
-            }
-            if ('@TempData["ActivePanel"]' == 'review') {
-                $('#des3').tab('show');
-            }
-
-            $('.ls-delete-review').on('click', function (e) {
-                e.preventDefault();
-                var $review = $(this).closest('.dec-review-wrap');
-                 $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: "/review/delete",
-                        data: {
-                            productId : $(this).data('productid'),
-                        },
-                        success: function (response) {
-                            if (response.success) {
-                                $review.remove();
-                                $('#review-box').removeClass('d-none');
-                            } else {
-                                toastr["error"]("Something went wrong!");
-                            }
-                        },
-                        error: function () {
-                            toastr["error"]("Something went wrong!");
-                        }
-                    });
-            });
-        });
-    </script>
+    <!-- Controller -->
+    @Scripts.Render("~/content/client/js/product/detail")
 }
+
+@Html.Hidden("saveSuccess", TempData["SaveSuccess"])
+@Html.Hidden("activePanel", TempData["ActivePanel"])
 
 <div class="breadcrumb-area bg-img" style="background-image:url(@ImageLinks.BackgrounBreadcrumb);">
     <div class="container">

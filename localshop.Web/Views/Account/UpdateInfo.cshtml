@@ -8,22 +8,13 @@
 @section thirdPartyCss {
     <style>
         .parsley-errors-list {
-            color: lightcoral;
             margin-bottom: 10px;
-        }
-
-        .parsley-success {
-            border: solid 1px lightgreen !important;
-        }
-
-        .parsley-error {
-            border: solid 1px lightcoral !important;
         }
     </style>
 }
 
 @section thirdPartyJs {
-    <script src="~/Assets/client/js/plugins/parsley.js"></script>
+    @Scripts.Render("~/content/client/js/validation")
 }
 
 <div class="breadcrumb-area bg-img" style="background-image:url(@ImageLinks.BackgrounBreadcrumb);">
