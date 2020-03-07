@@ -251,8 +251,6 @@ namespace localshop.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
-                UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                 var callbackUrl = Url.Action("confirmEmail", "account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 var body = MailHelper.CreateConfirmEmailBody(ControllerContext, callbackUrl);
@@ -280,8 +278,6 @@ namespace localshop.Controllers
                 return View("Error");
             }
 
-            var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
-            UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
             var result = await UserManager.ConfirmEmailAsync(userId, code);
 
             if (result.Succeeded)
@@ -313,8 +309,6 @@ namespace localshop.Controllers
                 return View("Error");
             }
 
-            var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
-            UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
             var callbackUrl = Url.Action("confirmEmail", "account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
             var body = MailHelper.CreateConfirmEmailBody(ControllerContext, callbackUrl);
@@ -347,9 +341,6 @@ namespace localshop.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-
-                var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
-                UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("ResetPasswordConfirmation"));
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("resetpassword", "account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 var body = MailHelper.CreateResetPasswordConfirmEmailBody(ControllerContext, callbackUrl);
@@ -390,8 +381,6 @@ namespace localshop.Controllers
                 return View("ResetPasswordConfirmation");
             }
 
-            var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("localshop");
-            UserManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(provider.Create("ResetPasswordConfirmation"));
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {

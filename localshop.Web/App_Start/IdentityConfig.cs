@@ -69,7 +69,7 @@ namespace localshop
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store, IdentityFactoryOptions<ApplicationUserManager> options)
+        public ApplicationUserManager(IUserStore<ApplicationUser> store, IDataProtectionProvider dataProtectionProvider)
             : base(store)
         {
             UserValidator = new UserValidator<ApplicationUser>(this)
@@ -92,7 +92,7 @@ namespace localshop
             UserLockoutEnabledByDefault = false;
             DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             //MaxFailedAccessAttemptsBeforeLockout = 5;
-            
+
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
             RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
@@ -108,6 +108,12 @@ namespace localshop
 
             EmailService = new EmailService();
             SmsService = new SmsService();
+
+            if (dataProtectionProvider != null)
+            {
+                IDataProtector dataProtector = dataProtectionProvider.Create("ASP.NET Identity");
+                this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtector);
+            }
         }
 
         // Not use when config Autofac

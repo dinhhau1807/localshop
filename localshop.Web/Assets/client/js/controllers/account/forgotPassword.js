@@ -18,7 +18,7 @@
     };
 
     var errorMessage = $('#errorMessage').val();
-    if (errorMessage != "") {
+    if (errorMessage) {
         toastr["error"](errorMessage);
     }
 });

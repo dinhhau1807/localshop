@@ -9,6 +9,7 @@ using localshop.Infrastructures;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataProtection;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -66,11 +67,7 @@ namespace localshop
             builder.Register(c => new UserStore<ApplicationUser>(c.Resolve<DbContext>())).AsImplementedInterfaces().InstancePerRequest();
             builder.Register(c => new RoleStore<ApplicationRole>(c.Resolve<DbContext>())).AsImplementedInterfaces().InstancePerRequest();
             builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
-
-            builder.Register(c => new IdentityFactoryOptions<ApplicationUserManager>
-            {
-                DataProtectionProvider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("Application​"),
-            });
+            builder.Register(c =>  Startup.DataProtectionProvider).InstancePerRequest();
 
             builder.RegisterType<ProductRepository>().As<IProductRepository>().AsSelf().InstancePerRequest();
             builder.RegisterType<CategoryRepository>().As<ICategoryRepository>().AsSelf().InstancePerRequest();

@@ -7,14 +7,18 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using localshop.Domain.Entities;
 using localshop.Domain.Concretes;
+using Microsoft.Owin.Security.DataProtection;
 
 namespace localshop
 {
     public partial class Startup
     {
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
+        public static IDataProtectionProvider DataProtectionProvider { get; private set; }
+
         public void ConfigureAuth(IAppBuilder app)
         {
+            DataProtectionProvider = app.GetDataProtectionProvider();
             // Configure the db context, user manager and signin manager to use a single instance per request
             //app.CreatePerOwinContext(ApplicationDbContext.Create);
             //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);

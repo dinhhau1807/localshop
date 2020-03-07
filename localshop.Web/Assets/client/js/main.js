@@ -1243,7 +1243,7 @@ function handleWishlist() {
         var productId = $(this).data('productid');
         var $icon = $(this).find('i');
 
-        if (userAuthorized) {
+        if (userAuthorized == 'true') {
             $.ajax({
                 type: "GET",
                 dataType: "json",

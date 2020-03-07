@@ -20,7 +20,7 @@
     var errorMessage = $('#errorMessage').val();
     var activePanel = $('#activePanel').val();
 
-    if (errorMessage != "") {
+    if (errorMessage) {
         toastr["error"](errorMessage);
     }
 
