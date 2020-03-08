@@ -1800,9 +1800,9 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Product\_AddReview.cshtml" />
     <Content Include="Views\Compare\_Specification.cshtml" />
-    <None Include="Properties\PublishProfiles\localshopPublish.pubxml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\InternalServer.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\localshop.Core\localshop.Core.csproj">

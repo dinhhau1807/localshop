@@ -34,6 +34,7 @@ namespace localshop
             var fromEmailPassword = ConfigurationManager.AppSettings["FromEmailPassword"].ToString();
             var smtpHost = ConfigurationManager.AppSettings["SMTPHost"].ToString();
             var smtpPort = ConfigurationManager.AppSettings["SMTPPort"].ToString();
+            bool useDefaultCredentials =  bool.Parse(ConfigurationManager.AppSettings["UseDefaultCredentials"].ToString());
             bool enableSsl = bool.Parse(ConfigurationManager.AppSettings["EnableSSL"].ToString());
 
             MailMessage mail = new MailMessage(new MailAddress(fromEmailAddress, fromEmailDisplayName), new MailAddress(message.Destination))
@@ -45,13 +46,14 @@ namespace localshop
 
             var smtp = new SmtpClient()
             {
-                Credentials = new NetworkCredential(fromEmailAddress, fromEmailPassword),
+                UseDefaultCredentials = useDefaultCredentials,
                 Host = smtpHost,
                 EnableSsl = enableSsl,
                 Port = !string.IsNullOrEmpty(smtpPort) ? Convert.ToInt32(smtpPort) : 0
             };
 
-            smtp.Timeout = 1000;
+            smtp.Credentials = new NetworkCredential(fromEmailAddress, fromEmailPassword);
+            smtp.Timeout = 3000;
 
             return smtp.SendMailAsync(mail);
         }

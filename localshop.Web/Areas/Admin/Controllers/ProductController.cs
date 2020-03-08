@@ -19,16 +19,19 @@ namespace localshop.Areas.Admin.Controllers
         private IProductRepository _productRepo;
         private ICategoryRepository _categoryRepo;
         private IStatusRepository _statusRepo;
+        private IOrderRepository _orderRepo;
 
         public ProductController(IMapper mapper,
                                 IProductRepository productRepo,
                                 ICategoryRepository categoryRepo,
-                                IStatusRepository statusRepo)
+                                IStatusRepository statusRepo,
+                                IOrderRepository orderRepo)
         {
             _mapper = mapper;
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
             _statusRepo = statusRepo;
+            _orderRepo = orderRepo;
         }
 
         public ViewResult Index()
@@ -119,6 +122,7 @@ namespace localshop.Areas.Admin.Controllers
             var product = _productRepo.FindById(productId);
             if (product != null)
             {
+                _orderRepo.SetNullDeleteProduct(productId);
                 _productRepo.Delete(productId);
 
                 return Json(new

@@ -77,6 +77,26 @@ namespace localshop.Domain.Concretes
             return paymentMethod.Name;
         }
 
+        public void SetNullDeleteUser(string userId)
+        {
+            var orders = _context.Orders.Where(o => o.UserId == userId);
+            foreach (var order in orders)
+            {
+                order.UserId = null;
+            }
+            _context.SaveChanges();
+        }
+
+        public void SetNullDeleteProduct(string productId)
+        {
+            var orderDetails = _context.OrderDetails.Where(od => od.ProductId == productId);
+            foreach (var orderDetail in orderDetails)
+            {
+                orderDetail.ProductId = null;
+            }
+            _context.SaveChanges();
+        }
+
         // For DTO
         public string AddPaymentMethod(OrderDTO orderDTO, string paymentMethod)
         {

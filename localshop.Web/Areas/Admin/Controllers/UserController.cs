@@ -1,5 +1,6 @@
 ﻿using localshop.Areas.Admin.ViewModels;
 using localshop.Core.Common;
+using localshop.Domain.Abstractions;
 using localshop.Infrastructures.Attributes;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -18,15 +19,17 @@ namespace localshop.Areas.Admin.Controllers
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
+        private IOrderRepository _orderRepo;
 
         public UserController()
         {
         }
 
-        public UserController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
+        public UserController(ApplicationUserManager userManager, ApplicationRoleManager roleManager, IOrderRepository orderRepo)
         {
             UserManager = userManager;
             RoleManager = roleManager;
+            _orderRepo = orderRepo;
         }
 
         public ApplicationUserManager UserManager
@@ -122,6 +125,9 @@ namespace localshop.Areas.Admin.Controllers
                 var user = await UserManager.FindByIdAsync(userId);
                 if (user != null)
                 {
+                    // Set null foreign key
+                    _orderRepo.SetNullDeleteUser(user.Id);
+
                     var result = await UserManager.DeleteAsync(user);
                     if (result.Succeeded)
                     {

@@ -21,6 +21,10 @@ namespace localshop.Domain.Abstractions
 
         string GetPaymentMethod(string paymentMethodId);
 
+        void SetNullDeleteUser(string userId);
+
+        void SetNullDeleteProduct(string productId);
+
         string AddPaymentMethod(OrderDTO orderDTO, string paymentMethod);
 
         string UpdateStatus(OrderDTO orderDTO, string statusName);
