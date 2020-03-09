@@ -35,10 +35,10 @@
 
     $('#cart-btn-update').off('click').on('click', function () {
         var $trs = $('.cart-table-content tbody').children();
-
         var model = [];
-        for (let el of $trs) {
-            let $qty = $(el).find('.cart-plus-minus-box');
+
+        $.each($trs, function (index, value) {
+            let $qty = $(value).find('.cart-plus-minus-box');
 
             let product = {
                 id: $qty.data('productid'),
@@ -46,7 +46,7 @@
             }
 
             model.push(product);
-        }
+        });
 
         $.ajax({
             type: "POST",
