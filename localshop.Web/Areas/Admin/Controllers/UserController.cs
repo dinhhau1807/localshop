@@ -62,7 +62,7 @@ namespace localshop.Areas.Admin.Controllers
         {
             var listUser = new List<ListUserViewModel>();
 
-            foreach (var user in UserManager.Users.ToList())
+            foreach (var user in UserManager.Users.OrderByDescending(u => u.CreatedDate).ToList())
             {
                 var roles = UserManager.GetRoles(user.Id);
 

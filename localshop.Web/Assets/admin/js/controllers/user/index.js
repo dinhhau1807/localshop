@@ -17,7 +17,9 @@
         "hideMethod": "fadeOut"
     }
 
-    var table = $('#datatable').DataTable();
+    var table = $('#datatable').DataTable({
+        "order": []    
+    });
 
     // Delete user
     table.on('click', '.ls-user-delete', function (e) {

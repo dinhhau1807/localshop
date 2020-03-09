@@ -35,7 +35,9 @@ namespace localshop.Controllers
                 OnSales = new List<ProductViewModel>()
             };
 
-            var products = _productRepo.Products.ToList().Where(p => _statusRepo.GetStatus(p.StatusId) != StatusNames.OutOfStock);
+            var products = _productRepo.Products.ToList()
+                .Where(p => _statusRepo.GetStatus(p.StatusId) != StatusNames.OutOfStock)
+                .OrderByDescending(p => p.DateAdded);
 
             // Get featureds
             var featureds = products.Where(p => p.IsFeatured == true).Take(8).ToList();
