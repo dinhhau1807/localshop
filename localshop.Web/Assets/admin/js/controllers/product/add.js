@@ -18,9 +18,9 @@
         "hideMethod": "fadeOut"
     }
 
-    var saveSuccess = $('#saveSuccesss').val();
+    var saveSuccess = $('#saveSuccess').val();
     if (saveSuccess == "Success") {
-        toastr['success']("Success!");
+        toastr['success']("Saved!");
     }
 
     // Set up end discount date

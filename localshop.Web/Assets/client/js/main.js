@@ -1310,6 +1310,14 @@ function handleWishlist() {
 }
 
 function custom() {
+    // Loading images
+    $('.main-wrapper img').wrap('<div class="d-flex justify-content-center text-danger" style="width:100%; height:200px;"><span class="spinner-grow align-self-center"></span></div>');
+    $('.main-wrapper').imagesLoaded()
+        .progress(function (instance, image) {
+            var $img = $(image.img);
+            $img.unwrap().unwrap();
+        });
+
     $(document).ready(function () {
         $(document).on('stickAdd', function () {
             $('.stick-active').removeClass('d-none').addClass('d-block');

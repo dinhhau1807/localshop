@@ -35,6 +35,7 @@
             var orderStatuses = new OrderStatus[]
             {
                 new OrderStatus { Id="f9d10000-d769-34e6-4e67-08d7b48f1d56", Name="Pending" },
+                new OrderStatus { Id="f9d10000-d769-34e6-d603-08d7b94c7194", Name="Approved" },
                 new OrderStatus { Id="f9d10000-d769-34e6-a60e-08d7b48f1d56", Name="Delivered" },
                 new OrderStatus { Id="f9d10000-d769-34e6-a9d0-08d7b48f1d56", Name="Cancelled" }
             };
@@ -58,7 +59,7 @@
 
             string roleName = "root";
             string password = "Admin123@localshop.hau";
-            string email = "admin@example.com";
+            string email = "admin@localshop.com";
 
             string[] seedRoles = { "administrator", "modifier", "customer" };
             foreach (var role in seedRoles)

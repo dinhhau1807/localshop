@@ -24,6 +24,7 @@ namespace localshop.Controllers
             _categoryRepo = categoryRepo;
         }
 
+        //[OutputCache(Duration = 24 * 3600, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             // Prepare model

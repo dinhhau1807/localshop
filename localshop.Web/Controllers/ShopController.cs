@@ -23,6 +23,7 @@ namespace localshop.Controllers
             _statusRepo = statusRepo;
         }
 
+        //[OutputCache(Duration = 24 * 3600, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Index(ProductFilter filter)
         {
             // Set null with defautl filter
