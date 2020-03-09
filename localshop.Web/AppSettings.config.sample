@@ -3,15 +3,16 @@
   <add key="webpages:Enabled" value="false" />
   <add key="ClientValidationEnabled" value="true" />
   <add key="UnobtrusiveJavaScriptEnabled" value="true" />
-  <!-- Email config -->
+  <!--SMTP info-->
   <add key="FromEmailDisplayName" value="localshop" />
-  <add key="FromEmailAddress" value="1760056.hcmus@gmail.com" />
-  <add key="FromEmailPassword" value="1760056hau@fit" />
+  <add key="FromEmailAddress" value="mail" />
+  <add key="FromEmailPassword" value="password" />
   <add key="SMTPHost" value="smtp.gmail.com" />
   <add key="SMTPPort" value="587" />
+  <add key="UseDefaultCredentials" value="true" />
   <add key="EnableSSL" value="true" />
-  <add key="ToEmailAddress" value="msp24@gmail.com" />
-  <!-- App info -->
+  <add key="ToEmailAddress" value="adminemail" />
+  <!--App info-->
   <add key="Mail" value="localshop@example.com" />
   <add key="Phone" value="+84 123 456 789" />
   <add key="Facebook" value="https://facebook.com/nguyendinhhau1807" />
