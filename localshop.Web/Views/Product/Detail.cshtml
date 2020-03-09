@@ -44,7 +44,7 @@
 
 <!-- Product detail -->
 @{
-    var countReviews = Model.Reviews.Count();
+    var countReviews = Model.Reviews.Where(r => r.Review.IsApproved).Count();
     var totalReviews = Model.Reviews.Where(r => r.Review.IsApproved).Sum(r => r.Review.Rating);
     var calculateRating = countReviews > 0 ? (int)Math.Round(totalReviews / (double)countReviews, 0) : 0;
 }

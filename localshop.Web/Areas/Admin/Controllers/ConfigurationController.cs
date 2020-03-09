@@ -11,7 +11,7 @@ using Configuration = localshop.Areas.Admin.Models.Configuration;
 namespace localshop.Areas.Admin.Controllers
 {
     [ManageAuthorize]
-    public class ConfigurationController : Controller
+    public class ConfigurationController : BaseController
     {
         public ActionResult Index()
         {

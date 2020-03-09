@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace localshop.Areas.Admin.Controllers
 {
-    public class ReviewController : Controller
+    public class ReviewController : BaseController
     {
         private ApplicationUserManager _userManager;
         private IProductRepository _productRepo;
