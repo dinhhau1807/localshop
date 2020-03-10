@@ -17,7 +17,7 @@
         "hideMethod": "fadeOut"
     };
 
-    var errorMessage = $('#erorrMessage').val();
+    var errorMessage = $('#errorMessage').val();
     if (errorMessage) {
         toastr["error"](errorMessage);
     }

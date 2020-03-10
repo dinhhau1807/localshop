@@ -1044,7 +1044,7 @@ function handleCart() {
                                                 </div>
                                             </div>
                                             <div class="shopping-cart-title">
-                                                <h4><a href="/product/detail/${product.MetaTitle}" target="_blank" title="${product.Name}">${truncateString(product.Name, 30)}</a></h4>
+                                                <h4><a href="/product/detail/${product.MetaTitle}" target="_blank" title="${product.Name}">${truncateString(product.Name, 25)}</a></h4>
                                                 <span>$${getRealPrice(product)} <small class="cart-product-quantity" data-productId="${product.Id}">(x${l.Quantity})</small></span>
                                             </div>
                                             <div class="shopping-cart-delete">
@@ -1109,7 +1109,7 @@ function handleCart() {
                                                         </div>
                                                     </div>
                                                     <div class="shopping-cart-title">
-                                                        <h4><a href="/product/detail/${product.MetaTitle}" target="_blank" title="${product.Name}">${truncateString(product.Name, 30)}</a></h4>
+                                                        <h4><a href="/product/detail/${product.MetaTitle}" target="_blank" title="${product.Name}">${truncateString(product.Name, 25)}</a></h4>
                                                         <span>$${getRealPrice(product)} <small class="cart-product-quantity" data-productId="${product.Id}">(x${line.Quantity})</small></span>
                                                     </div>
                                                     <div class="shopping-cart-delete">
@@ -1311,11 +1311,11 @@ function handleWishlist() {
 
 function custom() {
     // Loading images
-    $('.main-wrapper img').wrap('<div class="d-flex justify-content-center text-danger" style="width:100%; height:200px;"><span class="spinner-grow align-self-center"></span></div>');
+    $('.main-wrapper img').addClass('invisible').wrap('<div class="d-flex justify-content-center text-danger" style="width:100%; height:200px;"><span class="spinner-grow align-self-center"></span></div>');
     $('.main-wrapper').imagesLoaded()
         .progress(function (instance, image) {
             var $img = $(image.img);
-            $img.unwrap().unwrap();
+            $img.unwrap().unwrap().removeClass('invisible');
         });
 
     $(document).ready(function () {
