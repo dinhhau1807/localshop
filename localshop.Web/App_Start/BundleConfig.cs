@@ -17,6 +17,7 @@ namespace localshop
             RegisterClientScripts(bundles);
 
             bundles.Add(new ScriptBundle("~/content/modernizr").Include("~/Assets/plugins/modernizr-2.8.3.js"));
+            bundles.Add(new ScriptBundle("~/content/removeAds").Include("~/Assets/plugins/someeAdsRemover.js"));
         }
 
         private static void RegisterAdminStyles(BundleCollection bundles)

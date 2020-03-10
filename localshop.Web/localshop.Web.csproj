@@ -1799,6 +1799,7 @@
     <Content Include="Assets\plugins\CKFinderScripts\skins\neko\images\svg\white\arrow-right-white.svg" />
     <Content Include="Assets\plugins\CKFinderScripts\skins\neko\skin.js" />
     <Content Include="Assets\plugins\modernizr-2.8.3.js" />
+    <Content Include="Assets\plugins\someeAdsRemover.js" />
     <Content Include="Content\ConfirmEmailTemplate.html" />
     <Content Include="Content\ResetPasswordConfirmEmailTemplate.html" />
     <Content Include="Content\SuccessPlacingOrderEmailTemplate.html" />
