@@ -9,7 +9,7 @@
   <add key="FromEmailPassword" value="password" />
   <add key="SMTPHost" value="smtp.gmail.com" />
   <add key="SMTPPort" value="587" />
-  <add key="UseDefaultCredentials" value="true" />
+  <add key="UseDefaultCredentials" value="false" />
   <add key="EnableSSL" value="true" />
   <add key="ToEmailAddress" value="adminemail" />
   <!--App info-->
