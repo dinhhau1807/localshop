@@ -62,17 +62,16 @@
                                 </ul>
                             </div>
                             <div class="search-style-3">
-                                <form>
+                                @using (Html.BeginForm("index", "shop", FormMethod.Get))
+                                {
                                     <div class="form-search-3">
-                                        @using (Html.BeginForm("index", "shop", FormMethod.Get))
-                                        {
-                                            <input id="search" class="input-text" name="search" placeholder="Search product" type="search">
-                                            <button>
-                                                <i class="la la-search"></i>
-                                            </button>
-                                        }
+
+                                        <input id="search" class="input-text" name="search" placeholder="Search product" type="search">
+                                        <button>
+                                            <i class="la la-search"></i>
+                                        </button>
                                     </div>
-                                </form>
+                                }
                             </div>
                         </div>
                     </div>

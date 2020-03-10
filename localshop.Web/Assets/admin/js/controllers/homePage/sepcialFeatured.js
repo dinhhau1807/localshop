@@ -35,10 +35,10 @@
     // Add validator parsley
     window.Parsley.addValidator('decimal', {
         validateString: function (value) {
-            return new RegExp('^[0-9]+(,[0-9]{2})?$', 'g').test(value);
+            return new RegExp('^[0-9]+(.[0-9]{2})?$', 'g').test(value);
         },
         messages: {
-            en: 'This value should be an integer or decimal (,00)',
+            en: 'This value should be an integer or decimal (.00)',
         }
     });
 
