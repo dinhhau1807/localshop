@@ -1,0 +1,24 @@
+﻿<appSettings>
+  <add key="webpages:Version" value="3.0.0.0" />
+  <add key="webpages:Enabled" value="false" />
+  <add key="ClientValidationEnabled" value="true" />
+  <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+  <!--SMTP info-->
+  <add key="FromEmailDisplayName" value="localshop" />
+  <add key="FromEmailAddress" value="mail" />
+  <add key="FromEmailPassword" value="password" />
+  <add key="SMTPHost" value="smtp.gmail.com" />
+  <add key="SMTPPort" value="587" />
+  <add key="UseDefaultCredentials" value="false" />
+  <add key="EnableSSL" value="true" />
+  <add key="ToEmailAddress" value="adminemail" />
+  <!--App info-->
+  <add key="Mail" value="localshop@example.com" />
+  <add key="Phone" value="+84 123 456 789" />
+  <add key="Facebook" value="https://facebook.com/nguyendinhhau1807" />
+  <add key="Twitter" value="https://twitter.com/dinhhau1807" />
+  <add key="Github" value="https://github.com/dinhhau1807" />
+  <add key="Instagram" value="#" />
+  <add key="Address" value="Binh Chanh, TP.HCM" />
+  <add key="OpeningTime" value="Monday - Friday. 9:00am - 5:00pm" />
+</appSettings>

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using localshop.Core.Common;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -15,6 +17,7 @@ namespace localshop.Domain.Entities
         {
             LockoutEnabled = false;
             CreatedDate = DateTime.Now;
+            Image = ImageLinks.LogoIcon;
         }
 
         #region Properties
