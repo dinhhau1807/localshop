@@ -12,7 +12,7 @@
 <p align="center"><strong>electronic store</strong></p>
 
 <p align="center">
-	<img alt="GitHub release" src="https://img.shields.io/github/release/dinhhau1807/localshop">
+	<img alt="GitHub tag" src="https://img.shields.io/github/v/tag/dinhhau1807/localshop">
 	<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/dinhhau1807/localshop">
 	<img alt="GitHub issues" src="https://img.shields.io/github/issues/dinhhau1807/localshop">
 	<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/dinhhau1807/localshop">
