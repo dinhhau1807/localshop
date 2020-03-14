@@ -22,16 +22,14 @@
 <br />
 <br />
 
-<center>
+<p align="center">
 	<a href="http://localshop.somee.com" alt="localshop">localshop</a> is a opensource ecommerce shopping built with ASP.NET MVC 5, Entity Framework 6
-</center>
+</p>
 
 <br/>
 <p align="center">
   <img src="localshop.Web/Assets/images/demos/demo.png" alt="localshop demo" />
 </p>
-
-* **Website:** [http://www.localshop.somee.com](http://www.localshop.somee.com)
 
 <p>&nbsp;</p>
 
