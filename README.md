@@ -45,10 +45,20 @@
 
 ### Features
 
+#### Client
 *  **Account**: Login, Register, Change password, Update infomation, View list orders.
 * **Cart**: Add to cart, Update cart, Checkout
 * **Wishlist**, **Compare**
-
+#### Admin
+*  **Account**: Login, Update infomation
+* **User**: View, Change role, Delete
+* **Homepage**: Change promo product, Create/Update/Delete banner
+* **Product**: CRUD Product
+* **Review**: CRUD Review
+* **Order**: Tracking, Update status
+* **Category**: CRUD category
+* **Contact**: Read contact
+* **Configuration**: Change app config
 
 ## Try it online
 
