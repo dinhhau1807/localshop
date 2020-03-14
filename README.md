@@ -23,7 +23,7 @@
 <br />
 
 <p align="center">
-	<a href="http://localshop.somee.com" alt="localshop">localshop</a> is a opensource ecommerce shopping built with ASP.NET MVC 5, Entity Framework 6
+	<a href="http://localshop.somee.com" alt="localshop">localshop</a> is an opensource ecommerce shopping built with ASP.NET MVC 5, Entity Framework 6
 </p>
 
 <br/>
